@@ -1,0 +1,12 @@
+.sidebar {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.sidebar > .flex-grow-1 {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
