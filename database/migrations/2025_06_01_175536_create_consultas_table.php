@@ -12,12 +12,13 @@ return new class extends Migration
    public function up(): void
 {
     Schema::create('consultas', function (Blueprint $table) {
-        $table->id();
         $table->unsignedBigInteger('concesionaria_id')->nullable();
         $table->unsignedBigInteger('usuario_id')->nullable();
-        $table->timestamps();
         $table->foreign('concesionaria_id')->references('id')->on('concesionarias')->onDelete('set null');
         $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('set null'); 
+        $table->boolean('estado')->default(false);
+         $table->id();
+             $table->timestamps();
     });
 
 }

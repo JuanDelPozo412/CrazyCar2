@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('planillas', function (Blueprint $table) {
-            $table->id();
+             $table->id();
+             $table->timestamps();
             $table->unsignedBigInteger('concesionaria_id')->nullable();
             $table->unsignedBigInteger('vehiculo_id')->nullable();
-            $table->timestamps();
             $table->foreign('concesionaria_id')->references('id')->on('concesionarias')->onDelete('set null');
             $table->foreign('vehiculo_id')->references('id')->on('vehiculos')->onDelete('set null');
         });

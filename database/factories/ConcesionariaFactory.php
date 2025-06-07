@@ -14,10 +14,19 @@ class ConcesionariaFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+//   Schema::create('concesionarias', function (Blueprint $table) {
+//             $table->id();
+//             $table->string('nombre')->unique();
+//             $table->string('Ubicacion');
+//             $table->timestamps();
+//         });
+
     public function definition(): array
     {
         return [
-            //
+            'nombre' => $this->faker->unique()->company(), 
+            'Ubicacion' => $this->faker->city(),
         ];
     }
 }
