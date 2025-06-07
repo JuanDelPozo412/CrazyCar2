@@ -27,11 +27,11 @@
             <i class="bi bi-speedometer2 me-2"></i>
             Dashboard
         </a>
-        <a href="#" class="text-white py-2 px-3 d-flex align-items-center text-decoration-none">
+        <a href="{{ route('clientes') }}" class="text-white py-2 px-3 d-flex align-items-center text-decoration-none">
             <i class="bi bi-people-fill me-2"></i>
             Clientes
         </a>
-        <a href="#" class="text-white py-2 px-3 d-flex align-items-center text-decoration-none">
+        <a href="{{ route('vehiculos') }}" class="text-white py-2 px-3 d-flex align-items-center text-decoration-none">
             <i class="bi bi-truck-front-fill me-2"></i>
             Vehículos
         </a>
