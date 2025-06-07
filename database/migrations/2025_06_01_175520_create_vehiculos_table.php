@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
+            $table->string('patente');
             $table->string('marca');
             $table->string('modelo');
+            $table->integer('anio');
             $table->string('color');
-            $table->double('peso');
-            $table->boolean('estado');
+            $table->string('tipo');
+            $table->string('combustible');
+            $table->string('imagen');
             $table->unsignedBigInteger('concesionaria_id')->nullable();
             $table->foreign('concesionaria_id')->references('id')->on('concesionarias')->onDelete('set null');
             $table->timestamps();
