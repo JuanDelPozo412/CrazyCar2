@@ -14,54 +14,28 @@
   <body>
     <!--navbar-->
     <div class="container">
-      <header
+    <header
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        
         <div class="col-md-3 mb-2 mb-md-0">
-          <a
-            href="../../../index.html"
-            class="d-inline-flex link-body-emphasis text-decoration-none">
-            <img
-              src="./imagenes/luxury-car-sketch-png-5693248.png"
-              alt="Logo coche"
-              width="80"
-              height="80" />
-          </a>
+            <a href="{{ url('/') }}" class="d-inline-flex link-body-emphasis text-decoration-none">
+                <img src="{{ asset('images/luxury-car-sketch-png-5693248.png') }}" alt="Logo Crazy Cars" width="80" height="80" />
+            </a>
         </div>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li>
-            <a href="../../../index.html" class="nav-link px-2">Inicio</a>
-          </li>
-          <li>
-            <a href="./user_vehicles.html" class="nav-link px-2 link-secondary"
-              >Galeria</a
-            >
-          </li>
-          <li>
-            <a href="./user_services.html" class="nav-link px-2">Servicios</a>
-          </li>
-          <li>
-            <a href="./user_contact.html" class="nav-link px-2">Contacto</a>
-          </li>
+            <li><a href="{{ url('/') }}" class="nav-link px-2">Inicio</a></li>
+            <li><a href="{{ url('/galeria') }}" class="nav-link px-2 link-secondary">Galería</a></li>
+            <li><a href="{{ url('/servicios') }}" class="nav-link px-2">Servicios</a></li>
+            <li><a href="#" class="nav-link px-2">Contacto</a></li> {{--  definir la ruta --}}
         </ul>
 
         <div class="col-md-3 text-end">
-          <button type="button" class="btn btn-outline-primary me-2">
-            <a href="../auth/login.html" class="nav-link px-2"
-              >Iniciar Sesion</a
-            >
-          </button>
-          <button type="button" class="btn btn-primary">
-            <a
-              style="text-decoration: none"
-              class="text-white"
-              href="../auth/register.html"
-              >Registrarse</a
-            >
-          </button>
+            <a href="{{ url('/login') }}" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
+            <a href="{{ url('/register') }}" class="btn btn-primary text-white">Registrarse</a>
         </div>
-      </header>
-    </div>
+    </header>
+</div>
 
     <!--Vehiculos-->
     <div class="px-4 pt-5 my-5 text-center border-bottom">
@@ -73,7 +47,7 @@
         <div class="col-md-4">
           <div class="card" style="width: 100%">
             <img
-              src="./imagenes/volkswagen-polo-track.jpg"
+              src="{{ asset('images/volkswagen-polo-track.jpg') }}"
               class="card-img-top"
               alt="Auto oferta Volkswagen Polo Track" />
             <div class="card-body">
@@ -92,7 +66,7 @@
         <div class="col-md-4">
           <div class="card" style="width: 100%">
             <img
-              src="./imagenes/Chevrolet-onix-joy.jpg"
+              src="{{ asset('images/Chevrolet-onix-joy.jpg') }}"
               class="card-img-top"
               alt="Auto oferta Chevrolet Onix joy" />
             <div class="card-body">
@@ -120,7 +94,7 @@
         <div class="col-md-4">
           <div class="card" style="width: 100%">
             <img
-              src="./imagenes/Ford-Maverick.jpg"
+              src="{{ asset('images/Ford-Maverick.jpg') }}"
               class="card-img-top"
               alt="Camioneta Ford Maverick" />
             <div class="card-body">
@@ -139,7 +113,7 @@
         <div class="col-md-4">
           <div class="card" style="width: 100%">
             <img
-              src="./imagenes/Ford-Ranger-Rapotor2.jpg"
+              src="{{ asset('images/Ford-Ranger-Rapotor2.jpg') }}"
               class="card-img-top"
               alt="Camioneta Ford Ranger Raptor" />
             <div class="card-body">
@@ -158,7 +132,7 @@
         <div class="col-md-4">
           <div class="card" style="width: 100%">
             <img
-              src="./imagenes/Volkswagen-Amarok.jpg"
+              src="{{ asset('images/Volkswagen-Amarok.jpg') }}"
               class="card-img-top"
               alt="Camioneta Volkswagen Amarok" />
             <div class="card-body">
@@ -185,7 +159,7 @@
         <div class="col-md-4">
           <div class="card" style="width: 100%">
             <img
-              src="./imagenes/Chevrolet-Cruze.webp"
+              src="{{ asset('images/Chevrolet-Cruze.webp') }}"
               class="card-img-top"
               alt="Auto Sedan Chevrolet Cruze" />
             <div class="card-body">
@@ -213,7 +187,7 @@
         <div class="col-md-4">
           <div class="card" style="width: 100%">
             <img
-              src="imagenes/Chevrolet-Tracker.jpg"
+              src="{{ asset ('images/Chevrolet-Tracker.jpg') }}"
               class="card-img-top"
               alt="SUVs Chevrolet Tracker" />
             <div class="card-body">

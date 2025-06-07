@@ -14,54 +14,28 @@
   <body>
     <!--navbar-->
     <div class="container">
-      <header
+    <header
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        
         <div class="col-md-3 mb-2 mb-md-0">
-          <a
-            href="../../../index.html"
-            class="d-inline-flex link-body-emphasis text-decoration-none">
-            <img
-              src="./imagenes/luxury-car-sketch-png-5693248.png"
-              alt="Logo coche"
-              width="80"
-              height="80" />
-          </a>
+            <a href="{{ url('/') }}" class="d-inline-flex link-body-emphasis text-decoration-none">
+                <img src="{{ asset('images/luxury-car-sketch-png-5693248.png') }}" alt="Logo Crazy Cars" width="80" height="80" />
+            </a>
         </div>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li>
-            <a href="../../../index.html" class="nav-link px-2">Inicio</a>
-          </li>
-          <li>
-            <a href="./user_vehicles.html" class="nav-link px-2">Galeria</a>
-          </li>
-          <li>
-            <a href="./user_services.html" class="nav-link px-2 link-secondary"
-              >Servicios</a
-            >
-          </li>
-          <li>
-            <a href="./user_contact.html" class="nav-link px-2">Contacto</a>
-          </li>
+            <li><a href="{{ url('/') }}" class="nav-link px-2">Inicio</a></li>
+            <li><a href="{{ url('/galeria') }}" class="nav-link px-2">Galería</a></li>
+            <li><a href="{{ url('/servicios') }}" class="nav-link px-2 link-secondary">Servicios</a></li>
+            <li><a href="#" class="nav-link px-2">Contacto</a></li> {{--  definir la ruta --}}
         </ul>
 
         <div class="col-md-3 text-end">
-          <button type="button" class="btn btn-outline-primary me-2">
-            <a href="../auth/login.html" class="nav-link px-2"
-              >Iniciar Sesion</a
-            >
-          </button>
-          <button type="button" class="btn btn-primary">
-            <a
-              style="text-decoration: none"
-              class="text-white"
-              href="../auth/register.html"
-              >Registrarse</a
-            >
-          </button>
+            <a href="{{ url('/login') }}" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
+            <a href="{{ url('/register') }}" class="btn btn-primary text-white">Registrarse</a>
         </div>
-      </header>
-    </div>
+    </header>
+</div>
 
     <!--Banner carrousel 2-->
     <div id="carouselExampleCaptions" class="carousel slide">
@@ -87,7 +61,7 @@
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img
-            src="./imagenes/banner-Tracker.webp"
+            src="{{ asset ('images/banner-Tracker.webp') }}"
             class="d-block w-100"
             alt="Servicios banner Postventa" />
           <div class="carousel-caption d-none d-md-block">
@@ -97,7 +71,7 @@
         </div>
         <div class="carousel-item">
           <img
-            src="./imagenes/servicio-mantenimiento.webp"
+            src="{{ asset('images/servicio-mantenimiento.webp') }}"
             class="d-block w-100"
             alt="Servicios banner Taller" />
           <div class="carousel-caption d-none d-md-block">
@@ -107,7 +81,7 @@
         </div>
         <div class="carousel-item">
           <img
-            src="./imagenes/servicio-3.jpg"
+            src="{{ asset('images/servicio-3.jpg') }}"
             class="d-block w-100"
             alt="Servicios banner Mantenimiento" />
           <div class="carousel-caption d-none d-md-block">
@@ -156,7 +130,7 @@
         </div>
         <div class="col-md-5 order-md-1">
           <img
-            src="./imagenes/Sucursal1.jpg"
+            src="{{ asset('images/Sucursal1.jpg') }}"
             class="featurette-image img-fluid mx-auto"
             width="500"
             height="500"
@@ -181,7 +155,7 @@
         </div>
         <div class="col-md-5 order-md-1">
           <img
-            src="./imagenes/Sucursal2.jpg"
+            src="{{ asset('images/Sucursal2.jpg') }}"
             class="featurette-image img-fluid mx-auto"
             width="500"
             height="500"
