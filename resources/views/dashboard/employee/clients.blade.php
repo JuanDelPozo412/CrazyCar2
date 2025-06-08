@@ -39,11 +39,11 @@
 
                 </div>
 
-                {{-- <x-dashboard.client-table :clients="$clients" title="Clientes registrados"
+                <x-dashboard.client-table :clients="$clients" title="Clientes registrados"
                     searchPlaceholder="Buscar por nombre, apellido o DNI" tableId="tabla-clientes" />
 
                 <x-dashboard.inquiry-table :inquiries="$inquiries" title="Lista de Consultas"
-                    searchPlaceholder="Buscar Cliente" tableId="inquiry" /> --}}
+                    searchPlaceholder="Buscar Cliente" tableId="inquiry" />
 
             </main>
 
