@@ -16,14 +16,14 @@
     <div class="container-fluid flex-grow-1">
         <div class="row flex-nowrap min-vh-100">
 
-            <x-dashboard.navbar name="Marcos Gutierrez" role="Empleado" />
+            <x-dashboard.navbar :name="$name" :role="$role" />
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <div class="row align-items-center mb-5" style="min-height: 170px">
                     <div class="col-md-6 d-flex flex-column justify-content-center">
                         <div>
                             <h2 class="mb-2">Panel Clientes</h2>
-                            <p class="mb-3">Bienvenido Marcos Gutierrez</p>
+                            <p class="mb-3">Bienvenido {{ $name }}</p>
                         </div>
                     </div>
 

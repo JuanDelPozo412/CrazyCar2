@@ -23,7 +23,11 @@ class VehiculoFactory extends Factory
             'color' => $this->faker->safeColorName(),
             'tipo' => $this->faker->randomElement(['Sedán', 'SUV', 'Pick-Up', 'Hatchback', 'Furgón']),
             'combustible' => $this->faker->randomElement(['Nafta', 'Diésel', 'Eléctrico', 'Híbrido']),
-            'imagen' => $filename
+            'imagen' => $filename,
+            'stock' => $this->faker->numberBetween(0, 100),
+            'precio' => $this->faker->numberBetween(10000, 50000),
+            'estado' => $this->faker->randomElement(['Venta', 'Mantenimiento']),
+
 
         ];
     }

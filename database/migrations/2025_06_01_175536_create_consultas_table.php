@@ -6,26 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-   public function up(): void
-{
-    Schema::create('consultas', function (Blueprint $table) {
-        $table->unsignedBigInteger('concesionaria_id')->nullable();
-        $table->unsignedBigInteger('usuario_id')->nullable();
-        $table->foreign('concesionaria_id')->references('id')->on('concesionarias')->onDelete('set null');
-        $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('set null'); 
-        $table->boolean('estado')->default(false);
-         $table->id();
-             $table->timestamps();
-    });
+    public function up(): void
+    {
+        Schema::create('consultas', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('usuario_id')->nullable();
+            $table->unsignedBigInteger('empleado_id')->nullable();
 
-}
+            $table->string('tipo');
+            $table->boolean('estado')->default(false);
+            $table->date('fecha');
+            $table->string('patente')->nullable();
 
-    /**
-     * Reverse the migrations.
-     */
+            $table->timestamps();
+
+            // Relaciones
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('set null');
+            $table->foreign('empleado_id')->references('id')->on('usuarios')->onDelete('set null');
+        });
+    }
+
     public function down(): void
     {
         Schema::dropIfExists('consultas');

@@ -16,14 +16,14 @@
     <div class="container-fluid flex-grow-1">
         <div class="row flex-nowrap min-vh-100">
 
-            <x-dashboard.navbar name="Marcos Gutierrez" role="Empleado" />
+            <x-dashboard.navbar :name="$name" :role="$role" />
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <div class="row align-items-center mb-5" style="min-height: 170px">
                     <div class="col-md-6 d-flex flex-column justify-content-center">
                         <div>
                             <h2 class="mb-2">Panel Vehículos</h2>
-                            <p class="mb-3">Bienvenido Marcos Gutierrez</p>
+                            <p class="mb-3 fs5">Bienvenido {{ $name }}</p>
                         </div>
                     </div>
 
@@ -38,33 +38,31 @@
                     </div>
                 </div>
 
-                <x-dashboard.vehicle-table title="Vehículos en Venta" searchPlaceholder="Buscar Vehículo"
-                    tableId="vehiclesQuantity" :columns="[
-                        'ID',
-                        'Patente',
-                        'Stock',
-                        'Precio',
-                        'Marca',
-                        'Modelo',
-                        'Tipo',
-                        'Color',
-                        'Año',
-                        'Combustible',
+                <x-dashboard.vehicle-table title="Vehículos en venta" searchPlaceholder="Buscar vehículo..."
+                    tableId="tableVenta" :columns="[
+                        'Patente' => 'Patente',
+                        'Marca' => 'Marca',
+                        'Modelo' => 'Modelo',
+                        'Tipo' => 'Tipo',
+                        'Color' => 'Color',
+                        'Año' => 'Año',
+                        'Combustible' => 'Combustible',
+                        'Stock' => 'Stock',
+                        'Precio' => 'Precio',
                     ]" :vehicles="$vehiclesForSale" />
 
-                <x-dashboard.vehicle-table title="Vehículos en Mantenimiento" searchPlaceholder="Buscar Mantenimiento"
-                    tableId="vehiclesMaintenance" :columns="[
-                        'ID',
-                        'Patente',
-                        'Marca',
-                        'Modelo',
-                        'Tipo',
-                        'Color',
-                        'Año',
-                        'Motivo de Mantenimiento',
-                        'Fecha de Inicio',
-                        'Estado',
-                    ]" :vehicles="$vehiclesInMaintenance" :maintenance="true" />
+                <x-dashboard.vehicle-table title="Vehículos en mantenimiento" searchPlaceholder="Buscar vehículo..."
+                    tableId="tableMantenimiento" :columns="[
+                        'Patente' => 'Patente',
+                        'Marca' => 'Marca',
+                        'Modelo' => 'Modelo',
+                        'Tipo' => 'Tipo',
+                        'Color' => 'Color',
+                        'Año' => 'Año',
+                        'Combustible' => 'Combustible',
+                        'Estado' => 'Estado',
+                    ]" :vehicles="$vehiclesInMaintenance" maintenance />
+
             </main>
 
             <x-dashboard.delete-modal id="confirmDeleteVehicle"

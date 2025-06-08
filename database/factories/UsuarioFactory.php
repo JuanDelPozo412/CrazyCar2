@@ -16,15 +16,6 @@ class UsuarioFactory extends Factory
      *
      */
 
-    // Schema::create('usuarios', function (Blueprint $table) {
-    //         $table->id();
-    //         $table->string('nombre')->unique();
-    //         $table->string('apellido');
-    //         $table->string('email')->unique();
-    //         $table->integer('dni');
-    //         $table->timestamps();
-    //     });
-
     public function definition(): array
     {
         return [
@@ -33,6 +24,7 @@ class UsuarioFactory extends Factory
             'email' => $this->faker->unique()->email(),
             'password' => bcrypt('password'),
             'dni' => $this->faker->unique()->numerify('########'),
+            'rol' => 'cliente',
         ];
     }
 }
