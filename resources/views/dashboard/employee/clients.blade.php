@@ -23,7 +23,7 @@
                     <div class="col-md-6 d-flex flex-column justify-content-center">
                         <div>
                             <h2 class="mb-2">Panel Clientes</h2>
-                            <p class="mb-3">Bienvenido Marcos Gutierrez</p>
+                            <p class="mb-3">Bienvenido {{ $name }}</p>
                         </div>
                     </div>
 
@@ -39,11 +39,11 @@
 
                 </div>
 
-                <x-dashboard.client-table :clients="$clients" title="Clientes registrados"
+                {{-- <x-dashboard.client-table :clients="$clients" title="Clientes registrados"
                     searchPlaceholder="Buscar por nombre, apellido o DNI" tableId="tabla-clientes" />
 
                 <x-dashboard.inquiry-table :inquiries="$inquiries" title="Lista de Consultas"
-                    searchPlaceholder="Buscar Cliente" tableId="inquiry" />
+                    searchPlaceholder="Buscar Cliente" tableId="inquiry" /> --}}
 
             </main>
 
