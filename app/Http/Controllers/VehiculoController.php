@@ -4,15 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VehiculoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        $vehiclesForSale = Vehiculo::where('estado', 'Venta')->get();
+
+        $vehiclesInMaintenance = Vehiculo::where('estado', 'Mantenimiento')->get();
+
+
+        return view('dashboard.employee.vehicles', [
+            'vehiclesForSale' => $vehiclesForSale,
+            'vehiclesInMaintenance' => $vehiclesInMaintenance,
+            'name' => $user->name,
+            'role' => $user->rol,
+        ]);
     }
 
     /**

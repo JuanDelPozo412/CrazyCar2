@@ -11,21 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('usuario_rol', function (Blueprint $table){
-      
-        $table->unsignedBigInteger('usuario_id')->nullable();
-        $table->unsignedBigInteger('rol_id')->nullable();
-        $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('set null');
-        $table->foreign('rol_id')->references('id')->on('rols')->onDelete('set null');
-    });
-}
+        Schema::create('usuario_rol', function (Blueprint $table) {
+
+            $table->unsignedBigInteger('usuario_id')->nullable();
+            $table->unsignedBigInteger('rol_id')->nullable();
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('set null');
+            $table->foreign('rol_id')->references('id')->on('rols')->onDelete('set null');
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-                Schema::dropIfExists('usuario_rol');
-
+        Schema::dropIfExists('usuario_rol');
     }
 };

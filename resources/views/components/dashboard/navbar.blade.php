@@ -17,7 +17,7 @@
         <i class="bi bi-person-circle fs-3"></i>
         <div>
             <strong>{{ $name }}</strong><br />
-            <span class="badge bg-info">{{ $role }}</span>
+            <span class="badge bg-info text-capitalize">{{ $role }}</span>
         </div>
     </div>
 
@@ -35,12 +35,15 @@
             <i class="bi bi-truck-front-fill me-2"></i>
             Vehículos
         </a>
+        <form method="POST" action="{{ route('logout') }}" class="px-1 pt-2">
+            @csrf
+            <button type="submit" class="btn btn-link text-white d-flex align-items-center w-100 text-start"
+                style="text-decoration:none;">
+                <i class="bi bi-box-arrow-right me-2"></i>
+                <span class="small">Cerrar Sesión</span>
+            </button>
+        </form>
     </div>
-
-    <a href="#" class="text-white py-2 px-3 d-flex align-items-center mt-auto">
-        <i class="bi bi-box-arrow-right me-2"></i>
-        <span class="small">Cerrar Sesión</span>
-    </a>
 </nav>
 
 <!-- Sidebar mobile -->
@@ -71,9 +74,13 @@
             <i class="bi bi-people-fill me-2"></i>
             Clientes
         </a>
-        <a href="#" class="text-white py-2 px-3 d-flex align-items-center mt-2">
-            <i class="bi bi-box-arrow-right me-2"></i>
-            <span class="small">Cerrar Sesión</span>
-        </a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="btn btn-link text-white d-flex align-items-center w-100 text-start"
+                style="text-decoration:none;">
+                <i class="bi bi-box-arrow-right me-2"></i>
+                <span class="small">Cerrar Sesión</span>
+            </button>
+        </form>
     </div>
 </div>

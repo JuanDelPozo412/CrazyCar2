@@ -1,11 +1,4 @@
-@props([
-    'title',
-    'searchPlaceholder',
-    'tableId',
-    'columns',
-    'vehicles',
-    'maintenance' => false, // para mostrar columnas extra y badges
-])
+@props(['title', 'searchPlaceholder', 'tableId', 'columns', 'vehicles', 'maintenance' => false])
 
 <div class="d-flex justify-content-between align-items-center mb-3 mt-5 flex-column flex-sm-row">
     <h4 class="text-center text-sm-start w-100">{{ $title }}</h4>
@@ -36,8 +29,6 @@
                 <tr>
                     @foreach ($columns as $colKey => $colLabel)
                         @php
-                            // Mapear columna para sacar el valor del vehículo
-                            // Por ejemplo si columna = 'Patente' buscar $vehicle->patente
                             $key = strtolower(str_replace(' ', '', $colLabel));
                             $value = $vehicle->$key ?? '';
                         @endphp
