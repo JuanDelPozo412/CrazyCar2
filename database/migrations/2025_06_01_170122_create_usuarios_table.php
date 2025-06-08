@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('apellido');
             $table->string('email')->unique();
             $table->string('contrasena');
-            $table->integer('dni')->nullable();
+            $table->integer('dni');
 
         });
     }
