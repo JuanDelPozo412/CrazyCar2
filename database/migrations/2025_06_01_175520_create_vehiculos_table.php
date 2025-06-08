@@ -21,8 +21,9 @@ return new class extends Migration
             $table->string('tipo');
             $table->string('combustible');
             $table->string('imagen');
-            $table->unsignedBigInteger('concesionaria_id')->nullable();
-            $table->foreign('concesionaria_id')->references('id')->on('concesionarias')->onDelete('set null');
+            $table->integer('stock')->default(0);
+            $table->decimal('precio', 10, 2)->nullable();
+            $table->string('estado')->nullable();
             $table->timestamps();
         });
     }

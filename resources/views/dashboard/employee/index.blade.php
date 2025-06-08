@@ -19,9 +19,7 @@
             <x-dashboard.navbar name="Marcos Gutierrez" role="Empleado" />
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 g-4 mb-4">
-                    <x-dashboard.stat-card icon="bi-cash-stack" label="Mis Vendidos" value="74"
-                        color="rgba(13, 110, 253, 0.7)" />
+                <div class="mb-4">
 
                     <x-dashboard.stat-card icon="bi-chat-dots" label="Mis Consultas" value="40"
                         color="rgba(23, 162, 184, 0.8)" />
