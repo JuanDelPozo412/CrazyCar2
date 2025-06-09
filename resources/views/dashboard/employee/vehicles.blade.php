@@ -72,5 +72,25 @@
             <x-dashboard.delete-modal id="confirmDeleteMaintenance"
                 message="¿Está seguro de que desea eliminar este Mantenimiento?" />
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const modalVenta = document.getElementById('confirmDeleteVehicle');
+    modalVenta?.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const vehicleId = button.getAttribute('data-id');
+        const form = modalVenta.querySelector('form');
+        form.action = `/dashboard/employee/vehicles/${vehicleId}`;
+    });
+
+    const modalMantenimiento = document.getElementById('confirmDeleteMaintenance');
+    modalMantenimiento?.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const vehicleId = button.getAttribute('data-id');
+        const form = modalMantenimiento.querySelector('form');
+        form.action = `/dashboard/employee/vehicles/${vehicleId}`;
+    });
+</script>
+
 
 </html>
