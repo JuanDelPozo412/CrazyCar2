@@ -14,12 +14,13 @@ return new class extends Migration
             // Relaciones
             $table->foreignId('usuario_id')->nullable()->constrained('usuarios')->onDelete('set null');
             $table->foreignId('empleado_id')->nullable()->constrained('usuarios')->onDelete('set null');
-            $table->foreignId('vehiculo_id')->nullable()->constrained('vehiculos')->onDelete('set null');
 
             $table->string('tipo');
             $table->boolean('estado')->default(false);
             $table->date('fecha');
-            $table->string('patente')->nullable();
+            $table->string('titulo')->nullable();
+            $table->text('descripcion')->nullable();
+
 
             $table->timestamps();
         });

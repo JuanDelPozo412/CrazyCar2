@@ -17,6 +17,8 @@ class Consulta extends Model
         'fecha',
         'apellido',
         'email',
+        'descripcion',
+        'titulo',
     ];
 
     public function cliente()
