@@ -21,6 +21,8 @@ class VehiculoController extends Controller
         return view('dashboard.employee.vehicles', [
             'vehiclesForSale' => $vehiclesForSale,
             'vehiclesInMaintenance' => $vehiclesInMaintenance,
+            'vehiclesForSaleCount' => $vehiclesForSale->count(),
+            'vehiclesMaintenanceCount' => $vehiclesInMaintenance->count(),
             'name' => $user->name,
             'role' => $user->rol,
         ]);

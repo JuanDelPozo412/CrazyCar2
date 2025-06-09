@@ -29,11 +29,12 @@
 
                     <div class="col-md-6 mt-2">
                         <div class="row g-2">
-                            <x-dashboard.stat-card icon="bi bi-person-fill" label="Cantidad de Clientes" value="250"
-                                color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
+                            <x-dashboard.stat-card icon="bi bi-person-fill" label="Cantidad de Clientes"
+                                :value="$clientesCount" color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
 
-                            <x-dashboard.stat-card icon="bi bi-chat-dots" label="Cantidad de Consultas" value="35"
-                                color="rgba(23, 162, 184, 0.9)" href="#vehiclesMaintenance" />
+                            <x-dashboard.stat-card icon="bi bi-chat-dots" label="Cantidad de Consultas"
+                                :value="$consultasCount" color="rgba(23, 162, 184, 0.9)" href="#vehiclesMaintenance" />
+
                         </div>
                     </div>
 

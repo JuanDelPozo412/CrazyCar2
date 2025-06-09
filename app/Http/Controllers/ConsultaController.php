@@ -10,8 +10,7 @@ class ConsultaController extends Controller
     public function index()
     {
         // Cargamos las relaciones con cliente y empleado
-        $consultas = Consulta::with(['cliente', 'empleado'])->get();
-
+        $consultas = Consulta::with(['cliente', 'empleado', 'vehiculo'])->get();
         return view('dashboard.employee.clients', [
             'inquiries' => $consultas,
         ]);
