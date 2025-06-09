@@ -23,24 +23,22 @@
     <table id="{{ $tableId }}" class="table table-striped table-bordered">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
+                {{-- <th>ID</th> --}}
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>DNI</th>
                 <th>Email</th>
-                <th>Patente</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             @forelse ($clients as $client)
                 <tr>
-                    <td>{{ $client->id }}</td>
-                    <td>{{ $client->nombre }}</td>
+                    {{-- <td>{{ $client->id }}</td> --}}
+                    <td>{{ $client->name }}</td>
                     <td>{{ $client->apellido }}</td>
                     <td>{{ $client->dni }}</td>
                     <td>{{ $client->email }}</td>
-                    <td class="text-center">{{ $client->patente ?? '-' }}</td>
                     <td>
                         <div class="d-flex justify-content-between">
                             <button class="btn btn-sm text-white" style="background-color: rgba(13, 110, 253, 0.8)"

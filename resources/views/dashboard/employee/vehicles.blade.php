@@ -29,11 +29,12 @@
 
                     <div class="col-md-6 mt-2">
                         <div class="row g-2">
-                            <x-dashboard.stat-card icon="bi-car-front-fill" label="Vehículos a la Venta" value="120"
-                                color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
+                            <x-dashboard.stat-card icon="bi-car-front-fill" label="Vehículos a la Venta"
+                                :value="$vehiclesForSaleCount" color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
 
-                            <x-dashboard.stat-card icon="bi-tools" label="En Mantenimiento" value="18"
+                            <x-dashboard.stat-card icon="bi-tools" label="En Mantenimiento" :value="$vehiclesMaintenanceCount"
                                 color="rgba(23, 162, 184, 0.9)" href="#vehiclesMaintenance" />
+
                         </div>
                     </div>
                 </div>

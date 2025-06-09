@@ -10,8 +10,11 @@ return new class extends Migration
     {
         Schema::create('consultas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('usuario_id')->nullable();
-            $table->unsignedBigInteger('empleado_id')->nullable();
+
+            // Relaciones
+            $table->foreignId('usuario_id')->nullable()->constrained('usuarios')->onDelete('set null');
+            $table->foreignId('empleado_id')->nullable()->constrained('usuarios')->onDelete('set null');
+            $table->foreignId('vehiculo_id')->nullable()->constrained('vehiculos')->onDelete('set null');
 
             $table->string('tipo');
             $table->boolean('estado')->default(false);
@@ -19,10 +22,6 @@ return new class extends Migration
             $table->string('patente')->nullable();
 
             $table->timestamps();
-
-            // Relaciones
-            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('set null');
-            $table->foreign('empleado_id')->references('id')->on('usuarios')->onDelete('set null');
         });
     }
 
