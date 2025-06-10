@@ -20,19 +20,23 @@ class ConsultaController extends Controller
 
     public function actualizar(Request $request, Consulta $consulta)
     {
+        // Validamos entrada
         $request->validate([
             'estado' => 'required|in:en-proceso,finalizado',
             'tomar' => 'nullable|in:si,no',
         ]);
 
+        // Actualizamos estado
         $consulta->estado = $request->estado === 'finalizado' ? 1 : 0;
 
+        // Asignamos empleado solo si aún no está asignado
         if ($request->tomar === 'si' && !$consulta->empleado_id) {
             $consulta->empleado_id = Auth::id();
         }
 
         $consulta->save();
 
-        return redirect()->back()->with('success', 'Consulta actualizada correctamente.');
+        // Redirigimos a la vista anterior con un mensaje de éxito
+        return redirect()->route('clientes')->with('success', 'Consulta actualizada correctamente.');
     }
 }

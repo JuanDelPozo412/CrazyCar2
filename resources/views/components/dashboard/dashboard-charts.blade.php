@@ -1,6 +1,8 @@
+@props(['consultasMensuales'])
+
 <div class="card shadow-sm rounded-4 mb-4">
     <div class="card-body">
-        <h5 class="card-title">Consultas Aceptadas</h5>
+        <h5 class="card-title">Consultas Finalizadas</h5>
         <canvas id="consultasChart" height="100"></canvas>
     </div>
 </div>
@@ -9,16 +11,21 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctxConsultas = document.getElementById('consultasChart').getContext('2d');
+        const consultasMensuales = {!! $consultasMensuales !!};
+
         const consultasChart = new Chart(ctxConsultas, {
             type: 'bar',
             data: {
-                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+                labels: [
+                    'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                    'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+                ],
                 datasets: [{
                     label: 'Consultas Tomadas',
-                    data: [5, 9, 6, 8, 12],
+                    data: consultasMensuales,
                     backgroundColor: 'rgba(23, 162, 184, 0.9)',
                     borderRadius: 5,
-                }, ],
+                }],
             },
             options: {
                 responsive: true,
@@ -31,7 +38,7 @@
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: 2
+                            stepSize: 1
                         }
                     },
                 },
