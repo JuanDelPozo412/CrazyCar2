@@ -23,7 +23,8 @@ class ConsultaFactory extends Factory
             'tipo' => $this->faker->randomElement(['Compra', 'Mantenimiento']),
             'estado' => $this->faker->boolean(),
             'fecha' => $this->faker->date(),
-            'patente' => strtoupper($this->faker->bothify('???###')),
+            'titulo' => $this->faker->sentence(4),
+            'descripcion' => $this->faker->paragraph(),
         ];
     }
 }

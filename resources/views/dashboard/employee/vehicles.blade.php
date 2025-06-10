@@ -29,11 +29,12 @@
 
                     <div class="col-md-6 mt-2">
                         <div class="row g-2">
-                            <x-dashboard.stat-card icon="bi-car-front-fill" label="Vehículos a la Venta" value="120"
-                                color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
+                            <x-dashboard.stat-card icon="bi-car-front-fill" label="Vehículos a la Venta"
+                                :value="$vehiclesForSaleCount" color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
 
-                            <x-dashboard.stat-card icon="bi-tools" label="En Mantenimiento" value="18"
+                            <x-dashboard.stat-card icon="bi-tools" label="En Mantenimiento" :value="$vehiclesMaintenanceCount"
                                 color="rgba(23, 162, 184, 0.9)" href="#vehiclesMaintenance" />
+
                         </div>
                     </div>
                 </div>
@@ -71,5 +72,25 @@
             <x-dashboard.delete-modal id="confirmDeleteMaintenance"
                 message="¿Está seguro de que desea eliminar este Mantenimiento?" />
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const modalVenta = document.getElementById('confirmDeleteVehicle');
+    modalVenta?.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const vehicleId = button.getAttribute('data-id');
+        const form = modalVenta.querySelector('form');
+        form.action = `/dashboard/employee/vehicles/${vehicleId}`;
+    });
+
+    const modalMantenimiento = document.getElementById('confirmDeleteMaintenance');
+    modalMantenimiento?.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const vehicleId = button.getAttribute('data-id');
+        const form = modalMantenimiento.querySelector('form');
+        form.action = `/dashboard/employee/vehicles/${vehicleId}`;
+    });
+</script>
+
 
 </html>

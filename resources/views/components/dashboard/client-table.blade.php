@@ -28,38 +28,29 @@
                 <th>Apellido</th>
                 <th>DNI</th>
                 <th>Email</th>
-                <th>Patente</th>
-                <th>Acciones</th>
+                <th class="text-center" style="width: 1%">Acciones</th>
             </tr>
         </thead>
         <tbody>
             @forelse ($clients as $client)
                 <tr>
                     <td>{{ $client->id }}</td>
-                    <td>{{ $client->nombre }}</td>
+                    <td>{{ $client->name }}</td>
                     <td>{{ $client->apellido }}</td>
                     <td>{{ $client->dni }}</td>
                     <td>{{ $client->email }}</td>
-                    <td class="text-center">{{ $client->patente ?? '-' }}</td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <button class="btn btn-sm text-white" style="background-color: rgba(13, 110, 253, 0.8)"
-                                data-bs-toggle="modal" data-bs-target="#vehicleDetailModal">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                            <button class="btn btn-sm text-white" style="background-color: rgba(23, 162, 184, 0.9)">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-secondary btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#confirmDeleteClient">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </div>
+                    <td class="text-center">
+                        <button class="btn btn-sm text-white btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#clientDetailModal{{ $client->id }}">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </td>
                 </tr>
+
+                <x-dashboard.client-modal :client="$client" />
             @empty
                 <tr>
-                    <td colspan="7" class="text-center">No hay clientes disponibles.</td>
+                    <td colspan="6" class="text-center">No hay clientes disponibles.</td>
                 </tr>
             @endforelse
         </tbody>

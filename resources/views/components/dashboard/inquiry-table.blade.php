@@ -23,12 +23,12 @@
     <table id="{{ $tableId }}" class="table table-striped table-bordered">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
                 <th>Cliente</th>
+                <th>Apellido</th>
+                <th>Email</th>
                 <th>Tipo</th>
                 <th>Estado</th>
                 <th>Fecha</th>
-                <th>Patente</th>
                 <th>Empleado</th>
                 <th>Acciones</th>
             </tr>
@@ -36,28 +36,26 @@
         <tbody>
             @forelse ($inquiries as $consulta)
                 <tr>
-                    <td>{{ $consulta->id }}</td>
-                    <td>{{ $consulta->cliente?->nombre ?? 'No asignado' }}</td>
+                    <td>{{ $consulta->cliente?->name ?? 'No asignado' }}</td>
+                    <td>{{ $consulta->cliente?->apellido ?? 'No asignado' }}</td>
+                    <td>{{ $consulta->cliente?->email ?? 'No asignado' }}</td>
                     <td>{{ $consulta->tipo }}</td>
                     <td>{{ $consulta->estado ? 'Finalizado' : 'Pendiente' }}</td>
                     <td>{{ \Carbon\Carbon::parse($consulta->fecha)->format('d/m/Y') }}</td>
-                    <td>{{ $consulta->patente }}</td>
-                    <td>{{ $consulta->empleado?->nombre ?? 'No asignado' }}</td>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#inquiryDetailModal">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                            <button class="btn btn-sm btn-info text-white">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-sm btn-secondary" data-bs-toggle="modal"
-                                data-bs-target="#confirmDeleteInquiry">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </div>
+                    <td>{{ $consulta->empleado?->name ?? 'No asignado' }}</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#inquiryDetail{{ $consulta->id }}">
+                            <i class="bi bi-eye"></i>
+                        </button>
+
+
+                        @foreach ($inquiries as $consulta)
+                            <x-dashboard.consulta-modal :consulta="$consulta" />
+                        @endforeach
+
                     </td>
+
                 </tr>
             @empty
                 <tr>

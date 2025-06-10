@@ -21,6 +21,8 @@ class VehiculoController extends Controller
         return view('dashboard.employee.vehicles', [
             'vehiclesForSale' => $vehiclesForSale,
             'vehiclesInMaintenance' => $vehiclesInMaintenance,
+            'vehiclesForSaleCount' => $vehiclesForSale->count(),
+            'vehiclesMaintenanceCount' => $vehiclesInMaintenance->count(),
             'name' => $user->name,
             'role' => $user->rol,
         ]);
@@ -45,10 +47,12 @@ class VehiculoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Vehiculo $vehiculo)
+    public function show($id)
     {
-        //
+        $vehiculo = Vehiculo::findOrFail($id);
+        return response()->json($vehiculo);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -69,8 +73,11 @@ class VehiculoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Vehiculo $vehiculo)
+    public function destroy($id)
     {
-        //
+        $vehiculo = Vehiculo::findOrFail($id);
+        $vehiculo->delete();
+
+        return redirect()->route('vehiculos')->with('success', 'Vehículo eliminado correctamente.');
     }
 }

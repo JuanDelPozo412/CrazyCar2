@@ -15,22 +15,24 @@ class Consulta extends Model
         'tipo',
         'estado',
         'fecha',
-        'patente',
+        'apellido',
+        'email',
+        'descripcion',
+        'titulo',
     ];
 
-    // Relaciones (opcionales, si usás Eloquent relationships)
     public function cliente()
     {
-        return $this->belongsTo(Usuario::class, 'usuario_id');
+        return $this->belongsTo(Usuario::class, 'usuario_id')->where('rol', 'cliente');
     }
 
     public function empleado()
     {
-        return $this->belongsTo(Usuario::class, 'empleado_id');
+        return $this->belongsTo(Usuario::class, 'empleado_id')->where('rol', 'empleado');
     }
 
-    public function concesionaria()
+    public function vehiculo()
     {
-        return $this->belongsTo(Concesionaria::class);
+        return $this->belongsTo(Vehiculo::class, 'vehiculo_id');
     }
 }
