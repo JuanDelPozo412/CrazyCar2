@@ -22,7 +22,7 @@ class ConsultaFactory extends Factory
             'empleado_id' => $this->faker->randomElement($empleados),
             'tipo' => $this->faker->randomElement(['Compra', 'Mantenimiento']),
             'estado' => $this->faker->boolean(),
-            'fecha' => $this->faker->date(),
+            'fecha' => $this->faker->dateTimeBetween(date('Y') . '-01-01', 'now')->format('Y-m-d'),
             'titulo' => $this->faker->sentence(4),
             'descripcion' => $this->faker->paragraph(),
         ];

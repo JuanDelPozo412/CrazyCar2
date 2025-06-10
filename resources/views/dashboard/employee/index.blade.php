@@ -16,16 +16,19 @@
     <div class="container-fluid flex-grow-1">
         <div class="row flex-nowrap min-vh-100">
 
-            <x-dashboard.navbar name="Marcos Gutierrez" role="Empleado" />
+            <x-dashboard.navbar :name="$name" :role="$role" />
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <div class="mb-4">
 
-                    <x-dashboard.stat-card icon="bi-chat-dots" label="Mis Consultas" value="40"
+                    <x-dashboard.stat-card icon="bi-chat-dots" label="Consultas Totales Tomadas" :value="$consultasCount"
                         color="rgba(23, 162, 184, 0.8)" />
+
                 </div>
 
-                <x-dashboard.dashboard-charts />
+                <x-dashboard.dashboard-charts :consultasMensuales="$consultasMensuales" />
+
+
             </main>
         </div>
     </div>
