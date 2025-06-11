@@ -9,11 +9,24 @@ use App\Models\Consulta;
 
 class ClientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
-        $clients = Usuario::where('rol', 'cliente')->get();
+        //Obtener filtro de busqueda
+        $search = $request->input('busqueda');
+
+        //Panel de clientes con filtro por nombre, apellido o DNI
+        $clients = Usuario::where('rol', 'cliente')
+        ->when($search, function ($query, $search) { //La funcion when se ejecuta si $search no es NULL
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                      ->orWhere('apellido', 'like', "%{$search}%")
+                      ->orWhere('dni', 'like', "%{$search}%");
+                });
+            })
+            ->get();
+
         $consultas = Consulta::with(['cliente', 'empleado', 'vehiculo'])->get();
 
         return view('dashboard.employee.clients', [
