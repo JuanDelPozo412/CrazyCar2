@@ -13,12 +13,12 @@ class ClientController extends Controller
     {
         $user = Auth::user();
 
-        //Obtener filtro de busqueda
+   
         $search = $request->input('busqueda');
 
-        //Panel de clientes con filtro por nombre, apellido o DNI
+    
         $clients = Usuario::where('rol', 'cliente')
-        ->when($search, function ($query, $search) { //La funcion when se ejecuta si $search no es NULL
+        ->when($search, function ($query, $search) { 
                 $query->where(function ($q) use ($search) {
                     $q->where('name', 'like', "%{$search}%")
                       ->orWhere('apellido', 'like', "%{$search}%")
