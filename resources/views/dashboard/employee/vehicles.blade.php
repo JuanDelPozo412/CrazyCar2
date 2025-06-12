@@ -51,7 +51,6 @@
 
                 <x-dashboard.vehicle-table title="Vehículos en venta" searchPlaceholder="Buscar vehículo..."
                     tableId="tableVenta" :columns="[
-                        'Patente' => 'Patente',
                         'Marca' => 'Marca',
                         'Modelo' => 'Modelo',
                         'Tipo' => 'Tipo',
