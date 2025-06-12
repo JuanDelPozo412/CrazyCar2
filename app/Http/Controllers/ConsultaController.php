@@ -11,7 +11,7 @@ class ConsultaController extends Controller
 {
     public function index()
     {
-   
+
         $consultas = Consulta::with(['cliente', 'empleado', 'vehiculo'])->get();
         return view('dashboard.employee.clients', [
             'inquiries' => $consultas,
@@ -20,23 +20,22 @@ class ConsultaController extends Controller
 
     public function actualizar(Request $request, Consulta $consulta)
     {
-        // Validamos entrada
         $request->validate([
             'estado' => 'required|in:en-proceso,finalizado',
             'tomar' => 'nullable|in:si,no',
         ]);
 
- 
+
         $consulta->estado = $request->estado === 'finalizado' ? 1 : 0;
 
-    
+
         if ($request->tomar === 'si' && !$consulta->empleado_id) {
             $consulta->empleado_id = Auth::id();
         }
 
         $consulta->save();
 
- 
+
         return redirect()->route('clientes')->with('success', 'Consulta actualizada correctamente.');
     }
 }

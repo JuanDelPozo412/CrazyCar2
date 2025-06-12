@@ -13,6 +13,17 @@
 </head>
 
 <body class="min-vh-100 d-flex flex-column">
+
+    <nav class="navbar navbar-dark bg-dark d-md-none">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu"
+                aria-controls="sidebarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <span class="navbar-brand mb-0 fs-4">Empleado</span>
+        </div>
+    </nav>
+
     <div class="container-fluid flex-grow-1">
         <div class="row flex-nowrap min-vh-100">
 
@@ -34,7 +45,6 @@
 
                             <x-dashboard.stat-card icon="bi-tools" label="En Mantenimiento" :value="$vehiclesMaintenanceCount"
                                 color="rgba(23, 162, 184, 0.9)" href="#vehiclesMaintenance" />
-
                         </div>
                     </div>
                 </div>
@@ -61,7 +71,6 @@
                         'Combustible' => 'Combustible',
                         'Estado' => 'Estado',
                     ]" :vehicles="$vehiclesInMaintenance" maintenance />
-
             </main>
 
             <x-dashboard.delete-modal id="confirmDeleteVehicle"
@@ -69,26 +78,30 @@
 
             <x-dashboard.delete-modal id="confirmDeleteMaintenance"
                 message="¿Está seguro de que desea eliminar este Mantenimiento?" />
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const modalVenta = document.getElementById('confirmDeleteVehicle');
+        modalVenta?.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const vehicleId = button.getAttribute('data-id');
+            const form = modalVenta.querySelector('form');
+            form.action = `/dashboard/employee/vehicles/${vehicleId}`;
+        });
+
+        const modalMantenimiento = document.getElementById('confirmDeleteMaintenance');
+        modalMantenimiento?.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const vehicleId = button.getAttribute('data-id');
+            const form = modalMantenimiento.querySelector('form');
+            form.action = `/dashboard/employee/vehicles/${vehicleId}`;
+        });
+    </script>
+
+    @stack('scripts')
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    const modalVenta = document.getElementById('confirmDeleteVehicle');
-    modalVenta?.addEventListener('show.bs.modal', function(event) {
-        const button = event.relatedTarget;
-        const vehicleId = button.getAttribute('data-id');
-        const form = modalVenta.querySelector('form');
-        form.action = `/dashboard/employee/vehicles/${vehicleId}`;
-    });
-
-    const modalMantenimiento = document.getElementById('confirmDeleteMaintenance');
-    modalMantenimiento?.addEventListener('show.bs.modal', function(event) {
-        const button = event.relatedTarget;
-        const vehicleId = button.getAttribute('data-id');
-        const form = modalMantenimiento.querySelector('form');
-        form.action = `/dashboard/employee/vehicles/${vehicleId}`;
-    });
-</script>
-
 
 </html>

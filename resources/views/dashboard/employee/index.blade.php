@@ -13,6 +13,17 @@
 </head>
 
 <body class="min-vh-100 d-flex flex-column">
+
+    <nav class="navbar navbar-dark bg-dark d-md-none">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu"
+                aria-controls="sidebarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <span class="navbar-brand mb-0 fs-4">Empleado</span>
+        </div>
+    </nav>
+
     <div class="container-fluid flex-grow-1">
         <div class="row flex-nowrap min-vh-100">
 
@@ -20,21 +31,15 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <div class="mb-4">
-
                     <x-dashboard.stat-card icon="bi-chat-dots" label="Consultas Totales Tomadas" :value="$consultasCount"
                         color="rgba(23, 162, 184, 0.8)" />
-
                 </div>
-
                 <x-dashboard.dashboard-charts :consultasMensuales="$consultasMensuales" />
-
-
             </main>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
     @stack('scripts')
 </body>
 

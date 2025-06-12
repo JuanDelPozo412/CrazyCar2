@@ -1,17 +1,5 @@
 @props(['name', 'role'])
 
-<!-- Navbar mobile -->
-<nav class="navbar navbar-dark bg-dark d-md-none">
-    <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu"
-            aria-controls="sidebarMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <span class="navbar-brand mb-0 h1">Empleado</span>
-    </div>
-</nav>
-
-<!-- Sidebar Desktop -->
 <nav class="col-md-3 col-lg-2 d-none d-md-flex bg-dark text-white sidebar p-0 flex-column min-vh-100">
     <div class="d-flex align-items-center gap-2 p-3 pb-3 flex-shrink-0">
         <i class="bi bi-person-circle fs-3"></i>
@@ -46,7 +34,6 @@
     </div>
 </nav>
 
-<!-- Sidebar mobile -->
 <div class="offcanvas offcanvas-start d-md-none bg-dark text-white" tabindex="-1" id="sidebarMenu"
     aria-labelledby="sidebarLabel">
     <div class="offcanvas-header">
@@ -62,15 +49,15 @@
             aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <a href="{{ route('dashboard') }}" class="d-flex align-items-center mb-2 text-decoration-none text-white">
+        <a href="{{ route('dashboard') }}" class="d-flex align-items-center mb-2 text-decoration-none text-white py-2">
             <i class="bi bi-speedometer2 me-2"></i>
             Dashboard
         </a>
-        <a href="#" class="d-flex align-items-center mb-2 text-decoration-none text-white">
+        <a href="{{ route('vehiculos') }}" class="d-flex align-items-center mb-2 text-decoration-none text-white py-2">
             <i class="bi bi-truck-front-fill me-2"></i>
             Vehículos
         </a>
-        <a href="#" class="d-flex align-items-center mb-2 text-decoration-none text-white">
+        <a href="{{ route('clientes') }}" class="d-flex align-items-center mb-2 text-decoration-none text-white py-2">
             <i class="bi bi-people-fill me-2"></i>
             Clientes
         </a>
