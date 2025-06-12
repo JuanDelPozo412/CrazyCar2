@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('dni')->nullable();
+            $table->integer('telefono')->nullable();
+            $table->string('direccion')->nullable();
             $table->string('rol')->default('cliente');
         });
     }
