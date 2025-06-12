@@ -15,10 +15,9 @@
                 <div class="row">
                     <div class="col-md-5 text-center mb-3 mb-md-0">
                         <div class="border rounded p-2 d-flex align-items-center justify-content-center"
-                            style="height: 100%;">
-                            <img src="{{ Storage::url($vehicle->imagen) ?: asset('images/auto2.png') }}"
+                            style="height: 300px; overflow: hidden;"> <img
+                                src="{{ Storage::url($vehicle->imagen) ?: asset('images/auto2.png') }}"
                                 alt="Imagen del Vehículo" class="img-fluid rounded w-100 h-100 object-fit-cover" />
-
                         </div>
                     </div>
 
