@@ -11,9 +11,8 @@ class ConsultaSeeder extends Seeder
     public function run(): void
     {
         $clientes = Usuario::where('rol', 'cliente')->pluck('id')->toArray();
-        $empleados = Usuario::where('rol', 'empleado')->pluck('id')->toArray();
 
-        Consulta::factory()->count(30)->create()->each(function ($consulta) use ($clientes, $empleados) {
+        Consulta::factory()->count(30)->create()->each(function ($consulta) use ($clientes) {
             $consulta->update([
                 'usuario_id' => fake()->randomElement($clientes),
             ]);

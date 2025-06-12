@@ -11,9 +11,17 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
+    public function show(Request $request): View
+    {
+        $user = $request->user();
+        $consultas = $user->consultas()->latest()->get();
+
+        return view('profile.show', [
+            'user' => $user,
+            'consultas' => $consultas,
+        ]);
+    }
+
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -21,25 +29,21 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user->fill($request->validated());
+
+        if ($user->isDirty('email')) {
+            $user->email = $user->getOriginal('email');
         }
 
-        $request->user()->save();
+        $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('status', '¡Perfil actualizado con éxito!');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [

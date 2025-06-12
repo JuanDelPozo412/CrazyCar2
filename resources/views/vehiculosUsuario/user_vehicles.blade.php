@@ -37,7 +37,7 @@
     </header>
 </div>
 
-    <!--Vehiculos-->
+
     <div class="px-4 pt-5 my-5 text-center border-bottom">
       <h1 class="display-4 fw-bold text-body-emphasis">Autos compactos</h1>
     </div>
@@ -84,7 +84,7 @@
       </div>
     </div>
 
-    <!--Vehiculo Pick-Ups (Camioneta)-->
+
     <div class="px-4 pt-5 my-5 text-center border-bottom">
       <h1 class="display-4 fw-bold text-body-emphasis">Pick-Ups</h1>
     </div>
@@ -150,7 +150,6 @@
       </div>
     </div>
 
-    <!--Vehiculos Autos Sedan-->
     <div class="px-4 pt-5 my-5 text-center border-bottom">
       <h1 class="display-4 fw-bold text-body-emphasis">Autos Sedan</h1>
     </div>
@@ -177,7 +176,7 @@
       </div>
     </div>
 
-    <!--Vehiculos SUVs-->
+ 
     <div class="px-4 pt-5 my-5 text-center border-bottom">
       <h1 class="display-4 fw-bold text-body-emphasis">SUVs</h1>
     </div>
@@ -205,7 +204,6 @@
       </div>
     </div>
 
-    <!--Footer-->
     <div class="container">
       <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">

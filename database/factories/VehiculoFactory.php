@@ -2,18 +2,34 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Facades\Http;
+use App\Models\Usuario;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 
 class VehiculoFactory extends Factory
 {
     public function definition(): array
     {
-        $url = 'https://picsum.photos/640/480/transport?random=' . rand(1, 1000);
-        $imageContent = Http::get($url)->body();
-        $filename = 'images/' . uniqid() . '.jpg';
-        Storage::disk('public')->put($filename, $imageContent);
+        $localImagesPath = 'images';
+        $allImages = Storage::disk('public')->files($localImagesPath);
+        $randomImageFilename = Arr::random($allImages);
+        $imageForDb = $randomImageFilename;
+
+        $propietarioId = null;
+
+        $estado = $this->faker->randomElement(['Venta', 'Mantenimiento']);
+
+        $fechadeinicio = null;
+
+        if ($estado === 'Mantenimiento') {
+            $fechadeinicio = $this->faker->dateTimeBetween('-1 month', 'now')->format('Y-m-d');
+
+            $clientesIds = Usuario::where('rol', 'Cliente')->pluck('id')->toArray();
+            if (!empty($clientesIds)) {
+                $propietarioId = $this->faker->randomElement($clientesIds);
+            }
+        }
 
         return [
             'patente' => strtoupper($this->faker->bothify('???###')),
@@ -23,12 +39,12 @@ class VehiculoFactory extends Factory
             'color' => $this->faker->safeColorName(),
             'tipo' => $this->faker->randomElement(['Sedán', 'SUV', 'Pick-Up', 'Hatchback', 'Furgón']),
             'combustible' => $this->faker->randomElement(['Nafta', 'Diésel', 'Eléctrico', 'Híbrido']),
-            'imagen' => $filename,
+            'imagen' => $imageForDb,
             'stock' => $this->faker->numberBetween(0, 100),
             'precio' => $this->faker->numberBetween(10000, 50000),
-            'estado' => $this->faker->randomElement(['Venta', 'Mantenimiento']),
-
-
+            'estado' => $estado,
+            'fechadeinicio' => $fechadeinicio,
+            'propietario_id' => $propietarioId,
         ];
     }
 }

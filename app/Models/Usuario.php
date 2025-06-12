@@ -23,4 +23,9 @@ class Usuario extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function consultas()
+    {
+        return $this->hasMany(Consulta::class, 'usuario_id');
+    }
 }

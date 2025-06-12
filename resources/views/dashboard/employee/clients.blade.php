@@ -13,6 +13,17 @@
 </head>
 
 <body class="min-vh-100 d-flex flex-column">
+
+    <nav class="navbar navbar-dark bg-dark d-md-none">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu"
+                aria-controls="sidebarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <span class="navbar-brand mb-0 fs-4">Empleado</span>
+        </div>
+    </nav>
+
     <div class="container-fluid flex-grow-1">
         <div class="row flex-nowrap min-vh-100">
 
@@ -47,15 +58,12 @@
                     searchPlaceholder="Buscar Cliente" tableId="inquiry" />
 
             </main>
+        </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-</body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-@stack('scripts')
-</div>
-</div>
+    @stack('scripts')
 </body>
 
 </html>
