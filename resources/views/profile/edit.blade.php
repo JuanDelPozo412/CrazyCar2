@@ -36,9 +36,12 @@
                         <div class="col-md-3">
                             <div class="text-center">
 
-                                <img src="{{ $user->profile_photo_path ? asset('storage/' . $user->profile_photo_path) : 'https://via.placeholder.com/150/007bff/FFFFFF?text=' . $user->name[0] }}"
-                                    class="avatar img-circle img-thumbnail mb-2"
-                                    style="width: 150px; height: 150px; object-fit: cover;" alt="avatar" />
+                                    @if ($user->profile_photo_path)
+                               <img src="{{ asset('storage/' . $user->profile_photo_path) }}" alt="Foto de perfil" class="rounded-circle" width="150" style="height: 150px; object-fit: cover;"/>
+                                @else
+   
+                                <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil" class="rounded-circle" width="150" />
+                                 @endif
                                 <h6 class="mt-2">Cargar una nueva foto</h6>
                                 <input type="file" name="avatar" class="form-control">
 
