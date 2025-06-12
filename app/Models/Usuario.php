@@ -23,4 +23,15 @@ class Usuario extends Authenticatable
         'password',
         'remember_token',
     ];
+
+        public function consultas()
+    {
+        // Asegúrate que la tabla 'consultas' tiene una columna 'usuario_id'
+        return $this->hasMany(Consulta::class, 'usuario_id');
+    }
 }
+
+    /**
+     * AÑADIR ESTO: Un usuario puede tener muchos autos favoritos.
+     */
+
