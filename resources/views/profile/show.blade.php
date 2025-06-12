@@ -83,9 +83,6 @@
                             </div>
                         </div>
                     </div>
-
-                    {{-- SECCIÓN DE AUTOS FAVORITOS ELIMINADA --}}
-
                 </div>
             </div>
         </div>

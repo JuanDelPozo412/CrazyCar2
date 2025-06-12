@@ -34,19 +34,19 @@
                     @method('PATCH')
 
                     <div class="row">
-                        <!-- Columna para la foto de perfil -->
+                      
                         <div class="col-md-3">
                             <div class="text-center">
-                                {{-- Muestra la foto actual o una por defecto --}}
+                              
                                 <img src="{{ $user->profile_photo_path ? asset('storage/' . $user->profile_photo_path) : 'https://via.placeholder.com/150/007bff/FFFFFF?text=' . $user->name[0] }}" class="avatar img-circle img-thumbnail mb-2" style="width: 150px; height: 150px; object-fit: cover;" alt="avatar" />
                                 <h6 class="mt-2">Cargar una nueva foto</h6>
                                 <input type="file" name="avatar" class="form-control">
-                                {{-- Muestra un error de validación si la imagen es inválida --}}
+                               
                                 @error('avatar')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                             </div>
                         </div>
 
-                        <!-- Columna para los datos del usuario -->
+                 
                         <div class="col-md-9">
                             <div class="form-group mb-3">
                                 <label class="form-label fw-bold">Nombre:</label>
@@ -82,7 +82,7 @@
             </div>
         </div>
     </div>
-    {{-- Cargamos los scripts de Bootstrap --}}
+  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
