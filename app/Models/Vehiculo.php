@@ -19,9 +19,14 @@ class Vehiculo extends Model
         'color',
         'año',
         'combustible',
-        'motivodemantenimiento',
         'fechadeinicio',
         'estado',
         'imagen',
+        'propietario_id'
     ];
+
+    public function propietario()
+    {
+        return $this->belongsTo(Usuario::class, 'propietario_id');
+    }
 }

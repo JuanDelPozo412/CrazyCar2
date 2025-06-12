@@ -30,9 +30,16 @@
                     @foreach ($columns as $colKey => $colLabel)
                         @php
                             $key = strtolower(str_replace(' ', '', $colLabel));
+                            if ($key === 'año') {
+                                $key = 'año';
+                            } elseif ($key === 'fechadeinicio') {
+                                $key = 'fechadeinicio';
+                            } elseif ($key === 'motivodemantenimiento') {
+                                $key = 'motivodemantenimiento';
+                            }
                             $value = $vehicle->$key ?? '';
                         @endphp
-                        @if ($colKey === 'estado' && $maintenance)
+                        @if ($colKey === 'Estado' && $maintenance)
                             <td>
                                 @switch($value)
                                     @case('Pendiente')
@@ -47,10 +54,16 @@
                                         <span class="badge bg-warning text-white">En Proceso</span>
                                     @break
 
+                                    @case('Venta')
+                                        <span class="badge bg-info text-white">En Venta</span>
+                                    @break
+
                                     @default
                                         {{ $value }}
                                 @endswitch
                             </td>
+                        @elseif ($colKey === 'Precio')
+                            <td>${{ number_format($value, 2, ',', '.') }}</td>
                         @else
                             <td>{{ $value }}</td>
                         @endif
@@ -58,6 +71,10 @@
 
                     <td>
                         <x-dashboard.action-buttons :vehicle="$vehicle" :maintenance="$maintenance" />
+
+                        <x-dashboard.vehicle-detail-modal :vehicle="$vehicle"
+                            modalId="{{ $maintenance ? 'vehicleMaintenanceDetailModal' : 'vehicleSellDetailModal' }}"
+                            modalTitle="Detalles del Vehículo" />
                     </td>
                 </tr>
             @endforeach

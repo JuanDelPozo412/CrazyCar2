@@ -46,7 +46,6 @@
                         'Modelo' => 'Modelo',
                         'Tipo' => 'Tipo',
                         'Color' => 'Color',
-                        'Año' => 'Año',
                         'Combustible' => 'Combustible',
                         'Stock' => 'Stock',
                         'Precio' => 'Precio',
@@ -59,7 +58,6 @@
                         'Modelo' => 'Modelo',
                         'Tipo' => 'Tipo',
                         'Color' => 'Color',
-                        'Año' => 'Año',
                         'Combustible' => 'Combustible',
                         'Estado' => 'Estado',
                     ]" :vehicles="$vehiclesInMaintenance" maintenance />
