@@ -7,7 +7,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -16,7 +15,7 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $consultas = $user->consultas()->latest()->get();
-        
+
         return view('profile.show', [
             'user' => $user,
             'consultas' => $consultas,
@@ -33,19 +32,11 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
-        
+
         $user->fill($request->validated());
-        
-        if ($request->hasFile('avatar')) {
-            if ($user->profile_photo_path) {
-                Storage::disk('public')->delete($user->profile_photo_path);
-            }
-            $path = $request->file('avatar')->store('avatars', 'public');
-            $user->profile_photo_path = $path;
-        }
 
         if ($user->isDirty('email')) {
-            $user->email = $user->getOriginal('email'); 
+            $user->email = $user->getOriginal('email');
         }
 
         $user->save();
