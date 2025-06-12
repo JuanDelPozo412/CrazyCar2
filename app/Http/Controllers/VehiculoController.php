@@ -9,11 +9,20 @@ use Illuminate\Support\Facades\Auth;
 class VehiculoController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
-        $vehiclesForSale = Vehiculo::where('estado', 'Venta')->get();
+        $search = $request->input('busqueda_vehiculo');
+
+        //Panel de vehiculos en venta, busqueda por patente, marca o tipo
+        $vehiclesForSale = Vehiculo::where('estado', 'Venta')
+        ->when($search, function ($query, $search) {
+            $query->where('patente', 'like', "%{$search}%")
+                ->orWhere('marca', 'like', "%{$search}%")
+                ->orWhere('tipo', 'like', "%{$search}%");
+        })
+        ->get();
 
         $vehiclesInMaintenance = Vehiculo::where('estado', 'Mantenimiento')->get();
 
