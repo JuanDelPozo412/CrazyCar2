@@ -4,13 +4,17 @@
     <h4 class="text-center text-sm-start w-100">{{ $title }}</h4>
 
     <div class="d-flex gap-2 w-100 justify-content-center justify-content-sm-end mt-3 mt-sm-0">
-        <div class="input-group w-auto">
-            <input type="text" class="form-control" placeholder="{{ $searchPlaceholder }}"
-                aria-label="{{ $searchPlaceholder }}" aria-describedby="search-addon-{{ $tableId }}" />
-            <span class="input-group-text" id="search-addon-{{ $tableId }}">
+        <form method="GET" action="{{ route('vehiculos') }}" class="input-group w-auto">
+            <input type="text" name="busqueda_vehiculo" class="form-control"
+                placeholder="{{ $searchPlaceholder }}"
+                value="{{ request('busqueda_vehiculo') }}"
+                aria-label="{{ $searchPlaceholder }}"
+                aria-describedby="search-addon-{{ $tableId }}" />
+                
+            <button type="submit" class="input-group-text" id="search-addon-{{ $tableId }}">
                 <i class="bi bi-search"></i>
-            </span>
-        </div>
+            </button>
+        </form>
     </div>
 </div>
 

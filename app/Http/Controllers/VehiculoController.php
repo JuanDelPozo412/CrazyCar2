@@ -9,13 +9,34 @@ use Illuminate\Support\Facades\Auth;
 class VehiculoController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
-        $vehiclesForSale = Vehiculo::where('estado', 'Venta')->get();
+        $searchVenta = $request->input('busqueda_venta');
+        $searchMantenimiento = $request->input('busqueda_mantenimiento');
 
-        $vehiclesInMaintenance = Vehiculo::where('estado', 'Mantenimiento')->get();
+        //Panel de vehiculos en venta, busqueda por patente, marca o tipo
+        $vehiclesForSale = Vehiculo::where('estado', 'Venta')
+            ->when($searchVenta, function ($query, $searchVenta) {
+                $query->where(function ($q) use ($searchVenta) {
+                    $q->where('patente', 'like', "%{$searchVenta}%")
+                        ->orWhere('marca', 'like', "%{$searchVenta}%")
+                        ->orWhere('tipo', 'like', "%{$searchVenta}%");
+                });
+            })
+            ->get();
+
+        // Vehiculos en mantenimiento con filtro por patente, marca o tipo
+        $vehiclesInMaintenance = Vehiculo::where('estado', 'Mantenimiento')
+            ->when($searchMantenimiento, function ($query, $searchMantenimiento) {
+                $query->where(function ($q) use ($searchMantenimiento) {
+                    $q->where('patente', 'like', "%{$searchMantenimiento}%")
+                        ->orWhere('marca', 'like', "%{$searchMantenimiento}%")
+                        ->orWhere('tipo', 'like', "%{$searchMantenimiento}%");
+                });
+            })
+            ->get();
 
 
         return view('dashboard.employee.vehicles', [
