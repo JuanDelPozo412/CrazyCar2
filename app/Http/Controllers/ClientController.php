@@ -13,10 +13,14 @@ class ClientController extends Controller
     {
         $user = Auth::user();
 
-   
+
+        //Obtener filtro de busqueda clients
         $search = $request->input('busqueda');
 
-    
+        //filtro de busqueda consultas
+        $searchConsulta = $request->input('busqueda_consulta');
+
+        //Panel de clientes con filtro por nombre, apellido o DNI
         $clients = Usuario::where('rol', 'cliente')
         ->when($search, function ($query, $search) { 
                 $query->where(function ($q) use ($search) {
@@ -27,7 +31,16 @@ class ClientController extends Controller
             })
             ->get();
 
-        $consultas = Consulta::with(['cliente', 'empleado', 'vehiculo'])->get();
+        //Panel de consultas con filtro por nombre, apellido y tipo
+        $consultas = Consulta::with(['cliente', 'empleado', 'vehiculo'])
+        ->when($searchConsulta, function ($query, $searchConsulta) {
+            $query->whereHas('cliente', function ($q) use ($searchConsulta) {
+                $q->where('name', 'like', "%{$searchConsulta}%")
+                ->orWhere('apellido', 'like', "%{$searchConsulta}%");
+            })
+            ->orWhere('tipo', 'like', "%{$searchConsulta}%");
+        })
+        ->get();
 
         return view('dashboard.employee.clients', [
             'clients' => $clients,

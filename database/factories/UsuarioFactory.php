@@ -24,6 +24,8 @@ class UsuarioFactory extends Factory
             'email' => $this->faker->unique()->email(),
             'password' => bcrypt('password'),
             'dni' => $this->faker->unique()->numerify('########'),
+            'telefono' => $this->faker->unique()->numerify('########'),
+            'direccion' => $this->faker->address(),
             'rol' => 'cliente',
         ];
     }

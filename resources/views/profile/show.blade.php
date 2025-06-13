@@ -14,6 +14,7 @@
         <nav class="navbar navbar-expand-lg bg-white shadow-sm">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ route('profile.show') }}">Mi Perfil</a>
+                <a class="navbar-brand" href="{{ route('home') }}">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -37,7 +38,12 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{{ $user->profile_photo_url ?? 'https://via.placeholder.com/150/808080/FFFFFF?text=' . $user->name[0] }}" alt="Foto de perfil" class="rounded-circle" width="150" />
+                                @if ($user->profile_photo_path)
+                               <img src="{{ asset('storage/' . $user->profile_photo_path) }}" alt="Foto de perfil" class="rounded-circle" width="150" style="height: 150px; object-fit: cover;"/>
+                                @else
+   
+                                <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil" class="rounded-circle" width="150" />
+                                 @endif
                                 <div class="mt-3">
                                     <h4>{{ $user->name }} {{ $user->apellido }}</h4>
                                     <p class="text-secondary mb-1">{{ $user->rol }}</p>
@@ -57,8 +63,8 @@
                             <div class="row"><div class="col-sm-3"><h6 class="mb-0">Nombre completo</h6></div><div class="col-sm-9 text-secondary">{{ $user->name }} {{ $user->apellido }}</div></div><hr />
                             <div class="row"><div class="col-sm-3"><h6 class="mb-0">Email</h6></div><div class="col-sm-9 text-secondary">{{ $user->email }}</div></div><hr />
                             <div class="row"><div class="col-sm-3"><h6 class="mb-0">DNI</h6></div><div class="col-sm-9 text-secondary">{{ $user->dni }}</div></div><hr />
-                            <div class="row"><div class="col-sm-3"><h6 class="mb-0">Teléfono</h6></div><div class="col-sm-9 text-secondary">{{ $user->telefono ?? 'No especificado' }}</div></div><hr />
-                            <div class="row"><div class="col-sm-3"><h6 class="mb-0">Dirección</h6></div><div class="col-sm-9 text-secondary">{{ $user->direccion ?? 'No especificada' }}</div></div>
+                            <div class="row"><div class="col-sm-3"><h6 class="mb-0">Teléfono</h6></div><div class="col-sm-9 text-secondary">{{ $user->telefono }}</div></div><hr />
+                            <div class="row"><div class="col-sm-3"><h6 class="mb-0">Dirección</h6></div><div class="col-sm-9 text-secondary">{{ $user->direccion }}</div></div>
                         </div>
                     </div>
 

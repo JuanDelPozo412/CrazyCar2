@@ -14,6 +14,8 @@ Route::middleware(['auth', 'empleado'])->group(function () {
     Route::get('/dashboard/employee/vehicles/{id}', [VehiculoController::class, 'show'])->name('vehiculos.show');
     Route::delete('/dashboard/employee/vehicles/{id}', [VehiculoController::class, 'destroy'])->name('vehiculos.destroy');
 
+    Route::get('/dashboard/employee/consultas', [ConsultaController::class, 'index'])->name('consultas.listado');
+
     Route::post('/dashboard/employee/consultas/{consulta}/actualizar', [ConsultaController::class, 'actualizar'])
         ->name('consultas.actualizar');
 });

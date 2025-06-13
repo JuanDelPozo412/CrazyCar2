@@ -49,27 +49,12 @@
                     </div>
                 </div>
 
-                <x-dashboard.vehicle-table title="Vehículos en venta" searchPlaceholder="Buscar vehículo..."
-                    tableId="tableVenta" :columns="[
-                        'Marca' => 'Marca',
-                        'Modelo' => 'Modelo',
-                        'Tipo' => 'Tipo',
-                        'Color' => 'Color',
-                        'Combustible' => 'Combustible',
-                        'Stock' => 'Stock',
-                        'Precio' => 'Precio',
-                    ]" :vehicles="$vehiclesForSale" />
+                <x-dashboard.vehicle-sale-table :vehicles="$vehiclesForSale" title="Vehículos en venta"
+                    searchPlaceholder="Buscar por patente, marca o tipo" tableId="venta" />
 
-                <x-dashboard.vehicle-table title="Vehículos en mantenimiento" searchPlaceholder="Buscar vehículo..."
-                    tableId="tableMantenimiento" :columns="[
-                        'Patente' => 'Patente',
-                        'Marca' => 'Marca',
-                        'Modelo' => 'Modelo',
-                        'Tipo' => 'Tipo',
-                        'Color' => 'Color',
-                        'Combustible' => 'Combustible',
-                        'Estado' => 'Estado',
-                    ]" :vehicles="$vehiclesInMaintenance" maintenance />
+                <x-dashboard.vehicle-maintenance-table :vehicles="$vehiclesInMaintenance" title="Vehículos en mantenimiento"
+                    searchPlaceholder="Buscar por patente, marca o tipo" tableId="mantenimiento" maintenance />
+
             </main>
 
             <x-dashboard.delete-modal id="confirmDeleteVehicle"
