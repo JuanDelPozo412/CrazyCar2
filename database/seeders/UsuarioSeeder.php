@@ -17,6 +17,8 @@ class UsuarioSeeder extends Seeder
             'email' => 'bruno@gmail.com',
             'password' => Hash::make('bruno123'),
             'dni' => '12345678',
+            'telefono' => '2047466264',
+            'direccion' => 'Calle 123',
             'rol' => 'empleado',
         ]);
 
