@@ -5,14 +5,23 @@ namespace Database\Seeders;
 use App\Models\Usuario;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
+        Usuario::create([
+            'name' => 'Bruno',
+            'apellido' => 'García',
+            'email' => 'bruno@gmail.com',
+            'password' => Hash::make('bruno123'),
+            'dni' => '12345678',
+            'rol' => 'empleado',
+        ]);
+
+
+
         Usuario::factory()->count(10)->create();
     }
 }

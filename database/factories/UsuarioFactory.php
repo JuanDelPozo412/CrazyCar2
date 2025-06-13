@@ -27,4 +27,13 @@ class UsuarioFactory extends Factory
             'rol' => 'cliente',
         ];
     }
+
+    public function empleado(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'rol' => 'empleado',
+            ];
+        });
+    }
 }
