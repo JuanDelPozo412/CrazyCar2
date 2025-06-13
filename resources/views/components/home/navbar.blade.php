@@ -12,7 +12,7 @@
             <li><a href="{{ url('/') }}" class="nav-link px-2 link-secondary">Inicio</a></li>
             <li><a href="{{ url('/galeria') }}" class="nav-link px-2">Galería</a></li>
             <li><a href="{{ url('/servicios') }}" class="nav-link px-2">Servicios</a></li>
-            <li><a href="{{ url('/contacto') }}" class="nav-link px-2">Contacto</a></li>
+            {{-- <li><a href="{{ url('/contacto') }}" class="nav-link px-2">Contacto</a></li> --}}
         </ul>
 
         <div class="col-md-3 text-end">
