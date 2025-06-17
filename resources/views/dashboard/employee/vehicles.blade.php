@@ -57,11 +57,27 @@
 
             </main>
 
-            <x-dashboard.delete-modal id="confirmDeleteVehicle"
-                message="¿Está seguro de que desea eliminar este Vehículo?" />
+            <x-dashboard.vehicle-table title="Vehículos en venta" searchPlaceholder="Buscar vehículo..."
+                tableId="tableVenta" :columns="[
+                    'Marca' => 'Marca',
+                    'Modelo' => 'Modelo',
+                    'Tipo' => 'Tipo',
+                    'Color' => 'Color',
+                    'Combustible' => 'Combustible',
+                    'Stock' => 'Stock',
+                    'Precio' => 'Precio',
+                ]" :vehicles="$vehiclesForSale" />
 
-            <x-dashboard.delete-modal id="confirmDeleteMaintenance"
-                message="¿Está seguro de que desea eliminar este Mantenimiento?" />
+            <x-dashboard.vehicle-table title="Vehículos en mantenimiento" searchPlaceholder="Buscar vehículo..."
+                tableId="tableMantenimiento" :columns="[
+                    'Patente' => 'Patente',
+                    'Marca' => 'Marca',
+                    'Modelo' => 'Modelo',
+                    'Tipo' => 'Tipo',
+                    'Color' => 'Color',
+                    'Combustible' => 'Combustible',
+                    'Estado' => 'Estado',
+                ]" :vehicles="$vehiclesInMaintenance" maintenance />
         </div>
     </div>
 

@@ -10,10 +10,8 @@
 
     <div class="d-flex gap-2 w-100 justify-content-center justify-content-sm-end mt-3 mt-sm-0">
         <form method="GET" action="{{ route('vehiculos') }}" class="input-group w-auto">
-            <input type="text" name="busqueda_venta" class="form-control"
-                placeholder="{{ $searchPlaceholder }}"
-                value="{{ request('busqueda_venta') }}"
-                aria-label="{{ $searchPlaceholder }}"
+            <input type="text" name="busqueda_venta" class="form-control" placeholder="{{ $searchPlaceholder }}"
+                value="{{ request('busqueda_venta') }}" aria-label="{{ $searchPlaceholder }}"
                 aria-describedby="search-addon-{{ $tableId }}" />
 
             <button type="submit" class="input-group-text" id="search-addon-{{ $tableId }}">
@@ -27,7 +25,6 @@
     <table id="{{ $tableId }}" class="table table-striped table-bordered">
         <thead class="table-dark">
             <tr>
-                <th>Patente</th>
                 <th>Marca</th>
                 <th>Modelo</th>
                 <th>Tipo</th>
@@ -42,7 +39,6 @@
         <tbody>
             @forelse ($vehicles as $vehicle)
                 <tr>
-                    <td>{{ $vehicle->patente }}</td>
                     <td>{{ $vehicle->marca }}</td>
                     <td>{{ $vehicle->modelo }}</td>
                     <td>{{ $vehicle->tipo }}</td>
