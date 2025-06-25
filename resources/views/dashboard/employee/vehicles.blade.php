@@ -35,6 +35,17 @@
                         <div>
                             <h2 class="mb-2">Panel Vehículos</h2>
                             <p class="mb-3 fs5">Bienvenido {{ $name }}</p>
+
+                            <button type="button" class="btn mb-3 text-white"
+                                style="background-color: rgba(13, 110, 253, 0.8)" data-bs-toggle="modal"
+                                data-bs-target="#createVehicleModal">
+                                <i class="bi bi-plus-circle me-2"></i> Crear Vehículo
+                            </button>
+                            <button type="button" class="btn mb-3 text-white"
+                                style="background-color: rgba(23, 162, 184, 0.9)" data-bs-toggle="modal"
+                                data-bs-target="#createMaintenanceModal">
+                                <i class="bi bi-tools me-2"></i> Crear Mantenimiento
+                            </button>
                         </div>
                     </div>
 

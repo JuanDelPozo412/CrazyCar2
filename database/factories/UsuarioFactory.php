@@ -26,6 +26,7 @@ class UsuarioFactory extends Factory
             'dni' => $this->faker->unique()->numerify('########'),
             'telefono' => $this->faker->unique()->numerify('########'),
             'direccion' => $this->faker->address(),
+            'imagen' => 'icon-person.jpg',
             'rol' => 'cliente',
         ];
     }

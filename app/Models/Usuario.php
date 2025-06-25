@@ -18,6 +18,7 @@ class Usuario extends Authenticatable
         'dni',
         'telefono',
         'direccion',
+        'imagen',
         'rol',
     ];
 

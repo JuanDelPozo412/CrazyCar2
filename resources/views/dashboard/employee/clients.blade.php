@@ -35,6 +35,17 @@
                         <div>
                             <h2 class="mb-2">Panel Clientes</h2>
                             <p class="mb-3">Bienvenido {{ $name }}</p>
+
+                            <button type="button" class="btn mb-3 text-white"
+                                style="background-color: rgba(13, 110, 253, 0.8)" data-bs-toggle="modal"
+                                data-bs-target="#createClientModal">
+                                <i class="bi bi-person-plus me-2"></i> Crear Cliente
+                            </button>
+                            <button type="button" class="btn mb-3 text-white"
+                                style="background-color: rgba(23, 162, 184, 0.9)" data-bs-toggle="modal"
+                                data-bs-target="#createInquiryModal">
+                                <i class="bi bi-chat-dots"></i> Crear Consulta
+                            </button>
                         </div>
                     </div>
 
@@ -43,8 +54,8 @@
                             <x-dashboard.stat-card icon="bi bi-person-fill" label="Cantidad de Clientes"
                                 :value="$clientesCount" color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
 
-                            <x-dashboard.stat-card icon="bi bi-chat-dots" label="Cantidad de Consultas"
-                                :value="$consultasCount" color="rgba(23, 162, 184, 0.9)" href="#vehiclesMaintenance" />
+                            <x-dashboard.stat-card icon="bi bi-chat-dots" label="Consultas Activas" :value="$consultasCount"
+                                color="rgba(23, 162, 184, 0.9)" href="#vehiclesMaintenance" />
 
                         </div>
                     </div>
@@ -58,10 +69,25 @@
                     searchPlaceholder="Buscar Cliente" tableId="inquiry" />
 
             </main>
+
+            <x-dashboard.delete-modal id="confirmDeleteInquiry"
+                message="¿Está seguro de que desea eliminar esta consulta?" />
+
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const modalInquiry = document.getElementById('confirmDeleteInquiry');
+        modalInquiry?.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const inquiryId = button.getAttribute('data-id');
+            const form = modalInquiry.querySelector('form');
+
+            form.action = `/dashboard/employee/consultas/${inquiryId}`;
+        });
+    </script>
 
     @stack('scripts')
 </body>
