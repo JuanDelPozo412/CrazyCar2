@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Consulta;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -12,7 +11,7 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        
+
         $consultasMensuales = Consulta::where('empleado_id', $user->id)
             ->where('estado', 1)
             ->selectRaw('MONTH(fecha) as mes, COUNT(*) as total')
@@ -20,7 +19,7 @@ class DashboardController extends Controller
             ->pluck('total', 'mes')
             ->toArray();
 
-     
+
         $data = array_fill(1, 12, 0);
         foreach ($consultasMensuales as $mes => $total) {
             $data[(int)$mes] = $total;
