@@ -10,6 +10,11 @@
                     aria-label="Cerrar"></button>
             </div>
             <div class="modal-body text-start">
+                <div class="text-center mb-4">
+                    <img src="{{ asset('storage/images/' . ($client->imagen ?? 'icon-person.jpg')) }}"
+                        alt="Imagen de {{ $client->name }}" class="rounded-circle shadow"
+                        style="width:120px; height:120px; object-fit:cover;">
+                </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><strong>Nombre:</strong> {{ $client->name }}</li>
                     <li class="list-group-item"><strong>Apellido:</strong> {{ $client->apellido }}</li>

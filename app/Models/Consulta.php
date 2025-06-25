@@ -19,6 +19,7 @@ class Consulta extends Model
         'email',
         'descripcion',
         'titulo',
+        'is_deleted',
     ];
 
     public function cliente()
@@ -34,5 +35,16 @@ class Consulta extends Model
     public function vehiculo()
     {
         return $this->belongsTo(Vehiculo::class, 'vehiculo_id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_deleted', false)
+            ->where('estado', 0);
+    }
+
+    public function isDeleted()
+    {
+        return $this->is_deleted;
     }
 }

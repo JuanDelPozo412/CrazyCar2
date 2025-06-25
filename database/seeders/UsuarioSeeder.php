@@ -19,6 +19,7 @@ class UsuarioSeeder extends Seeder
             'dni' => '12345678',
             'telefono' => '2047466264',
             'direccion' => 'Calle 123',
+            'imagen' => 'icon-person.jpg',
             'rol' => 'empleado',
         ]);
 

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('dni')->nullable();
             $table->integer('telefono')->nullable();
             $table->string('direccion')->nullable();
+            $table->string('imagen')->default('icon-person.jpg')->nullable(false);
             $table->string('rol')->default('cliente');
         });
     }

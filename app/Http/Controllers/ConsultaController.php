@@ -12,9 +12,15 @@ class ConsultaController extends Controller
     public function index()
     {
 
-        $consultas = Consulta::with(['cliente', 'empleado', 'vehiculo'])->get();
+        $consultas = Consulta::with(['cliente', 'empleado', 'vehiculo'])
+            ->active()
+            ->get();
+
+        $consultasCount = Consulta::active()->count();
+
         return view('dashboard.employee.clients', [
             'inquiries' => $consultas,
+            'consultasCount' => $consultasCount,
         ]);
     }
 
@@ -37,5 +43,13 @@ class ConsultaController extends Controller
 
 
         return redirect()->route('clientes')->with('success', 'Consulta actualizada correctamente.');
+    }
+
+    public function destroy(Consulta $consulta)
+    {
+        $consulta->is_deleted = true;
+        $consulta->save();
+
+        return redirect()->route('clientes')->with('success', 'Consulta marcada como eliminada correctamente.');
     }
 }

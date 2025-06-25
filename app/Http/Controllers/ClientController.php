@@ -9,38 +9,34 @@ use App\Models\Consulta;
 
 class ClientController extends Controller
 {
+
     public function index(Request $request)
     {
         $user = Auth::user();
 
-
-        //Obtener filtro de busqueda clients
         $search = $request->input('busqueda');
-
-        //filtro de busqueda consultas
         $searchConsulta = $request->input('busqueda_consulta');
 
-        //Panel de clientes con filtro por nombre, apellido o DNI
         $clients = Usuario::where('rol', 'cliente')
-        ->when($search, function ($query, $search) { 
+            ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
                     $q->where('name', 'like', "%{$search}%")
-                      ->orWhere('apellido', 'like', "%{$search}%")
-                      ->orWhere('dni', 'like', "%{$search}%");
+                        ->orWhere('apellido', 'like', "%{$search}%")
+                        ->orWhere('dni', 'like', "%{$search}%");
                 });
             })
             ->get();
 
-        //Panel de consultas con filtro por nombre, apellido y tipo
         $consultas = Consulta::with(['cliente', 'empleado', 'vehiculo'])
-        ->when($searchConsulta, function ($query, $searchConsulta) {
-            $query->whereHas('cliente', function ($q) use ($searchConsulta) {
-                $q->where('name', 'like', "%{$searchConsulta}%")
-                ->orWhere('apellido', 'like', "%{$searchConsulta}%");
+            ->active()
+            ->when($searchConsulta, function ($query, $searchConsulta) {
+                $query->whereHas('cliente', function ($q) use ($searchConsulta) {
+                    $q->where('name', 'like', "%{$searchConsulta}%")
+                        ->orWhere('apellido', 'like', "%{$searchConsulta}%");
+                })
+                    ->orWhere('tipo', 'like', "%{$searchConsulta}%");
             })
-            ->orWhere('tipo', 'like', "%{$searchConsulta}%");
-        })
-        ->get();
+            ->get();
 
         return view('dashboard.employee.clients', [
             'clients' => $clients,
@@ -50,5 +46,27 @@ class ClientController extends Controller
             'name' => $user->name,
             'role' => $user->rol,
         ]);
+    }
+
+
+    public function update(Request $request, Usuario $cliente)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'dni' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
+            'imagen' => 'nullable|image|max:2048',
+        ]);
+
+        // Si se subió imagen, reemplazar
+        if ($request->hasFile('imagen')) {
+            $imagenPath = $request->file('imagen')->store('images', 'public');
+            $validated['imagen'] = basename($imagenPath);
+        }
+
+        $cliente->update($validated);
+
+        return redirect()->route('clientes')->with('success', 'Cliente actualizado correctamente.');
     }
 }
