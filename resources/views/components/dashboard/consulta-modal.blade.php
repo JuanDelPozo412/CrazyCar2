@@ -25,7 +25,7 @@
                         <li class="list-group-item">
                             <strong>Estado:</strong>
                             <select class="form-select" name="estado">
-                                <option value="en-proceso" {{ !$consulta->estado ? 'selected' : '' }}>En proceso
+                                <option value="en-proceso" {{ !$consulta->estado ? 'selected' : '' }}>Pendiente
                                 </option>
                                 <option value="finalizado" {{ $consulta->estado ? 'selected' : '' }}>Finalizada
                                 </option>

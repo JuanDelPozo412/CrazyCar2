@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard Empleado</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -30,6 +30,36 @@
             <x-dashboard.navbar :name="$name" :role="$role" />
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                    </div>
+                @endif
+
+
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                    </div>
+                @endif
+
                 <div class="row align-items-center mb-5" style="min-height: 170px">
                     <div class="col-md-6 d-flex flex-column justify-content-center">
                         <div>
@@ -54,12 +84,11 @@
                             <x-dashboard.stat-card icon="bi bi-person-fill" label="Cantidad de Clientes"
                                 :value="$clientesCount" color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
 
-                            <x-dashboard.stat-card icon="bi bi-chat-dots" label="Consultas Activas" :value="$consultasCount"
+                            <x-dashboard.stat-card icon="bi bi-chat-dots" label="Cantidad Consultas" :value="$consultasCount"
                                 color="rgba(23, 162, 184, 0.9)" href="#vehiclesMaintenance" />
 
                         </div>
                     </div>
-
                 </div>
 
                 <x-dashboard.client-table :clients="$clients" title="Clientes registrados"
@@ -75,6 +104,9 @@
 
         </div>
     </div>
+
+    <x-dashboard.modal-create-client />
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

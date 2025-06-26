@@ -10,6 +10,7 @@ Route::middleware(['auth', 'empleado'])->group(function () {
     Route::get('/dashboard/employee', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/dashboard/employee/clients', [ClientController::class, 'index'])->name('clientes');
+    Route::post('/dashboard/employee/clients', [ClientController::class, 'store'])->name('clientes.store');
     Route::put('/dashboard/employee/clients/{cliente}', [ClientController::class, 'update'])->name('clientes.update');
 
     Route::get('/dashboard/employee/vehicles', [VehiculoController::class, 'index'])->name('vehiculos');
