@@ -31,16 +31,13 @@ class ConsultaController extends Controller
             'tomar' => 'nullable|in:si,no',
         ]);
 
-
         $consulta->estado = $request->estado === 'finalizado' ? 1 : 0;
-
 
         if ($request->tomar === 'si' && !$consulta->empleado_id) {
             $consulta->empleado_id = Auth::id();
         }
 
         $consulta->save();
-
 
         return redirect()->route('clientes')->with('success', 'Consulta actualizada correctamente.');
     }

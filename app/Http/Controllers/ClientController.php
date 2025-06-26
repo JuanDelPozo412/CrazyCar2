@@ -17,6 +17,9 @@ class ClientController extends Controller
         $search = $request->input('busqueda');
         $searchConsulta = $request->input('busqueda_consulta');
 
+        $totalClientesCount = Usuario::where('rol', 'cliente')->count();
+        $totalConsultasCount = Consulta::where('is_deleted', 0)->count();
+
         $clients = Usuario::where('rol', 'cliente')
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
@@ -28,6 +31,7 @@ class ClientController extends Controller
             ->get();
 
         $consultas = Consulta::with(['cliente', 'empleado', 'vehiculo'])
+            ->where('is_deleted', false)
             ->active()
             ->when($searchConsulta, function ($query, $searchConsulta) {
                 $query->whereHas('cliente', function ($q) use ($searchConsulta) {
@@ -41,11 +45,46 @@ class ClientController extends Controller
         return view('dashboard.employee.clients', [
             'clients' => $clients,
             'inquiries' => $consultas,
-            'clientesCount' => $clients->count(),
-            'consultasCount' => $consultas->count(),
+            'clientesCount' => $totalClientesCount,
+            'consultasCount' => $totalConsultasCount,
             'name' => $user->name,
             'role' => $user->rol,
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'email' => 'required|email|unique:usuarios,email',
+            'password' => 'required|string|min:6|confirmed',
+            'dni' => 'required|string|max:20|unique:usuarios,dni',
+            'telefono' => 'nullable|string|max:20',
+            'direccion' => 'nullable|string|max:255',
+            'imagen' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            if ($file->getError() == UPLOAD_ERR_INI_SIZE) {
+                return back()->withErrors(['imagen' => 'La imagen excede el tamaño máximo permitido por el servidor.']);
+            }
+        }
+
+        if ($request->hasFile('imagen')) {
+            $imagenPath = $request->file('imagen')->store('images', 'public');
+            $validated['imagen'] = basename($imagenPath);
+        } else {
+            $validated['imagen'] = 'icon-person.jpg';
+        }
+
+        $validated['password'] = bcrypt($validated['password']);
+        $validated['rol'] = 'cliente';
+
+        Usuario::create($validated);
+
+        return redirect()->route('clientes')->with('success', 'Cliente creado correctamente.');
     }
 
 
@@ -59,7 +98,6 @@ class ClientController extends Controller
             'imagen' => 'nullable|image|max:2048',
         ]);
 
-        // Si se subió imagen, reemplazar
         if ($request->hasFile('imagen')) {
             $imagenPath = $request->file('imagen')->store('images', 'public');
             $validated['imagen'] = basename($imagenPath);

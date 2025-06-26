@@ -20,7 +20,14 @@
                     <li class="list-group-item"><strong>Apellido:</strong> {{ $client->apellido }}</li>
                     <li class="list-group-item"><strong>DNI:</strong> {{ $client->dni }}</li>
                     <li class="list-group-item"><strong>Email:</strong> {{ $client->email }}</li>
+                    <li class="list-group-item"><strong>Teléfono:</strong> {{ $client->telefono ?? 'No registrado' }}
+                    </li>
+                    <li class="list-group-item"><strong>Dirección:</strong> {{ $client->direccion ?? 'No registrada' }}
+                    </li>
+                    <li class="list-group-item"><strong>Fecha de registro:</strong>
+                        {{ $client->created_at->format('d/m/Y') }}</li>
                 </ul>
+
             </div>
             <div class="modal-footer bg-light">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
