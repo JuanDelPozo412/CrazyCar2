@@ -35,47 +35,33 @@
         </thead>
         <tbody>
             @forelse ($clients as $index => $client)
-                @if ($index < $initialDisplayCount)
-                    <tr>
-                        <td class="text-center">
-                            <img src="{{ asset('storage/images/' . ($client->imagen ?? 'icon-person.jpg')) }}"
-                                alt="Imagen de {{ $client->name }}" class="rounded-circle"
-                                style="width:40px; height:40px; object-fit:cover;">
-                        </td>
+                <tr @class([
+                    'hidden-client-row d-none' => $index >= $initialDisplayCount,
+                ])>
+                    <td class="text-center">
+                        <img src="{{ asset('storage/images/' . ($client->imagen ?? 'icon-person.jpg')) }}"
+                            alt="Imagen de {{ $client->name }}" class="rounded-circle"
+                            style="width:40px; height:40px; object-fit:cover;">
+                    </td>
+                    <td>{{ $client->name }}</td>
+                    <td>{{ $client->apellido }}</td>
+                    <td>{{ $client->dni }}</td>
+                    <td>{{ $client->email }}</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm text-white btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#clientDetailModal{{ $client->id }}">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="btn btn-sm text-white" style="background-color: rgba(23, 162, 184, 0.9)"
+                            data-bs-toggle="modal" data-bs-target="#clientEditModal{{ $client->id }}">
+                            <i class="bi bi-pencil"></i>
+                        </button>
 
-                        <td>{{ $client->name }}</td>
-                        <td>{{ $client->apellido }}</td>
-                        <td>{{ $client->dni }}</td>
-                        <td>{{ $client->email }}</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm text-white btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#clientDetailModal{{ $client->id }}">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <x-dashboard.client-modal :client="$client" />
-                @else
-                    <tr class="collapse" id="collapseClientRow{{ $client->id }}"
-                        data-bs-parent="#{{ $tableId }}-body-collapse">
-                        <td class="text-center">
-                            <img src="{{ asset('storage/images/' . ($client->imagen ?? 'icon-person.jpg')) }}"
-                                alt="Imagen de {{ $client->name }}" class="rounded-circle"
-                                style="width:40px; height:40px; object-fit:cover;">
-                        </td>
-                        <td>{{ $client->name }}</td>
-                        <td>{{ $client->apellido }}</td>
-                        <td>{{ $client->dni }}</td>
-                        <td>{{ $client->email }}</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm text-white btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#clientDetailModal{{ $client->id }}">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <x-dashboard.client-modal :client="$client" />
-                @endif
+                    </td>
+                </tr>
+                <x-dashboard.client-modal :client="$client" />
+                <x-dashboard.client-edit-modal :client="$client" />
+
             @empty
                 <tr>
                     <td colspan="6" class="text-center">No hay clientes disponibles.</td>
@@ -100,15 +86,9 @@
             let expanded = false;
 
             toggleButton?.addEventListener('click', function() {
-                const rows = document.querySelectorAll('tr.collapse');
+                const rows = document.querySelectorAll('.hidden-client-row');
 
-                rows.forEach(row => {
-                    if (expanded) {
-                        row.classList.remove('show');
-                    } else {
-                        row.classList.add('show');
-                    }
-                });
+                rows.forEach(row => row.classList.toggle('d-none'));
 
                 expanded = !expanded;
                 toggleButton.textContent = expanded ? 'Ocultar clientes' : 'Mostrar más clientes';

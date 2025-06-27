@@ -38,50 +38,27 @@
         </thead>
         <tbody>
             @forelse ($inquiries as $index => $consulta)
-                @if ($index < $initialDisplayCount)
-                    <tr>
-                        <td>{{ $consulta->cliente?->name ?? 'No asignado' }}</td>
-                        <td>{{ $consulta->cliente?->apellido ?? 'No asignado' }}</td>
-                        <td>{{ $consulta->cliente?->email ?? 'No asignado' }}</td>
-                        <td>{{ $consulta->tipo }}</td>
-                        <td>{{ $consulta->estado ? 'Finalizado' : 'Pendiente' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($consulta->fecha)->format('d/m/Y') }}</td>
-                        <td>{{ $consulta->empleado?->name ?? 'No asignado' }}</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm text-white" style="background-color: rgba(23, 162, 184, 0.9)"
-                                data-bs-toggle="modal" data-bs-target="#inquiryDetail{{ $consulta->id }}">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-secondary btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#confirmDeleteInquiry" data-id="{{ $consulta->id }}">
-                                <i class="bi bi-trash"></i>
-                            </button>
-
-                        </td>
-                    </tr>
-                @else
-                    <tr class="collapse" id="collapseInquiryRow{{ $consulta->id }}"
-                        data-bs-parent="#{{ $tableId }}-body-collapse">
-                        <td>{{ $consulta->cliente?->name ?? 'No asignado' }}</td>
-                        <td>{{ $consulta->cliente?->apellido ?? 'No asignado' }}</td>
-                        <td>{{ $consulta->cliente?->email ?? 'No asignado' }}</td>
-                        <td>{{ $consulta->tipo }}</td>
-                        <td>{{ $consulta->estado ? 'Finalizado' : 'Pendiente' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($consulta->fecha)->format('d/m/Y') }}</td>
-                        <td>{{ $consulta->empleado?->name ?? 'No asignado' }}</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm text-white" style="background-color: rgba(23, 162, 184, 0.9)"
-                                data-bs-toggle="modal" data-bs-target="#inquiryDetail{{ $consulta->id }}">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-secondary btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#confirmDeleteInquiry" data-id="{{ $consulta->id }}">
-                                <i class="bi bi-trash"></i>
-                            </button>
-
-                        </td>
-                    </tr>
-                @endif
+                <tr @class([
+                    'hidden-inquiry-row d-none' => $index >= $initialDisplayCount,
+                ])>
+                    <td>{{ $consulta->cliente?->name ?? 'No asignado' }}</td>
+                    <td>{{ $consulta->cliente?->apellido ?? 'No asignado' }}</td>
+                    <td>{{ $consulta->cliente?->email ?? 'No asignado' }}</td>
+                    <td>{{ $consulta->tipo }}</td>
+                    <td>{{ $consulta->estado ? 'Finalizado' : 'Pendiente' }}</td>
+                    <td>{{ \Carbon\Carbon::parse($consulta->fecha)->format('d/m/Y') }}</td>
+                    <td>{{ $consulta->empleado?->name ?? 'No asignado' }}</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm text-white" style="background-color: rgba(23, 162, 184, 0.9)"
+                            data-bs-toggle="modal" data-bs-target="#inquiryDetail{{ $consulta->id }}">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-secondary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#confirmDeleteInquiry" data-id="{{ $consulta->id }}">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
                 <x-dashboard.consulta-modal :consulta="$consulta" />
             @empty
                 <tr>
@@ -100,8 +77,6 @@
     </div>
 @endif
 
-
-
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -109,15 +84,9 @@
             let expanded = false;
 
             toggleButton?.addEventListener('click', function() {
-                const rows = document.querySelectorAll('tr.collapse');
+                const rows = document.querySelectorAll('.hidden-inquiry-row');
 
-                rows.forEach(row => {
-                    if (expanded) {
-                        row.classList.remove('show');
-                    } else {
-                        row.classList.add('show');
-                    }
-                });
+                rows.forEach(row => row.classList.toggle('d-none'));
 
                 expanded = !expanded;
                 toggleButton.textContent = expanded ? 'Ocultar consultas' : 'Mostrar más consultas';

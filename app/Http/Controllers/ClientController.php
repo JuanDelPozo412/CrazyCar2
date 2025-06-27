@@ -87,7 +87,6 @@ class ClientController extends Controller
         return redirect()->route('clientes')->with('success', 'Cliente creado correctamente.');
     }
 
-
     public function update(Request $request, Usuario $cliente)
     {
         $validated = $request->validate([
