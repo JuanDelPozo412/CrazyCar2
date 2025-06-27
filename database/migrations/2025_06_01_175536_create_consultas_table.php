@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('tipo');
             $table->boolean('estado')->default(false);
             $table->date('fecha');
+            $table->time('horario')->nullable();
             $table->string('titulo')->nullable();
             $table->text('descripcion')->nullable();
 

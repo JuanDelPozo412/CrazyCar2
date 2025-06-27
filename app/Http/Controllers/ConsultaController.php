@@ -9,19 +9,32 @@ use Illuminate\Support\Facades\Auth;
 
 class ConsultaController extends Controller
 {
-    public function index()
+
+    public function store(Request $request)
     {
-
-        $consultas = Consulta::with(['cliente', 'empleado', 'vehiculo'])
-            ->active()
-            ->get();
-
-        $consultasCount = Consulta::active()->count();
-
-        return view('dashboard.employee.clients', [
-            'inquiries' => $consultas,
-            'consultasCount' => $consultasCount,
+        $request->validate([
+            'usuario_id' => 'required|exists:usuarios,id',
+            'tipo' => 'required|string|max:255',
+            'titulo' => 'required|string|max:255',
+            'fecha' => 'required|date',
+            'horario' => 'required|date_format:H:i',
+            'descripcion' => 'required|string',
         ]);
+
+        $consulta = new Consulta();
+        $consulta->usuario_id = $request->usuario_id;
+        $consulta->tipo = $request->tipo;
+        $consulta->titulo = $request->titulo;
+        $consulta->fecha = $request->fecha;
+        $consulta->horario = $request->horario;
+        $consulta->descripcion = $request->descripcion;
+        $consulta->empleado_id = Auth::id();
+        $consulta->estado = false;
+        $consulta->is_deleted = false;
+
+        $consulta->save();
+
+        return redirect()->route('clientes')->with('success', 'Consulta creada correctamente.');
     }
 
     public function actualizar(Request $request, Consulta $consulta)
@@ -29,9 +42,14 @@ class ConsultaController extends Controller
         $request->validate([
             'estado' => 'required|in:en-proceso,finalizado',
             'tomar' => 'nullable|in:si,no',
+            'fecha' => 'required|date',
+            'horario' => 'required|date_format:H:i',
         ]);
 
+
         $consulta->estado = $request->estado === 'finalizado' ? 1 : 0;
+        $consulta->fecha = $request->fecha;
+        $consulta->horario = $request->horario;
 
         if ($request->tomar === 'si' && !$consulta->empleado_id) {
             $consulta->empleado_id = Auth::id();
