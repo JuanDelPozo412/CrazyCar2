@@ -17,10 +17,27 @@
                             {{ $consulta->cliente?->apellido }}</li>
                         <li class="list-group-item"><strong>Email:</strong> {{ $consulta->cliente?->email }}</li>
                         <li class="list-group-item"><strong>Tipo de Consulta:</strong> {{ $consulta->tipo }}</li>
-                        <li class="list-group-item"><strong>Fecha:</strong>
-                            {{ \Carbon\Carbon::parse($consulta->fecha)->format('d/m/Y') }}</li>
+
                         <li class="list-group-item"><strong>Título:</strong> {{ $consulta->titulo }}</li>
                         <li class="list-group-item"><strong>Descripción:</strong> {{ $consulta->descripcion }}</li>
+
+
+                        <li class="list-group-item">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-6">
+                                    <strong>Fecha:</strong>
+                                    <input type="date" class="form-control" name="fecha"
+                                        value="{{ \Carbon\Carbon::parse($consulta->fecha)->format('Y-m-d') }}"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Horario:</strong>
+                                    <input type="time" class="form-control" name="horario"
+                                        value="{{ \Carbon\Carbon::parse($consulta->horario)->format('H:i') }}"
+                                        required>
+                                </div>
+                            </div>
+                        </li>
 
                         <li class="list-group-item">
                             <strong>Estado:</strong>

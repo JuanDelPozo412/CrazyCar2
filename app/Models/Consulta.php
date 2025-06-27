@@ -15,6 +15,7 @@ class Consulta extends Model
         'tipo',
         'estado',
         'fecha',
+        'horario',
         'apellido',
         'email',
         'descripcion',

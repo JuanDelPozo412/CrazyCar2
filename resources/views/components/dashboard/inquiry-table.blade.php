@@ -32,6 +32,7 @@
                 <th>Tipo</th>
                 <th>Estado</th>
                 <th>Fecha</th>
+                <th>Horario</th>
                 <th>Empleado</th>
                 <th>Acciones</th>
             </tr>
@@ -47,6 +48,7 @@
                     <td>{{ $consulta->tipo }}</td>
                     <td>{{ $consulta->estado ? 'Finalizado' : 'Pendiente' }}</td>
                     <td>{{ \Carbon\Carbon::parse($consulta->fecha)->format('d/m/Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($consulta->horario)->format('H:i') ?? 'No asignado' }}</td>
                     <td>{{ $consulta->empleado?->name ?? 'No asignado' }}</td>
                     <td class="text-center">
                         <button class="btn btn-sm text-white" style="background-color: rgba(23, 162, 184, 0.9)"

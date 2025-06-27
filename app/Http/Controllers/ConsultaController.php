@@ -17,6 +17,7 @@ class ConsultaController extends Controller
             'tipo' => 'required|string|max:255',
             'titulo' => 'required|string|max:255',
             'fecha' => 'required|date',
+            'horario' => 'required|date_format:H:i',
             'descripcion' => 'required|string',
         ]);
 
@@ -25,6 +26,7 @@ class ConsultaController extends Controller
         $consulta->tipo = $request->tipo;
         $consulta->titulo = $request->titulo;
         $consulta->fecha = $request->fecha;
+        $consulta->horario = $request->horario;
         $consulta->descripcion = $request->descripcion;
         $consulta->empleado_id = Auth::id();
         $consulta->estado = false;
@@ -40,18 +42,20 @@ class ConsultaController extends Controller
         $request->validate([
             'estado' => 'required|in:en-proceso,finalizado',
             'tomar' => 'nullable|in:si,no',
+            'fecha' => 'required|date',
+            'horario' => 'required|date_format:H:i',
         ]);
 
 
         $consulta->estado = $request->estado === 'finalizado' ? 1 : 0;
-
+        $consulta->fecha = $request->fecha;
+        $consulta->horario = $request->horario;
 
         if ($request->tomar === 'si' && !$consulta->empleado_id) {
             $consulta->empleado_id = Auth::id();
         }
 
         $consulta->save();
-
 
         return redirect()->route('clientes')->with('success', 'Consulta actualizada correctamente.');
     }

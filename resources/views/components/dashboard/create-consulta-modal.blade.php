@@ -26,13 +26,20 @@
                             <option value="Compra">Compra</option>
                         </select>
                     </div>
-                    <div class="col-md-6">
-                        <label for="titulo" class="form-label">Título</label>
-                        <input type="text" class="form-control" name="titulo" required>
-                    </div>
+
                     <div class="col-md-6">
                         <label for="fecha" class="form-label">Fecha</label>
                         <input type="date" class="form-control" name="fecha" value="{{ date('Y-m-d') }}" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="horario" class="form-label">Horario</label>
+                        <input type="time" class="form-control" name="horario" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="titulo" class="form-label">Título</label>
+                        <input type="text" class="form-control" name="titulo" required>
                     </div>
                     <div class="col-12">
                         <label for="descripcion" class="form-label">Descripción</label>

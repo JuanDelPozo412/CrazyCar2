@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Usuario;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Consulta>
- */
+
 class ConsultaFactory extends Factory
 {
     public function definition(): array
@@ -23,6 +21,7 @@ class ConsultaFactory extends Factory
             'tipo' => $this->faker->randomElement(['Compra', 'Mantenimiento']),
             'estado' => $this->faker->boolean(),
             'fecha' => $this->faker->dateTimeBetween(date('Y') . '-01-01', 'now')->format('Y-m-d'),
+            'horario' => $this->faker->time('H:i'),
             'titulo' => $this->faker->sentence(4),
             'descripcion' => $this->faker->paragraph(),
         ];
