@@ -12,7 +12,8 @@
 </head>
 
 <body>
-    <!--navbar-->
+    <x-home.navbar />
+    <!--navbar-
     <div class="container">
         <header
             class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -37,7 +38,7 @@
             </div>
         </header>
     </div>
-
+    -->
 
     <div class="px-4 pt-5 my-5 text-center border-bottom">
         <h1 class="display-4 fw-bold text-body-emphasis">Autos compactos</h1>
