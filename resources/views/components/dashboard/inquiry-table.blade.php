@@ -27,7 +27,6 @@
         <thead class="table-dark">
             <tr>
                 <th>Cliente</th>
-                <th>Apellido</th>
                 <th>Email</th>
                 <th>Tipo</th>
                 <th>Estado</th>
@@ -42,14 +41,49 @@
                 <tr @class([
                     'hidden-inquiry-row d-none' => $index >= $initialDisplayCount,
                 ])>
-                    <td>{{ $consulta->cliente?->name ?? 'No asignado' }}</td>
-                    <td>{{ $consulta->cliente?->apellido ?? 'No asignado' }}</td>
+                    <td>
+                        {{ $consulta->cliente?->name && $consulta->cliente?->apellido
+                            ? "{$consulta->cliente->name} {$consulta->cliente->apellido}"
+                            : 'No asignado' }}
+                    </td>
+
                     <td>{{ $consulta->cliente?->email ?? 'No asignado' }}</td>
                     <td>{{ $consulta->tipo }}</td>
-                    <td>{{ $consulta->estado ? 'Finalizado' : 'Pendiente' }}</td>
+                    {{-- CAMBIO AQUÍ: Muestra el estado directamente, o con un badge si quieres estilos --}}
+                    <td>
+                        @switch($consulta->estado)
+                            @case('Nueva')
+                                <span class="badge bg-danger">Nueva</span>
+                            @break
+
+                            @case('En Proceso')
+                                <span class="badge bg-warning text-white">En Proceso</span>
+                            @break
+
+                            @case('Finalizada')
+                                <span class="badge bg-success">Finalizada</span>
+                            @break
+
+                            @default
+                                {{ $consulta->estado }}
+                        @endswitch
+                    </td>
                     <td>{{ \Carbon\Carbon::parse($consulta->fecha)->format('d/m/Y') }}</td>
                     <td>{{ \Carbon\Carbon::parse($consulta->horario)->format('H:i') ?? 'No asignado' }}</td>
-                    <td>{{ $consulta->empleado?->name ?? 'No asignado' }}</td>
+                    <td>
+                        @if ($consulta->empleado)
+                            @if ($consulta->empleado->id === auth()->id())
+                                <span class="badge"
+                                    style="background-color: rgba(13, 110, 253, 0.8)">{{ $consulta->empleado->name }}</span>
+                            @else
+                                <span class="badge"
+                                    style="background-color: #c5c5c5">{{ $consulta->empleado->name }}</span>
+                            @endif
+                        @else
+                            <span class="badge" style="background-color: #a4a4a4;">No asignado</span>
+                        @endif
+                    </td>
+
                     <td class="text-center">
                         <button class="btn btn-sm text-white" style="background-color: rgba(23, 162, 184, 0.9)"
                             data-bs-toggle="modal" data-bs-target="#inquiryDetail{{ $consulta->id }}">
@@ -62,37 +96,37 @@
                     </td>
                 </tr>
                 <x-dashboard.consulta-edit-modal :consulta="$consulta" />
-            @empty
-                <tr>
-                    <td colspan="8" class="text-center">No hay consultas registradas.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
-
-@if (count($inquiries) > $initialDisplayCount)
-    <div class="text-center mt-2">
-        <button id="toggle-inquiries-btn" class="btn btn-primary text-white" type="button">
-            Mostrar más consultas
-        </button>
+                @empty
+                    <tr>
+                        <td colspan="8" class="text-center">No hay consultas registradas.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
-@endif
 
-@push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleButton = document.getElementById('toggle-inquiries-btn');
-            let expanded = false;
+    @if (count($inquiries) > $initialDisplayCount)
+        <div class="text-center mt-2">
+            <button id="toggle-inquiries-btn" class="btn btn-primary text-white" type="button">
+                Mostrar más consultas
+            </button>
+        </div>
+    @endif
 
-            toggleButton?.addEventListener('click', function() {
-                const rows = document.querySelectorAll('.hidden-inquiry-row');
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const toggleButton = document.getElementById('toggle-inquiries-btn');
+                let expanded = false;
 
-                rows.forEach(row => row.classList.toggle('d-none'));
+                toggleButton?.addEventListener('click', function() {
+                    const rows = document.querySelectorAll('.hidden-inquiry-row');
 
-                expanded = !expanded;
-                toggleButton.textContent = expanded ? 'Ocultar consultas' : 'Mostrar más consultas';
+                    rows.forEach(row => row.classList.toggle('d-none'));
+
+                    expanded = !expanded;
+                    toggleButton.textContent = expanded ? 'Ocultar consultas' : 'Mostrar más consultas';
+                });
             });
-        });
-    </script>
-@endpush
+        </script>
+    @endpush

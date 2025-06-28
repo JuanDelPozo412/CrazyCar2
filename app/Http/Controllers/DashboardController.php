@@ -3,33 +3,72 @@
 namespace App\Http\Controllers;
 
 use App\Models\Consulta;
+use App\Models\Usuario;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
+        $name = $user->name;
+        $role = $user->rol;
+        $empleadoId = Auth::id();
+
+        $currentYear = Carbon::now()->year;
+
+        $clientesCount = Usuario::where('rol', 'cliente')->count();
+
+        $misConsultasFinalizadasTotalCount = Consulta::where('is_deleted', false)
+            ->where('empleado_id', $empleadoId)
+            ->where('estado', 'Finalizada')
+            ->whereYear('fecha', $currentYear)
+            ->count();
+
+        $misConsultasEnProcesoCount = Consulta::where('is_deleted', false)
+            ->where('empleado_id', $empleadoId)
+            ->where('estado', 'En Proceso')
+            ->whereYear('fecha', $currentYear)
+            ->count();
+
+        $misFinalizadasMensuales = array_fill(0, 12, 0);
+        $misTomadasMensuales = array_fill(0, 12, 0);
+        $misEnProcesoMensuales = array_fill(0, 12, 0);
+
+        Consulta::selectRaw('MONTH(fecha) as month, COUNT(*) as count')
+            ->where('empleado_id', $empleadoId)
+            ->where('estado', 'Finalizada')
+            ->whereYear('fecha', $currentYear)
+            ->where('is_deleted', false)
+            ->groupBy('month')
+            ->get()
+            ->each(function ($item) use (&$misFinalizadasMensuales) {
+                $misFinalizadasMensuales[$item->month - 1] = $item->count;
+            });
 
 
-        $consultasMensuales = Consulta::where('empleado_id', $user->id)
-            ->where('estado', 1)
-            ->selectRaw('MONTH(fecha) as mes, COUNT(*) as total')
-            ->groupBy('mes')
-            ->pluck('total', 'mes')
-            ->toArray();
+        Consulta::selectRaw('MONTH(fecha) as month, COUNT(*) as count')
+            ->where('empleado_id', $empleadoId)
+            ->where('estado', 'En Proceso')
+            ->whereYear('fecha', $currentYear)
+            ->where('is_deleted', false)
+            ->groupBy('month')
+            ->get()
+            ->each(function ($item) use (&$misEnProcesoMensuales) {
+                $misEnProcesoMensuales[$item->month - 1] = $item->count;
+            });
 
 
-        $data = array_fill(1, 12, 0);
-        foreach ($consultasMensuales as $mes => $total) {
-            $data[(int)$mes] = $total;
-        }
-
-        return view('dashboard.employee.index', [
-            'name' => $user->name,
-            'role' => $user->rol ?? 'Empleado',
-            'consultasCount' => Consulta::where('empleado_id', $user->id)->count(),
-            'consultasMensuales' => json_encode(array_values($data)),
-        ]);
+        return view('dashboard.employee.index', compact(
+            'name',
+            'role',
+            'clientesCount',
+            'misConsultasFinalizadasTotalCount',
+            'misConsultasEnProcesoCount',
+            'misFinalizadasMensuales',
+            'misEnProcesoMensuales'
+        ));
     }
 }

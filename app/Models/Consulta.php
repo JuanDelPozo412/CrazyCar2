@@ -16,8 +16,6 @@ class Consulta extends Model
         'estado',
         'fecha',
         'horario',
-        'apellido',
-        'email',
         'descripcion',
         'titulo',
         'is_deleted',
@@ -25,12 +23,12 @@ class Consulta extends Model
 
     public function cliente()
     {
-        return $this->belongsTo(Usuario::class, 'usuario_id')->where('rol', 'cliente');
+        return $this->belongsTo(Usuario::class, 'usuario_id');
     }
 
     public function empleado()
     {
-        return $this->belongsTo(Usuario::class, 'empleado_id')->where('rol', 'empleado');
+        return $this->belongsTo(Usuario::class, 'empleado_id');
     }
 
     public function vehiculo()
@@ -40,8 +38,9 @@ class Consulta extends Model
 
     public function scopeActive($query)
     {
+
         return $query->where('is_deleted', false)
-            ->where('estado', 0);
+            ->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada']);
     }
 
     public function isDeleted()

@@ -12,7 +12,7 @@ class ConsultaSeeder extends Seeder
     {
         $clientes = Usuario::where('rol', 'cliente')->pluck('id')->toArray();
 
-        Consulta::factory()->count(30)->create()->each(function ($consulta) use ($clientes) {
+        Consulta::factory()->count(50)->create()->each(function ($consulta) use ($clientes) {
             $consulta->update([
                 'usuario_id' => fake()->randomElement($clientes),
             ]);

@@ -1,7 +1,15 @@
 @props(['consulta'])
 
+@php
+    // Deshabilitar si la consulta está tomada por otro empleado o está finalizada
+    $isDisabled =
+        ($consulta->empleado_id && $consulta->empleado_id !== auth()->id()) || $consulta->estado === 'Finalizada';
+@endphp
+
 <form method="POST" action="{{ route('consultas.actualizar', $consulta->id) }}">
     @csrf
+    @method('PUT')
+
     <div class="modal fade" id="inquiryDetail{{ $consulta->id }}" tabindex="-1"
         aria-labelledby="inquiryDetail{{ $consulta->id }}Label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -21,38 +29,39 @@
                         <li class="list-group-item"><strong>Título:</strong> {{ $consulta->titulo }}</li>
                         <li class="list-group-item"><strong>Descripción:</strong> {{ $consulta->descripcion }}</li>
 
-
                         <li class="list-group-item">
                             <div class="row g-3 align-items-center">
                                 <div class="col-md-6">
                                     <strong>Fecha:</strong>
                                     <input type="date" class="form-control" name="fecha"
-                                        value="{{ \Carbon\Carbon::parse($consulta->fecha)->format('Y-m-d') }}"
-                                        required>
+                                        value="{{ \Carbon\Carbon::parse($consulta->fecha)->format('Y-m-d') }}" required
+                                        {{ $isDisabled ? 'disabled' : '' }}>
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Horario:</strong>
                                     <input type="time" class="form-control" name="horario"
-                                        value="{{ \Carbon\Carbon::parse($consulta->horario)->format('H:i') }}"
-                                        required>
+                                        value="{{ \Carbon\Carbon::parse($consulta->horario)->format('H:i') }}" required
+                                        {{ $isDisabled ? 'disabled' : '' }}>
                                 </div>
                             </div>
                         </li>
 
                         <li class="list-group-item">
                             <strong>Estado:</strong>
-                            <select class="form-select" name="estado">
-                                <option value="en-proceso" {{ !$consulta->estado ? 'selected' : '' }}>Pendiente
+                            <select class="form-select" name="estado" {{ $isDisabled ? 'disabled' : '' }}>
+                                <option value="Nueva" {{ $consulta->estado === 'Nueva' ? 'selected' : '' }}>Nueva
                                 </option>
-                                <option value="finalizado" {{ $consulta->estado ? 'selected' : '' }}>Finalizada
-                                </option>
+                                <option value="En Proceso" {{ $consulta->estado === 'En Proceso' ? 'selected' : '' }}>
+                                    En Proceso</option>
+                                <option value="Finalizada" {{ $consulta->estado === 'Finalizada' ? 'selected' : '' }}>
+                                    Finalizada</option>
                             </select>
                         </li>
 
                         @if (!$consulta->empleado_id)
                             <li class="list-group-item">
                                 <strong>Tomar Consulta:</strong>
-                                <select class="form-select" name="tomar">
+                                <select class="form-select" name="tomar" {{ $isDisabled ? 'disabled' : '' }}>
                                     <option value="">-- Seleccionar --</option>
                                     <option value="si">Tomar Consulta</option>
                                     <option value="no">No Tomar Consulta</option>
@@ -66,7 +75,7 @@
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary" {{ $isDisabled ? 'disabled' : '' }}>Guardar</button>
                 </div>
             </div>
         </div>
