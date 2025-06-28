@@ -10,8 +10,9 @@ class ConsultaController extends Controller
 {
     public function store(Request $request)
     {
+        $authenticatedUser = Auth::user();
+
         $request->validate([
-            'usuario_id' => 'required|exists:usuarios,id',
             'tipo' => 'required|string|max:255',
             'titulo' => 'required|string|max:255',
             'fecha' => 'required|date',
@@ -20,19 +21,32 @@ class ConsultaController extends Controller
         ]);
 
         $consulta = new Consulta();
-        $consulta->usuario_id = $request->usuario_id;
         $consulta->tipo = $request->tipo;
         $consulta->titulo = $request->titulo;
         $consulta->fecha = $request->fecha;
         $consulta->horario = $request->horario;
         $consulta->descripcion = $request->descripcion;
-        $consulta->empleado_id = Auth::id();
-        $consulta->estado = 'En Proceso';
         $consulta->is_deleted = false;
 
-        $consulta->save();
+        if ($authenticatedUser->rol === 'empleado') {
+            $request->validate([
+                'usuario_id' => 'required|exists:usuarios,id',
+            ]);
+            $consulta->usuario_id = $request->usuario_id;
+            $consulta->empleado_id = $authenticatedUser->id;
+            $consulta->estado = 'En Proceso';
+            $message = 'Consulta creada correctamente y puesta en proceso.';
+        } elseif ($authenticatedUser->rol === 'cliente') {
+            $consulta->usuario_id = $authenticatedUser->id;
+            $consulta->empleado_id = null;
+            $consulta->estado = 'Nueva';
+            $message = 'Consulta creada correctamente y en espera de ser procesada.';
+        } else {
+            return redirect()->back()->with('error', 'Acción no autorizada para este rol.');
+        }
 
-        return redirect()->route('clientes')->with('success', 'Consulta creada correctamente.');
+        $consulta->save();
+        return redirect()->route('clientes')->with('success', $message);
     }
 
     public function actualizar(Request $request, Consulta $consulta)
