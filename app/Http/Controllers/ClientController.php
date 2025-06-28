@@ -94,6 +94,8 @@ class ClientController extends Controller
             'apellido' => 'required|string|max:255',
             'dni' => 'required|string|max:20',
             'email' => 'required|email|max:255',
+            'telefono' => 'nullable|string|max:20',
+            'direccion' => 'nullable|string|max:255',
             'imagen' => 'nullable|image|max:2048',
         ]);
 
