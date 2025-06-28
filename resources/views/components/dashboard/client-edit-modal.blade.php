@@ -59,6 +59,11 @@
                             <input type="text" class="form-control" id="telefono{{ $client->id }}" name="telefono"
                                 value="{{ old('telefono', $client->telefono) }}">
                         </div>
+                        <div class="col-md-6">
+                            <label for="direccion{{ $client->id }}" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="direccion{{ $client->id }}"
+                                name="direccion" value="{{ old('direccion', $client->direccion) }}">
+                        </div>
                     </div>
                 </div>
 

@@ -15,6 +15,7 @@
             {{-- <li><a href="{{ url('/contacto') }}" class="nav-link px-2">Contacto</a></li> --}}
         </ul>
 
+<<<<<<< HEAD
         @if(Auth::check())
             <div class="col-md-3 text-end">
                 <a href="{{ route('profile.show') }}" class="btn btn-primary text-white">Dashboard</a>
@@ -25,5 +26,30 @@
             <a href="{{ url('/register') }}" class="btn btn-primary text-white">Registrarse</a>
         </div>
         @endif
+=======
+    <div class="col-md-3 text-end">
+
+  
+    @guest
+        <a href="{{ url('/login') }}" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
+        <a href="{{ url('/register') }}" class="btn btn-primary text-white">Registrarse</a>
+    @endguest
+
+
+    @auth
+        <a href="{{ route('profile.show') }}" class="btn btn-outline-secondary me-2">Mi Perfil</a>
+        <a href="{{ route('logout') }}"
+           class="btn btn-outline-secondary" 
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Cerrar Sesión
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    @endauth
+
+</div>
+>>>>>>> f40ce89fa04ee9d3dba51cdc45ef2bb50daf92a9
     </header>
 </div>
