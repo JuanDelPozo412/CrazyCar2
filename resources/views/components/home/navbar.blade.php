@@ -15,9 +15,15 @@
             {{-- <li><a href="{{ url('/contacto') }}" class="nav-link px-2">Contacto</a></li> --}}
         </ul>
 
+        @if(Auth::check())
+            <div class="col-md-3 text-end">
+                <a href="{{ route('profile.show') }}" class="btn btn-primary text-white">Dashboard</a>
+            </div>
+        @else
         <div class="col-md-3 text-end">
             <a href="{{ url('/login') }}" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
             <a href="{{ url('/register') }}" class="btn btn-primary text-white">Registrarse</a>
         </div>
+        @endif
     </header>
 </div>
