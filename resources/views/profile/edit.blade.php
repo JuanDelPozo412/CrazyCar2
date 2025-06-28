@@ -28,6 +28,7 @@
                 <h3>Información Personal</h3>
 
                 <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                    
                     @csrf
                     @method('PATCH')
 
@@ -50,6 +51,7 @@
                                 @enderror
                             </div>
                         </div>
+                     </form>
 
 
                         <div class="col-md-9">
@@ -87,7 +89,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label class="form-label fw-bold">Email (no se puede cambiar):</label
-                                <input class="form-control" type="email" value="{{ $user->email }}" disabled />
+                                <input class="form-control" type="email" value="{{ $user->email }}" disabled/>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary mt-3" type="submit">Guardar Cambios</button>
