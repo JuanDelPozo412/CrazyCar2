@@ -13,7 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-white shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ route('profile.show') }}">Mi Perfil</a>
+                
                 <a class="navbar-brand" href="{{ route('home') }}">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
@@ -51,7 +51,11 @@
                                     <a class="btn btn-primary col-12" href="{{ route('profile.edit') }}">
                                         Editar Perfil
                                     </a>
-                                </div>
+                             
+                                 <a class="btn btn-primary col-12 mt-2" href="">
+                               Hacer una Consulta
+                                  </a>
+                                     </div>
                             </div>
                         </div>
                     </div>
