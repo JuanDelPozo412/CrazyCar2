@@ -9,8 +9,8 @@
 <div class="d-flex justify-content-between align-items-center mb-3 mt-5 flex-column flex-sm-row">
     <h4 class="text-center text-sm-start w-100">{{ $title }}</h4>
 
-    <div class="d-flex gap-2 w-100 justify-content-center justify-content-sm-end mt-3 mt-sm-0">
-        <form method="GET" action="{{ route('clientes') }}" class="input-group w-auto">
+    <div class="d-flex gap-2 w-50 justify-content-center justify-content-sm-end mt-3 mt-sm-0 flex-wrap">
+        <form method="GET" action="{{ route('clientes') }}" class="input-group" style="min-width: 100px;">
             <input type="text" name="busqueda" class="form-control" placeholder="{{ $searchPlaceholder }}"
                 value="{{ request('busqueda') }}" aria-label="{{ $searchPlaceholder }}"
                 aria-describedby="search-addon-{{ $tableId }}" />

@@ -2,54 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Consulta;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
-
     public function index(Request $request)
     {
         $user = Auth::user();
+        $name = $user->name;
+        $role = $user->rol;
 
-        $search = $request->input('busqueda');
-        $searchConsulta = $request->input('busqueda_consulta');
+        $clientesQuery = Usuario::where('rol', 'cliente');
 
-        $totalClientesCount = Usuario::where('rol', 'cliente')->count();
-        $totalConsultasCount = Consulta::where('is_deleted', 0)->count();
+        if ($request->filled('busqueda')) {
+            $searchTermClient = strtolower($request->busqueda);
+            $clientesQuery->where(function ($q) use ($searchTermClient) {
+                $q->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTermClient . '%'])
+                    ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchTermClient . '%'])
+                    ->orWhereRaw('LOWER(dni) LIKE ?', ['%' . $searchTermClient . '%']);
+            });
+        }
 
-        $clients = Usuario::where('rol', 'cliente')
-            ->when($search, function ($query, $search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%")
-                        ->orWhere('apellido', 'like', "%{$search}%")
-                        ->orWhere('dni', 'like', "%{$search}%");
+        $clients = $clientesQuery->orderBy('created_at', 'desc')->get();
+
+        $clientesCount = Usuario::where('rol', 'cliente')->count();
+
+        $inquiriesQuery = Consulta::query();
+        $inquiriesQuery->where('is_deleted', false);
+        $inquiriesQuery->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada']);
+
+
+        if ($request->filled('busqueda_consulta')) {
+            $searchTermConsulta = strtolower($request->busqueda_consulta);
+            $inquiriesQuery->where(function ($query) use ($searchTermConsulta) {
+                $query->orWhereHas('cliente', function ($q) use ($searchTermConsulta) {
+                    $q->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTermConsulta . '%'])
+                        ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchTermConsulta . '%'])
+                        ->orWhereRaw('LOWER(email) LIKE ?', ['%' . $searchTermConsulta . '%']);
                 });
-            })
+                $query->orWhereRaw('LOWER(titulo) LIKE ?', ['%' . $searchTermConsulta . '%'])
+                    ->orWhereRaw('LOWER(tipo) LIKE ?', ['%' . $searchTermConsulta . '%']);
+            });
+        }
+
+        $inquiries = $inquiriesQuery->with(['cliente', 'empleado'])
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
 
-        $consultas = Consulta::with(['cliente', 'empleado', 'vehiculo'])
-            ->where('is_deleted', false)
-            ->active()
-            ->when($searchConsulta, function ($query, $searchConsulta) {
-                $query->whereHas('cliente', function ($q) use ($searchConsulta) {
-                    $q->where('name', 'like', "%{$searchConsulta}%")
-                        ->orWhere('apellido', 'like', "%{$searchConsulta}%");
-                })
-                    ->orWhere('tipo', 'like', "%{$searchConsulta}%");
-            })
-            ->get();
+        $consultasCount = $inquiries->count();
 
-        return view('dashboard.employee.clients', [
-            'clients' => $clients,
-            'inquiries' => $consultas,
-            'clientesCount' => $totalClientesCount,
-            'consultasCount' => $totalConsultasCount,
-            'name' => $user->name,
-            'role' => $user->rol,
-        ]);
+        return view('dashboard.employee.clients', compact(
+            'clients',
+            'inquiries',
+            'clientesCount',
+            'consultasCount',
+            'name',
+            'role'
+        ));
     }
 
     public function store(Request $request)
@@ -70,9 +84,6 @@ class ClientController extends Controller
             if ($file->getError() == UPLOAD_ERR_INI_SIZE) {
                 return back()->withErrors(['imagen' => 'La imagen excede el tamaño máximo permitido por el servidor.']);
             }
-        }
-
-        if ($request->hasFile('imagen')) {
             $imagenPath = $request->file('imagen')->store('images', 'public');
             $validated['imagen'] = basename($imagenPath);
         } else {
@@ -81,6 +92,7 @@ class ClientController extends Controller
 
         $validated['password'] = bcrypt($validated['password']);
         $validated['rol'] = 'cliente';
+        $validated['is_deleted'] = false;
 
         Usuario::create($validated);
 
@@ -92,14 +104,17 @@ class ClientController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
-            'dni' => 'required|string|max:20',
-            'email' => 'required|email|max:255',
+            'dni' => 'required|string|max:20|unique:usuarios,dni,' . $cliente->id,
+            'email' => 'required|email|max:255|unique:usuarios,email,' . $cliente->id,
             'telefono' => 'nullable|string|max:20',
             'direccion' => 'nullable|string|max:255',
             'imagen' => 'nullable|image|max:2048',
         ]);
 
         if ($request->hasFile('imagen')) {
+            if ($cliente->imagen && $cliente->imagen != 'icon-person.jpg') {
+                Storage::disk('public')->delete('images/' . $cliente->imagen);
+            }
             $imagenPath = $request->file('imagen')->store('images', 'public');
             $validated['imagen'] = basename($imagenPath);
         }
@@ -107,5 +122,12 @@ class ClientController extends Controller
         $cliente->update($validated);
 
         return redirect()->route('clientes')->with('success', 'Cliente actualizado correctamente.');
+    }
+
+    public function destroy(Usuario $cliente)
+    {
+        $cliente->is_deleted = true;
+        $cliente->save();
+        return redirect()->route('clientes')->with('success', 'Cliente marcado como eliminado correctamente.');
     }
 }

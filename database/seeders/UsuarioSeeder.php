@@ -22,6 +22,39 @@ class UsuarioSeeder extends Seeder
             'imagen' => 'icon-person.jpg',
             'rol' => 'empleado',
         ]);
+        Usuario::create([
+            'name' => 'Diego',
+            'apellido' => 'Maidana',
+            'email' => 'diegoshhh@gmail.com',
+            'password' => Hash::make('diego123'),
+            'dni' => '3532233',
+            'telefono' => '295423442',
+            'direccion' => 'Selva Norte 2423',
+            'imagen' => 'icon-person.jpg',
+            'rol' => 'empleado',
+        ]);
+        Usuario::create([
+            'name' => 'Juan',
+            'apellido' => 'Pozo',
+            'email' => 'juan@gmail.com',
+            'password' => Hash::make('juan123'),
+            'dni' => '9483773',
+            'telefono' => '11848499',
+            'direccion' => 'Garibaldi 5323',
+            'imagen' => 'icon-person.jpg',
+            'rol' => 'empleado',
+        ]);
+        Usuario::create([
+            'name' => 'Thiago',
+            'apellido' => 'Cabral',
+            'email' => 'thiago@gmail.com',
+            'password' => Hash::make('thiago123'),
+            'dni' => '4662552',
+            'telefono' => '65537377',
+            'direccion' => 'Torroba 43',
+            'imagen' => 'icon-person.jpg',
+            'rol' => 'empleado',
+        ]);
 
 
 

@@ -16,11 +16,13 @@ return new class extends Migration
             $table->foreignId('empleado_id')->nullable()->constrained('usuarios')->onDelete('set null');
 
             $table->string('tipo');
-            $table->boolean('estado')->default(false);
+            $table->enum('estado', ['Nueva', 'En Proceso', 'Finalizada'])->default('Nueva');
             $table->date('fecha');
             $table->time('horario')->nullable();
             $table->string('titulo')->nullable();
             $table->text('descripcion')->nullable();
+            $table->boolean('is_deleted')->default(false);
+
 
 
             $table->timestamps();
