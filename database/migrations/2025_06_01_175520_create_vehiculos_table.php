@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
-            $table->string('patente');
+            $table->string('patente')->nullable()->unique();
             $table->string('marca');
             $table->string('modelo');
             $table->integer('anio');
@@ -21,8 +21,6 @@ return new class extends Migration
             $table->string('imagen');
             $table->integer('stock')->default(0);
             $table->decimal('precio', 10, 2)->nullable();
-            $table->string('estado')->nullable();
-            $table->date('fechadeinicio')->nullable();
             $table->foreignId('propietario_id')->nullable()->constrained('usuarios')->onDelete('set null');
             $table->timestamps();
         });

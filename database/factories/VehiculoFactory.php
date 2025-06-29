@@ -14,36 +14,21 @@ class VehiculoFactory extends Factory
         $localImagesPath = 'images';
         $allImages = Storage::disk('public')->files($localImagesPath);
         $randomImageFilename = Arr::random($allImages);
-        $imageForDb = $randomImageFilename;
 
+        $patente = null;
         $propietarioId = null;
 
-        $estado = $this->faker->randomElement(['Venta', 'Mantenimiento']);
-
-        $fechadeinicio = null;
-
-        if ($estado === 'Mantenimiento') {
-            $fechadeinicio = $this->faker->dateTimeBetween('-1 month', 'now')->format('Y-m-d');
-
-            $clientesIds = Usuario::where('rol', 'Cliente')->pluck('id')->toArray();
-            if (!empty($clientesIds)) {
-                $propietarioId = $this->faker->randomElement($clientesIds);
-            }
-        }
-
         return [
-            'patente' => strtoupper($this->faker->bothify('???###')),
-            'marca' => $this->faker->randomElement(['Toyota', 'Ford', 'Chevrolet', 'Volkswagen', 'Renault']),
+            'patente' => $patente,
+            'marca' => $this->faker->randomElement(['Toyota', 'Ford', 'Chevrolet', 'Volkswagen', 'Renault', 'Honda', 'Bmw', 'Nissan']),
             'modelo' => $this->faker->word(),
             'anio' => $this->faker->numberBetween(1995, date('Y')),
             'color' => $this->faker->safeColorName(),
-            'tipo' => $this->faker->randomElement(['Sedán', 'SUV', 'Pick-Up', 'Hatchback', 'Furgón']),
-            'combustible' => $this->faker->randomElement(['Nafta', 'Diésel', 'Eléctrico', 'Híbrido']),
-            'imagen' => $imageForDb,
+            'tipo' => $this->faker->randomElement(['Sedan', 'SUV', 'Pick-Up']),
+            'combustible' => $this->faker->randomElement(['Nafta', 'Diesel', 'Electrico', 'Hibrido']),
+            'imagen' => $randomImageFilename,
             'stock' => $this->faker->numberBetween(0, 100),
             'precio' => $this->faker->numberBetween(10000, 50000),
-            'estado' => $estado,
-            'fechadeinicio' => $fechadeinicio,
             'propietario_id' => $propietarioId,
         ];
     }

@@ -1,16 +1,14 @@
-@props(['title', 'searchPlaceholder', 'tableId', 'columns', 'vehicles', 'maintenance' => false])
+@props(['title', 'searchPlaceholder', 'tableId', 'columns', 'vehicles'])
 
 <div class="d-flex justify-content-between align-items-center mb-3 mt-5 flex-column flex-sm-row">
     <h4 class="text-center text-sm-start w-100">{{ $title }}</h4>
 
     <div class="d-flex gap-2 w-100 justify-content-center justify-content-sm-end mt-3 mt-sm-0">
         <form method="GET" action="{{ route('vehiculos') }}" class="input-group w-auto">
-            <input type="text" name="busqueda_vehiculo" class="form-control"
-                placeholder="{{ $searchPlaceholder }}"
-                value="{{ request('busqueda_vehiculo') }}"
-                aria-label="{{ $searchPlaceholder }}"
+            <input type="text" name="busqueda_venta" class="form-control" placeholder="{{ $searchPlaceholder }}"
+                value="{{ request('busqueda_venta') }}" aria-label="{{ $searchPlaceholder }}"
                 aria-describedby="search-addon-{{ $tableId }}" />
-                
+
             <button type="submit" class="input-group-text" id="search-addon-{{ $tableId }}">
                 <i class="bi bi-search"></i>
             </button>
@@ -34,39 +32,10 @@
                     @foreach ($columns as $colKey => $colLabel)
                         @php
                             $key = strtolower(str_replace(' ', '', $colLabel));
-                            if ($key === 'año') {
-                                $key = 'año';
-                            } elseif ($key === 'fechadeinicio') {
-                                $key = 'fechadeinicio';
-                            } elseif ($key === 'motivodemantenimiento') {
-                                $key = 'motivodemantenimiento';
-                            }
                             $value = $vehicle->$key ?? '';
                         @endphp
-                        @if ($colKey === 'Estado' && $maintenance)
-                            <td>
-                                @switch($value)
-                                    @case('Pendiente')
-                                        <span class="badge bg-danger text-white">Pendiente</span>
-                                    @break
 
-                                    @case('Completado')
-                                        <span class="badge bg-success">Completado</span>
-                                    @break
-
-                                    @case('En Proceso')
-                                        <span class="badge bg-warning text-white">En Proceso</span>
-                                    @break
-
-                                    @case('Venta')
-                                        <span class="badge bg-info text-white">En Venta</span>
-                                    @break
-
-                                    @default
-                                        {{ $value }}
-                                @endswitch
-                            </td>
-                        @elseif ($colKey === 'Precio')
+                        @if ($colKey === 'Precio')
                             <td>${{ number_format($value, 2, ',', '.') }}</td>
                         @else
                             <td>{{ $value }}</td>
@@ -74,10 +43,9 @@
                     @endforeach
 
                     <td>
-                        <x-dashboard.action-buttons :vehicle="$vehicle" :maintenance="$maintenance" />
+                        <x-dashboard.action-buttons :vehicle="$vehicle" />
 
-                        <x-dashboard.vehicle-detail-modal :vehicle="$vehicle"
-                            modalId="{{ $maintenance ? 'vehicleMaintenanceDetailModal' : 'vehicleSellDetailModal' }}"
+                        <x-dashboard.vehicle-detail-modal :vehicle="$vehicle" modalId="vehicleSellDetailModal"
                             modalTitle="Detalles del Vehículo" />
                     </td>
                 </tr>
