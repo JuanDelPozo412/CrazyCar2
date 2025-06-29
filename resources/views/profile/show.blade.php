@@ -111,7 +111,9 @@
                                     <thead>
                                         <tr>
                                             <th>Fecha</th>
-                                            <th>Asunto</th>
+                                            <th>horario</th>
+                                            <th>Titulo</th>
+                                            <th>tipo</th>
                                             <th>Estado</th>
                                         </tr>
                                     </thead>
@@ -119,12 +121,15 @@
                                         @forelse ($consultas as $consulta)
                                         <tr>
                                             <td>{{ $consulta->created_at->format('d/m/Y') }}</td>
-                                            <td>{{ $consulta->asunto }}</td>
+                                            <td>{{ $consulta->horario }}</td>
+                                            <td>{{ $consulta->titulo }}</td>
+                                            <td>{{ $consulta->tipo }}</td>
                                             <td><span class="badge bg-info text-dark">{{ $consulta->estado }}</span></td>
+                                            <td><a class=" badge btn-outline-secondary btn text-dark">ver</a></td>
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="3" class="text-center">No has enviado ninguna consulta.</td>
+                                            <td colspan="5" class="text-center">No has enviado ninguna consulta.</td>
                                         </tr>
                                         @endforelse
                                     </tbody>
