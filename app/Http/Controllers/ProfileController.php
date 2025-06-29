@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Consulta;
 
 class ProfileController extends Controller
 {
@@ -28,6 +29,53 @@ class ProfileController extends Controller
             'user' => $request->user(),
         ]);
     }
+
+    public function createForClient()
+    {
+
+        return view('profile.create-consulta-cliente');
+    }
+
+    /**
+     * 
+     * 
+     *
+     * @param  \Illuminate\Http\Request  
+     * @return \Illuminate\Http\Response
+     */
+    public function storeConsultaCliente(Request $request)
+    {
+        $authenticatedUser = Auth::user();
+
+        if ($authenticatedUser->rol !== 'cliente') {
+            return redirect()->back()->with('error', 'Acción no autorizada. Solo los clientes pueden crear consultas desde su perfil.');
+        }
+
+        $request->validate([
+            'tipo' => 'required|string|max:255',
+            'titulo' => 'required|string|max:255',
+            'fecha' => 'required|date',
+            'horario' => 'required|date_format:H:i',
+            'descripcion' => 'required|string',
+        ]);
+
+        $consulta = new Consulta();
+        $consulta->tipo = $request->tipo;
+        $consulta->titulo = $request->titulo;
+        $consulta->fecha = $request->fecha;
+        $consulta->horario = $request->horario;
+        $consulta->descripcion = $request->descripcion;
+        $consulta->is_deleted = false;
+
+        $consulta->usuario_id = $authenticatedUser->id;
+        $consulta->empleado_id = null;
+        $consulta->estado = 'Nueva';
+
+        $consulta->save();
+
+        return redirect()->route('clientes')->with('success', 'Consulta creada correctamente y en espera de ser procesada.');
+    }
+
 
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
@@ -61,6 +109,4 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-
-
 }

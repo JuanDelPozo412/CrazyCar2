@@ -22,7 +22,13 @@
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
- 
+    Route::middleware('auth')->group(function () {
+        Route::get('/consultas/crear', [ProfileController::class, 'createForClient'])
+            ->name('consultas.createForClient');
+        Route::post('/consultas', [ProfileController::class, 'storeConsultaCliente'])
+            ->name('consultas.storeForClient');
+    });
+
     Route::get('/servicios', [UserServicesController::class, 'index']);
 
     Route::get('/galeria', [UserVehiclesController::class, 'index']);
