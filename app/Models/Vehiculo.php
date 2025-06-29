@@ -9,6 +9,7 @@ class Vehiculo extends Model
 {
 
     use HasFactory;
+
     protected $fillable = [
         'patente',
         'stock',
@@ -17,16 +18,19 @@ class Vehiculo extends Model
         'modelo',
         'tipo',
         'color',
-        'año',
+        'anio',
         'combustible',
-        'fechadeinicio',
-        'estado',
         'imagen',
-        'propietario_id'
+        'propietario_id',
     ];
 
     public function propietario()
     {
         return $this->belongsTo(Usuario::class, 'propietario_id');
+    }
+
+    public function mantenimientos()
+    {
+        return $this->hasMany(Mantenimiento::class);
     }
 }

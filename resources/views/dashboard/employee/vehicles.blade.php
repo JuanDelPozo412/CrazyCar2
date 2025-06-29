@@ -55,7 +55,7 @@
                                 :value="$vehiclesForSaleCount" color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
 
                             <x-dashboard.stat-card icon="bi-tools" label="En Mantenimiento" :value="$vehiclesMaintenanceCount"
-                                color="rgba(23, 162, 184, 0.9)" href="#vehiclesMaintenance" />
+                                color="rgba(23, 162, 184, 0.9)" href="#vehiclesMaintenanceCount" />
                         </div>
                     </div>
                 </div>
@@ -69,18 +69,19 @@
                         'Combustible' => 'Combustible',
                         'Stock' => 'Stock',
                         'Precio' => 'Precio',
-                    ]" :vehicles="$vehiclesForSale" />
+                    ]" :vehicles="$allVehicles" />
 
-                <x-dashboard.vehicle-table title="Vehículos en mantenimiento" searchPlaceholder="Buscar vehículo..."
+                {{-- <x-dashboard.vehicle-table title="Vehículos en mantenimiento" searchPlaceholder="Buscar vehículo..."
                     tableId="tableMantenimiento" :columns="[
+                        'Propietario' => 'Propietario',
                         'Patente' => 'Patente',
-                        'Marca' => 'Marca',
-                        'Modelo' => 'Modelo',
-                        'Tipo' => 'Tipo',
-                        'Color' => 'Color',
-                        'Combustible' => 'Combustible',
+                        'Motivo' => 'Motivo',
                         'Estado' => 'Estado',
-                    ]" :vehicles="$vehiclesInMaintenance" maintenance />
+                        'Fecha de inicio' => 'Fecha de inicio',
+                        'Fecha de fin' => 'Fecha de fin',
+                    ]" :vehicles="$vehiclesInMaintenance" maintenance /> --}}
+
+
             </main>
 
             <x-dashboard.delete-modal id="confirmDeleteVehicle"
@@ -88,6 +89,8 @@
 
             <x-dashboard.delete-modal id="confirmDeleteMaintenance"
                 message="¿Está seguro de que desea eliminar este Mantenimiento?" />
+
+            <x-dashboard.create-vehicle-modal />
         </div>
     </div>
 
@@ -105,9 +108,9 @@
         const modalMantenimiento = document.getElementById('confirmDeleteMaintenance');
         modalMantenimiento?.addEventListener('show.bs.modal', function(event) {
             const button = event.relatedTarget;
-            const vehicleId = button.getAttribute('data-id');
+            const maintenanceId = button.getAttribute('data-id');
             const form = modalMantenimiento.querySelector('form');
-            form.action = `/dashboard/employee/vehicles/${vehicleId}`;
+            form.action = `/dashboard/employee/mantenimientos/${maintenanceId}`;
         });
     </script>
 

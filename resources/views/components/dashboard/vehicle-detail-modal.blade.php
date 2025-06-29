@@ -13,7 +13,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-5 text-center mb-3 mb-md-0">
+                    <div class="col-md-6 text-center mb-3 mb-md-0">
                         <div class="border rounded p-2 d-flex align-items-center justify-content-center"
                             style="height: 300px; overflow: hidden;">
                             <img src="{{ Storage::url($vehicle->imagen) ?: asset('images/auto2.png') }}"
@@ -21,73 +21,42 @@
                         </div>
                     </div>
 
-                    <div class="col-md-7">
-                        <ul class="list-group list-group-flush">
-                            @if ($vehicle->estado === 'Mantenimiento')
-                                <li class="list-group-item">
-                                    <strong>Patente:</strong> <span>{{ $vehicle->patente ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Marca:</strong> <span>{{ $vehicle->marca ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Modelo:</strong> <span>{{ $vehicle->modelo ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Año:</strong> <span>{{ $vehicle->anio ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Tipo:</strong> <span>{{ $vehicle->tipo ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Color:</strong> <span>{{ $vehicle->color ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Tipo de Combustible:</strong>
-                                    <span>{{ $vehicle->combustible ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Fecha de Inicio del Mantenimiento:</strong>
-                                    <span>{{ $vehicle->fechadeinicio ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Propietario:</strong>
-                                    <span>{{ $vehicle->propietario->name ?? 'N/A' }}
-                                        ({{ $vehicle->propietario->email ?? 'N/A' }})</span>
+                    <div class="col-md-6">
+                        <h6>Detalles del Vehículo:</h6>
+                        <ul class="list-group list-group-flush small">
+                            <li class="list-group-item px-0 py-1"><strong>Marca:</strong> {{ $vehicle->marca ?? 'N/A' }}
+                            </li>
+                            <li class="list-group-item px-0 py-1"><strong>Modelo:</strong>
+                                {{ $vehicle->modelo ?? 'N/A' }}</li>
+                            <li class="list-group-item px-0 py-1"><strong>Año:</strong> {{ $vehicle->anio ?? 'N/A' }}
+                            </li>
+                            <li class="list-group-item px-0 py-1"><strong>Color:</strong> {{ $vehicle->color ?? 'N/A' }}
+                            </li>
+                            <li class="list-group-item px-0 py-1"><strong>Tipo:</strong> {{ $vehicle->tipo ?? 'N/A' }}
+                            </li>
+                            <li class="list-group-item px-0 py-1"><strong>Combustible:</strong>
+                                {{ $vehicle->combustible ?? 'N/A' }}</li>
+                            <li class="list-group-item px-0 py-1"><strong>Stock:</strong>
+                                {{ $vehicle->stock ?? 'N/A' }}</li>
+                            <li class="list-group-item px-0 py-1"><strong>Precio:</strong>
+                                ${{ number_format($vehicle->precio ?? 0, 2, ',', '.') }}</li>
+
+                            @if ($vehicle->patente)
+                                <li class="list-group-item px-0 py-1"><strong>Patente:</strong> {{ $vehicle->patente }}
                                 </li>
                             @endif
-                            @if ($vehicle->estado === 'Venta')
-                                <li class="list-group-item">
-                                    <strong>Marca:</strong> <span>{{ $vehicle->marca ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Modelo:</strong> <span>{{ $vehicle->modelo ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Año:</strong> <span>{{ $vehicle->anio ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Tipo:</strong> <span>{{ $vehicle->tipo ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Color:</strong> <span>{{ $vehicle->color ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Tipo de Combustible:</strong>
-                                    <span>{{ $vehicle->combustible ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Stock:</strong> <span>{{ $vehicle->stock ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Precio:</strong>
-                                    <span>{{ $vehicle->precio ? '$' . number_format($vehicle->precio, 2, ',', '.') : 'N/A' }}</span>
+
+                            @if ($vehicle->propietario)
+                                <li class="list-group-item px-0 py-1">
+                                    <strong>Propietario:</strong> {{ $vehicle->propietario->name ?? 'N/A' }}
+                                    {{ $vehicle->propietario->apellido ?? '' }}
                                 </li>
                             @endif
                         </ul>
                     </div>
                 </div>
             </div>
+
             <div class="modal-footer bg-light">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Cerrar

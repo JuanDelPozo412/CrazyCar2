@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Vehiculo;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 
 class VehiculoSeeder extends Seeder
 {
@@ -11,6 +12,9 @@ class VehiculoSeeder extends Seeder
     {
         Vehiculo::factory()
             ->count(20)
-            ->create();
+            ->create([
+                'patente' => null,
+                'propietario_id' => null,
+            ]);
     }
 }
