@@ -9,9 +9,9 @@
         </div>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="{{ url('/') }}" class="nav-link px-2 link-secondary">Inicio</a></li>
-            <li><a href="{{ url('/galeria') }}" class="nav-link px-2">Galería</a></li>
-            <li><a href="{{ url('/servicios') }}" class="nav-link px-2">Servicios</a></li>
+            <li><a href="{{ url('/') }}" class="nav-link px-2 {{ request()->is('/') ? 'link-secondary' : '' }}">Inicio</a></li>
+            <li><a href="{{ url('/galeria') }}" class="nav-link px-2 {{ request()->is('galeria') ? 'link-secondary' : '' }}">Galería</a></li>
+            <li><a href="{{ url('/servicios') }}" class="nav-link px-2 {{ request()->is('servicios') ? 'link-secondary' : '' }}">Servicios</a></li>
             {{-- <li><a href="{{ url('/contacto') }}" class="nav-link px-2">Contacto</a></li> --}}
         </ul>
 
