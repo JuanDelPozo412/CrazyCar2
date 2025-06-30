@@ -137,6 +137,37 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card mb-3">
+    <div class="card-body">
+        <h5>Autos Asignados</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Patente</th>
+                    </tr>
+                </thead>
+                <tbody>
+              
+                    @forelse ($vehiculos as $vehiculo)
+                    <tr>
+                        <td>{{ $vehiculo->marca }}</td>
+                        <td>{{ $vehiculo->modelo }}</td>
+                        <td>{{ $vehiculo->patente }}</td>
+                    </tr>
+                    @empty
+                    <tr>
+                     
+                        <td colspan="3" class="text-center">No tienes ningun auto asignado</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
         </div>
