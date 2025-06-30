@@ -16,13 +16,16 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $consultas = $user->consultas()->latest()->get();
+        $vehiculos = $user->vehiculos;
 
         return view('profile.show', [
             'user' => $user,
             'consultas' => $consultas,
+            'vehiculos' => $vehiculos,
         ]);
     }
 
+    
     public function edit(Request $request): View
     {
         return view('profile.edit', [
