@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Consulta;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Usuario; 
+use App\Models\Usuario;
 
 class ProfileController extends Controller
 {
@@ -26,7 +26,7 @@ class ProfileController extends Controller
             'vehiculos' => $vehiculos,
         ]);
     }
-   
+
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -75,34 +75,33 @@ class ProfileController extends Controller
 
 
     public function update(ProfileUpdateRequest $request): RedirectResponse
-{
-    
-    $user = $request->user();
+    {
 
- 
-    $user->fill($request->validated());
+        $user = $request->user();
 
 
-    if ($request->hasFile('imagen')) {
-    
-        if ($user->imagen) {
-            Storage::disk('public')->delete($user->imagen);
+        $user->fill($request->validated());
+
+
+        if ($request->hasFile('imagen')) {
+            if ($user->imagen) {
+                Storage::disk('public')->delete('images/' . $user->imagen);
+            }
+            $path = $request->file('imagen')->store('images', 'public');
+            $user->imagen = basename($path);
         }
-      
-        $path = $request->file('imagen')->store('imagen', 'public');
-       
-        $user->imagen = $path;
-    }
-  
-    if ($user->isDirty('email')) {
-        $user->email = $user->getOriginal('email');
-    }
 
- 
-    $user->save();
-  
-    return Redirect::route('profile.edit')->with('status', '¡Perfil actualizado con éxito!');
-}
+
+
+        if ($user->isDirty('email')) {
+            $user->email = $user->getOriginal('email');
+        }
+
+
+        $user->save();
+
+        return Redirect::route('profile.edit')->with('status', '¡Perfil actualizado con éxito!');
+    }
 
     public function destroy(Request $request): RedirectResponse
     {

@@ -17,7 +17,8 @@
             <div class="container-fluid">
 
                 <a class="navbar-brand" href="{{ route('home') }}">Home</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -41,20 +42,24 @@
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 @if ($user->imagen)
-                                <img src="{{ asset('storage/' . $user->imagen) }}" alt="Foto de perfil" class="rounded-circle" width="150" style="height: 150px; object-fit: cover;" />
+                                    <img src="{{ asset('storage/images/' . $user->imagen) }}" alt="Foto de perfil"
+                                        class="rounded-circle" width="150"
+                                        style="height: 150px; object-fit: cover;" />
                                 @else
-
-                                <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil" class="rounded-circle" width="150" />
+                                    <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil"
+                                        class="rounded-circle" width="150" />
                                 @endif
                                 <div class="mt-3">
                                     <h4>{{ $user->name }} {{ $user->apellido }}</h4>
                                     <p class="text-secondary mb-1">{{ $user->rol }}</p>
-                                    <p class="text-muted font-size-sm">{{ $user->direccion ?? 'Dirección no especificada' }}</p>
+                                    <p class="text-muted font-size-sm">
+                                        {{ $user->direccion ?? 'Dirección no especificada' }}</p>
                                     <a class="btn btn-primary col-12" href="{{ route('profile.edit') }}">
                                         Editar Perfil
                                     </a>
 
-                                    <a class="btn btn-primary col-12 mt-2" href="{{ route('consultas.createForClient') }}">
+                                    <a class="btn btn-primary col-12 mt-2"
+                                        href="{{ route('consultas.createForClient') }}">
                                         Hacer una Consulta
                                     </a>
                                 </div>
@@ -108,8 +113,8 @@
                             <h5>Consultas Enviadas</h5>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
-                                    <thead >
-                                        <tr >
+                                    <thead>
+                                        <tr>
                                             <th class="text-light bg-secondary">Fecha</th>
                                             <th class="text-light bg-secondary">horario</th>
                                             <th class="text-light bg-secondary">Titulo</th>
@@ -119,18 +124,21 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($consultas as $consulta)
-                                        <tr>
-                                            <td>{{ $consulta->created_at->format('d/m/Y') }}</td>
-                                            <td>{{ $consulta->horario }}</td>
-                                            <td>{{ $consulta->titulo }}</td>
-                                            <td>{{ $consulta->tipo }}</td>
-                                            <td><span class="badge bg-info text-dark">{{ $consulta->estado }}</span></td>
-                                            <td><a class=" badge btn-outline-secondary btn text-dark">ver</a></td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{ $consulta->created_at->format('d/m/Y') }}</td>
+                                                <td>{{ $consulta->horario }}</td>
+                                                <td>{{ $consulta->titulo }}</td>
+                                                <td>{{ $consulta->tipo }}</td>
+                                                <td><span
+                                                        class="badge bg-info text-dark">{{ $consulta->estado }}</span>
+                                                </td>
+                                                <td><a class=" badge btn-outline-secondary btn text-dark">ver</a></td>
+                                            </tr>
                                         @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center">No has enviado ninguna consulta.</td>
-                                        </tr>
+                                            <tr>
+                                                <td colspan="5" class="text-center">No has enviado ninguna consulta.
+                                                </td>
+                                            </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
@@ -138,36 +146,37 @@
                         </div>
                     </div>
                     <div class="card mb-3">
-    <div class="card-body">
-        <h5>Autos Asignados</h5>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-light bg-secondary">Marca</th>
-                        <th class="text-light bg-secondary">Modelo</th>
-                        <th class="text-light bg-secondary">Patente</th>
-                    </tr>
-                </thead>
-                <tbody>
-              
-                    @forelse ($vehiculos as $vehiculo)
-                    <tr>
-                        <td>{{ $vehiculo->marca }}</td>
-                        <td>{{ $vehiculo->modelo }}</td>
-                        <td>{{ $vehiculo->patente }}</td>
-                    </tr>
-                    @empty
-                    <tr>
-                     
-                        <td colspan="3" class="text-center">No tienes ningun auto asignado</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+                        <div class="card-body">
+                            <h5>Autos Asignados</h5>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-light bg-secondary">Marca</th>
+                                            <th class="text-light bg-secondary">Modelo</th>
+                                            <th class="text-light bg-secondary">Patente</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @forelse ($vehiculos as $vehiculo)
+                                            <tr>
+                                                <td>{{ $vehiculo->marca }}</td>
+                                                <td>{{ $vehiculo->modelo }}</td>
+                                                <td>{{ $vehiculo->patente }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+
+                                                <td colspan="3" class="text-center">No tienes ningun auto asignado
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

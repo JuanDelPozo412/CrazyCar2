@@ -28,7 +28,7 @@
                 <h3>Información Personal</h3>
 
                 <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
-                    
+
                     @csrf
                     @method('PATCH')
 
@@ -37,13 +37,14 @@
                         <div class="col-md-3">
                             <div class="text-center">
 
-                          @if ($user->imagen)
-  
-    <img src="{{ asset('storage/' . $user->imagen) }}" alt="Foto de perfil" class="rounded-circle" width="150" style="height: 150px; object-fit: cover;"/>
-@else
-    
-    <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil" class="rounded-circle" width="150" />
-@endif
+                                @if ($user->imagen)
+                                    <img src="{{ asset('storage/images/' . $user->imagen) }}" alt="Foto de perfil"
+                                        class="rounded-circle" width="150"
+                                        style="height: 150px; object-fit: cover;" />
+                                @else
+                                    <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil"
+                                        class="rounded-circle" width="150" />
+                                @endif
                                 <h6 class="mt-2">Cargar una nueva foto</h6>
                                 <input type="file" name="imagen" class="form-control">
 
@@ -52,62 +53,54 @@
                                 @enderror
                             </div>
                         </div>
-                     </form>
-
-
-                        <div class="col-md-9">
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Nombre:</label>
-                                <input class="form-control" type="text" name="name"
-                                    value="{{ old('name', $user->name) }}" />
-                                @error('name')
-                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Apellido:</label>
-                                <input class="form-control" type="text" name="apellido"
-                                    value="{{ old('apellido', $user->apellido) }}" />
-                                @error('apellido')
-                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                             <div class="form-group mb-3">
-                                <label class="form-label fw-bold">dni:</label>
-                                <input class="form-control" type="number" name="dni"
-                                    value="{{ old('dni', $user->dni) }}" />
-                                @error('dni')
-                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Teléfono:</label>
-                                <input class="form-control" type="number" name="telefono"
-                                    value="{{ old('telefono', $user->telefono) }}" />
-                                @error('telefono')
-                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Dirección:</label>
-                                <input class="form-control" type="text" name="direccion"
-                                    value="{{ old('direccion', $user->direccion) }}" />
-                                @error('direccion')
-                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label fw-bold">Email (no se puede cambiar):</label
-                                <input class="form-control" type="email" value="{{ $user->email }}" disabled/>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary mt-3" type="submit">Guardar Cambios</button>
-                            </div>
-                        </div>
-                    </div>
                 </form>
+
+
+                <div class="col-md-9">
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold">Nombre:</label>
+                        <input class="form-control" type="text" name="name"
+                            value="{{ old('name', $user->name) }}" />
+                        @error('name')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold">Apellido:</label>
+                        <input class="form-control" type="text" name="apellido"
+                            value="{{ old('apellido', $user->apellido) }}" />
+                        @error('apellido')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold">Teléfono:</label>
+                        <input class="form-control" type="text" name="telefono"
+                            value="{{ old('telefono', $user->telefono) }}" />
+                        @error('telefono')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold">Dirección:</label>
+                        <input class="form-control" type="text" name="direccion"
+                            value="{{ old('direccion', $user->direccion) }}" />
+                        @error('direccion')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold">Email (no se puede cambiar):</label <input
+                            class="form-control" type="email" value="{{ $user->email }}" disabled />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary mt-3" type="submit">Guardar Cambios</button>
+                    </div>
+                </div>
             </div>
+            </form>
         </div>
+    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
