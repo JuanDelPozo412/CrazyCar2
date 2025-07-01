@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Consulta;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Usuario; 
 
 class ProfileController extends Controller
 {
@@ -24,8 +26,7 @@ class ProfileController extends Controller
             'vehiculos' => $vehiculos,
         ]);
     }
-
-    
+   
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -81,19 +82,34 @@ class ProfileController extends Controller
 
 
     public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $user = $request->user();
+{
+    
+    $user = $request->user();
 
-        $user->fill($request->validated());
+ 
+    $user->fill($request->validated());
 
-        if ($user->isDirty('email')) {
-            $user->email = $user->getOriginal('email');
+
+    if ($request->hasFile('imagen')) {
+    
+        if ($user->imagen) {
+            Storage::disk('public')->delete($user->imagen);
         }
-
-        $user->save();
-
-        return Redirect::route('profile.edit')->with('status', '¡Perfil actualizado con éxito!');
+      
+        $path = $request->file('imagen')->store('imagen', 'public');
+       
+        $user->imagen = $path;
     }
+  
+    if ($user->isDirty('email')) {
+        $user->email = $user->getOriginal('email');
+    }
+
+ 
+    $user->save();
+  
+    return Redirect::route('profile.edit')->with('status', '¡Perfil actualizado con éxito!');
+}
 
     public function destroy(Request $request): RedirectResponse
     {
