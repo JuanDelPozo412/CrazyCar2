@@ -23,8 +23,8 @@
                                 style="width: 120px; height: 120px; object-fit: cover;">
 
                             <label for="imagen{{ $client->id }}"
-                                class="position-absolute bottom-0 end-0 bg-primary rounded-circle d-flex justify-content-center align-items-center border border-2 border-white shadow-sm"
-                                style="width: 36px; height: 36px; cursor: pointer; transform: translate(25%, 25%);">
+                                class="position-absolute bottom-0 end-0 rounded-circle d-flex justify-content-center align-items-center border border-2 border-white shadow-sm"
+                                style="width: 36px; height: 36px; cursor: pointer; transform: translate(25%, 25%); background-color: rgba(23, 162, 184, 0.9);">
                                 <i class="bi bi-pencil-fill text-white "></i>
                             </label>
                             <input type="file" class="d-none" id="imagen{{ $client->id }}" name="imagen"
@@ -32,7 +32,6 @@
                         </div>
                     </div>
 
-                    <!-- Campos de formulario -->
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="name{{ $client->id }}" class="form-label">Nombre</label>
@@ -69,7 +68,9 @@
 
                 <div class="modal-footer border-0">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <button type="submit" class="btn text-white"
+                        style="background-color: rgba(23, 162, 184, 0.9)">Guardar
+                        Cambios</button>
                 </div>
             </form>
         </div>

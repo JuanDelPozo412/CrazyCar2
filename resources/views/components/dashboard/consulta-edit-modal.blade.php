@@ -1,7 +1,6 @@
 @props(['consulta'])
 
 @php
-    // Deshabilitar si la consulta está tomada por otro empleado o está finalizada
     $isDisabled =
         ($consulta->empleado_id && $consulta->empleado_id !== auth()->id()) || $consulta->estado === 'Finalizada';
 @endphp
@@ -14,7 +13,7 @@
         aria-labelledby="inquiryDetail{{ $consulta->id }}Label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content rounded-4 shadow">
-                <div class="modal-header bg-primary text-white">
+                <div class="modal-header text-white" style="background-color: rgba(23, 162, 184, 0.9)">
                     <h5 class="modal-title" id="inquiryDetail{{ $consulta->id }}Label">Detalle de la Consulta</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Cerrar"></button>
@@ -75,7 +74,8 @@
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" {{ $isDisabled ? 'disabled' : '' }}>Guardar</button>
+                    <button type="submit" style="background-color: rgba(23, 162, 184, 0.9)" class="btn text-white"
+                        {{ $isDisabled ? 'disabled' : '' }}>Guardar</button>
                 </div>
             </div>
         </div>

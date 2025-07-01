@@ -3,7 +3,7 @@
 <div class="card shadow-sm rounded-4 mb-4">
     <div class="card-body">
         <h5 class="card-title">{{ $title }}</h5>
-        <canvas id="{{ $chartId }}" height="150"></canvas> {{-- Aumentamos la altura para mejor visibilidad --}}
+        <canvas id="{{ $chartId }}" height="150"></canvas>
     </div>
 </div>
 
@@ -18,7 +18,7 @@
             const colors{{ ucfirst(Str::camel($chartId)) }} = {!! json_encode($colors) !!};
 
             new Chart(ctx{{ ucfirst(Str::camel($chartId)) }}, {
-                type: 'pie', // Tipo de gráfico: 'pie'
+                type: 'pie',
                 data: {
                     labels: labels{{ ucfirst(Str::camel($chartId)) }},
                     datasets: [{
@@ -32,10 +32,10 @@
                     responsive: true,
                     plugins: {
                         legend: {
-                            position: 'top', // Leyenda en la parte superior
+                            position: 'top',
                         },
                         title: {
-                            display: false, // El título ya está en h5.card-title
+                            display: false,
                             text: '{{ $title }}'
                         }
                     }

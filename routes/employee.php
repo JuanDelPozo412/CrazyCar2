@@ -23,7 +23,9 @@ Route::middleware(['auth', 'empleado'])->group(function () {
     Route::delete('/dashboard/employee/vehicles/{id}', [VehiculoController::class, 'destroy'])->name('vehiculos.destroy');
 
     Route::get('/dashboard/employee/mantenimientos', [MantenimientoController::class, 'index'])->name('mantenimientos.index');
-    Route::post('/dashboard/employee/mantenimientos', [MantenimientoController::class, 'store'])->name('mantenimientos.store');
+    Route::post('/dashboard/employee/mantenimientos', [MantenimientoController::class, 'storeMantenimiento'])->name('mantenimientos.store');
+    Route::delete('/dashboard/employee/mantenimientos/{id}', [MantenimientoController::class, 'destroy'])->name('mantenimientos.destroy');
+
 
 
     Route::post('/dashboard/employee/consultas', [ConsultaController::class, 'store'])->name('consultas.store');

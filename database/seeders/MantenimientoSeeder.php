@@ -4,22 +4,23 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Mantenimiento;
-use App\Models\Vehiculo;
+use App\Models\Usuario;
 
 class MantenimientoSeeder extends Seeder
 {
     public function run()
     {
-        $vehiculos = Vehiculo::all();
 
-        if ($vehiculos->count() === 0) {
-            Vehiculo::factory(10)->create();
-            $vehiculos = Vehiculo::all();
+        $clientes = Usuario::where('rol', 'cliente')->get();
+
+        if ($clientes->count() === 0) {
+            Usuario::factory(10)->create(['rol' => 'cliente']);
+            $clientes = Usuario::where('rol', 'cliente')->get();
         }
 
-        foreach ($vehiculos as $vehiculo) {
-            Mantenimiento::factory()->count(rand(1, 3))->create([
-                'vehiculo_id' => $vehiculo->id,
+        foreach ($clientes as $cliente) {
+            Mantenimiento::factory()->count(rand(1, 5))->create([
+                'usuario_id' => $cliente->id,
             ]);
         }
     }

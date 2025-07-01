@@ -49,7 +49,6 @@
 
                     <td>{{ $consulta->cliente?->email ?? 'No asignado' }}</td>
                     <td>{{ $consulta->tipo }}</td>
-                    {{-- CAMBIO AQUÍ: Muestra el estado directamente, o con un badge si quieres estilos --}}
                     <td>
                         @switch($consulta->estado)
                             @case('Nueva')
@@ -107,7 +106,8 @@
 
     @if (count($inquiries) > $initialDisplayCount)
         <div class="text-center mt-2">
-            <button id="toggle-inquiries-btn" class="btn btn-primary text-white" type="button">
+            <button id="toggle-inquiries-btn" class="btn text-white" type="button"
+                style="background-color: rgba(13, 110, 253, 0.8)">
                 Mostrar más consultas
             </button>
         </div>

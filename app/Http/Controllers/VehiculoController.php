@@ -4,30 +4,64 @@ namespace App\Http\Controllers;
 
 use App\Models\Vehiculo;
 use App\Models\Mantenimiento;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class VehiculoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
+        $clients = Usuario::where('rol', 'cliente')->orderBy('apellido')->orderBy('name')->get();
 
-        $allVehicles = Vehiculo::all();
-        $vehiclesForSaleCount = $allVehicles->count();
+        $busquedaVehiculo = $request->input('busqueda_vehiculo');
+        $vehiclesQuery = Vehiculo::orderBy('created_at', 'desc');
 
-        $allMaintenances = Mantenimiento::all();
-        $vehiclesMaintenanceCount = $allMaintenances->count();
+        if ($busquedaVehiculo) {
+            $vehiclesQuery->where(function ($query) use ($busquedaVehiculo) {
+                $query->where('marca', 'like', '%' . $busquedaVehiculo . '%')
+                    ->orWhere('modelo', 'like', '%' . $busquedaVehiculo . '%')
+                    ->orWhere('combustible', 'like', '%' . $busquedaVehiculo . '%');
+            });
+        }
 
-        $vehiclesInMaintenance = $allMaintenances->load('vehiculo');
+        $vehiclesFiltered = $vehiclesQuery->get();
+        $vehiclesForSaleCount = $vehiclesFiltered->count();
+        $vehiclesTotalCount = Vehiculo::count();
+
+        $busquedaMantenimiento = $request->input('busqueda_mantenimiento');
+
+        $mantenimientosQuery = Mantenimiento::with('usuario')->orderByDesc('created_at');
+
+        if ($busquedaMantenimiento) {
+            $mantenimientosQuery->where(function ($query) use ($busquedaMantenimiento) {
+                $query->where('patente', 'like', '%' . $busquedaMantenimiento . '%')
+                    ->orWhere('motivo', 'like', '%' . $busquedaMantenimiento . '%')
+                    ->orWhereHas('usuario', function ($q) use ($busquedaMantenimiento) {
+                        $q->where('name', 'like', '%' . $busquedaMantenimiento . '%')
+                            ->orWhere('apellido', 'like', '%' . $busquedaMantenimiento . '%');
+                    });
+            });
+        }
+
+        $mantenimientosFiltrados = $mantenimientosQuery->get();
+
+        $vehiclesMaintenanceCount = $mantenimientosFiltrados->count();
+        $mantenimientosTotales = Mantenimiento::count();
 
         return view('dashboard.employee.vehicles', [
-            'allVehicles' => $allVehicles,
+            'allVehicles' => $vehiclesFiltered,
             'vehiclesForSaleCount' => $vehiclesForSaleCount,
+            'vehiclesTotalCount' => $vehiclesTotalCount,
             'vehiclesMaintenanceCount' => $vehiclesMaintenanceCount,
-            'vehiclesInMaintenance' => $vehiclesInMaintenance,
+            'mantenimientos' => $mantenimientosFiltrados,
+            'mantenimientosTotales' => $mantenimientosTotales,
             'name' => $user->name,
             'role' => $user->rol,
+            'busquedaVehiculo' => $busquedaVehiculo,
+            'busquedaMantenimiento' => $busquedaMantenimiento,
+            'clients' => $clients,
         ]);
     }
 
@@ -70,25 +104,6 @@ class VehiculoController extends Controller
         return redirect()->route('vehiculos')->with('success', 'Vehículo creado correctamente.');
     }
 
-    public function storeMantenimiento(Request $request)
-    {
-        $validated = $request->validate([
-            'vehiculo_id' => 'required|exists:vehiculos,id',
-            'motivo' => 'required|string|max:255',
-        ]);
-
-        $vehiculo = Vehiculo::findOrFail($validated['vehiculo_id']);
-
-        Mantenimiento::create([
-            'vehiculo_id' => $vehiculo->id,
-            'motivo' => $validated['motivo'],
-            'estado' => 'Nuevo',
-            'fecha_inicio' => now(),
-            'fecha_fin' => null,
-        ]);
-
-        return redirect()->route('vehiculos')->with('success', 'Mantenimiento creado correctamente.');
-    }
 
     public function show($id)
     {

@@ -4,7 +4,7 @@
     aria-labelledby="clientDetailModalLabel{{ $client->id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content rounded-4 shadow">
-            <div class="modal-header bg-primary text-white">
+            <div class="modal-header text-white" style="background-color: rgba(13, 110, 253, 0.8)">
                 <h5 class="modal-title" id="clientDetailModalLabel{{ $client->id }}">Detalle del Cliente</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                     aria-label="Cerrar"></button>
