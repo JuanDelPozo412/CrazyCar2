@@ -108,13 +108,13 @@
                             <h5>Consultas Enviadas</h5>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Fecha</th>
-                                            <th>horario</th>
-                                            <th>Titulo</th>
-                                            <th>tipo</th>
-                                            <th>Estado</th>
+                                    <thead >
+                                        <tr >
+                                            <th class="text-light bg-secondary">Fecha</th>
+                                            <th class="text-light bg-secondary">horario</th>
+                                            <th class="text-light bg-secondary">Titulo</th>
+                                            <th class="text-light bg-secondary">tipo</th>
+                                            <th class="text-light bg-secondary">Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -144,9 +144,9 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th>Patente</th>
+                        <th class="text-light bg-secondary">Marca</th>
+                        <th class="text-light bg-secondary">Modelo</th>
+                        <th class="text-light bg-secondary">Patente</th>
                     </tr>
                 </thead>
                 <tbody>
