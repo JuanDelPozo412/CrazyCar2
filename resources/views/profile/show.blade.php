@@ -40,8 +40,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                @if ($user->profile_photo_path)
-                                <img src="{{ asset('storage/' . $user->profile_photo_path) }}" alt="Foto de perfil" class="rounded-circle" width="150" style="height: 150px; object-fit: cover;" />
+                                @if ($user->imagen)
+                                <img src="{{ asset('storage/' . $user->imagen) }}" alt="Foto de perfil" class="rounded-circle" width="150" style="height: 150px; object-fit: cover;" />
                                 @else
 
                                 <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil" class="rounded-circle" width="150" />
@@ -111,7 +111,9 @@
                                     <thead>
                                         <tr>
                                             <th>Fecha</th>
-                                            <th>Asunto</th>
+                                            <th>horario</th>
+                                            <th>Titulo</th>
+                                            <th>tipo</th>
                                             <th>Estado</th>
                                         </tr>
                                     </thead>
@@ -119,12 +121,15 @@
                                         @forelse ($consultas as $consulta)
                                         <tr>
                                             <td>{{ $consulta->created_at->format('d/m/Y') }}</td>
-                                            <td>{{ $consulta->asunto }}</td>
+                                            <td>{{ $consulta->horario }}</td>
+                                            <td>{{ $consulta->titulo }}</td>
+                                            <td>{{ $consulta->tipo }}</td>
                                             <td><span class="badge bg-info text-dark">{{ $consulta->estado }}</span></td>
+                                            <td><a class=" badge btn-outline-secondary btn text-dark">ver</a></td>
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="3" class="text-center">No has enviado ninguna consulta.</td>
+                                            <td colspan="5" class="text-center">No has enviado ninguna consulta.</td>
                                         </tr>
                                         @endforelse
                                     </tbody>
@@ -132,6 +137,37 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card mb-3">
+    <div class="card-body">
+        <h5>Autos Asignados</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Patente</th>
+                    </tr>
+                </thead>
+                <tbody>
+              
+                    @forelse ($vehiculos as $vehiculo)
+                    <tr>
+                        <td>{{ $vehiculo->marca }}</td>
+                        <td>{{ $vehiculo->modelo }}</td>
+                        <td>{{ $vehiculo->patente }}</td>
+                    </tr>
+                    @empty
+                    <tr>
+                     
+                        <td colspan="3" class="text-center">No tienes ningun auto asignado</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
         </div>

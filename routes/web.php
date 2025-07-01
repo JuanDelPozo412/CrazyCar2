@@ -8,6 +8,8 @@
 
     use App\Http\Controllers\UserVehiclesController;
 
+    
+
     Route::get('/', function () {
         return view('welcome');
     });
@@ -21,6 +23,7 @@
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        
     });
     Route::middleware('auth')->group(function () {
         Route::get('/consultas/crear', [ProfileController::class, 'createForClient'])
@@ -28,6 +31,7 @@
         Route::post('/consultas', [ProfileController::class, 'storeConsultaCliente'])
             ->name('consultas.storeForClient');
     });
+    Route::patch('/perfil/foto', [ProfileController::class, 'updatePhoto'])->name('imagen.update');
 
     Route::get('/servicios', [UserServicesController::class, 'index']);
 
