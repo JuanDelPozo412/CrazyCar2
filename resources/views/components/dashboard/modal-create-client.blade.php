@@ -2,11 +2,14 @@
     <div class="modal-dialog modal-lg">
         <form action="{{ route('clientes.store') }}" method="POST" enctype="multipart/form-data" class="modal-content">
             @csrf
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="createClientModalLabel">Crear Nuevo Cliente</h5>
+            <div class="modal-header text-white p-4 border-bottom" style="background-color: rgba(13, 110, 253, 0.8)">
+                <h5 class="modal-title fw-bold d-flex align-items-center" id="createClientModalLabel">
+                    <i class="bi bi-person-plus me-2"></i> Crear Nuevo Cliente
+                </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                     aria-label="Cerrar"></button>
             </div>
+
             <div class="modal-body">
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -65,7 +68,8 @@
             </div>
             <div class="modal-footer bg-light">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Crear Cliente</button>
+                <button type="submit" class="btn text-white" style="background-color: rgba(13, 110, 253, 0.8)">Crear
+                    Cliente</button>
             </div>
         </form>
     </div>

@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('consultas', function (Blueprint $table) {
             $table->id();
 
-            // Relaciones
             $table->foreignId('usuario_id')->nullable()->constrained('usuarios')->onDelete('set null');
             $table->foreignId('empleado_id')->nullable()->constrained('usuarios')->onDelete('set null');
 

@@ -28,9 +28,4 @@ class Vehiculo extends Model
     {
         return $this->belongsTo(Usuario::class, 'propietario_id');
     }
-
-    public function mantenimientos()
-    {
-        return $this->hasMany(Mantenimiento::class);
-    }
 }

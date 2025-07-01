@@ -52,34 +52,18 @@
                     <div class="col-md-6 mt-2">
                         <div class="row g-2">
                             <x-dashboard.stat-card icon="bi-car-front-fill" label="Vehículos a la Venta"
-                                :value="$vehiclesForSaleCount" color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
+                                :value="$vehiclesTotalCount" color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
 
-                            <x-dashboard.stat-card icon="bi-tools" label="En Mantenimiento" :value="$vehiclesMaintenanceCount"
+                            <x-dashboard.stat-card icon="bi-tools" label="En Mantenimiento" :value="$mantenimientosTotales"
                                 color="rgba(23, 162, 184, 0.9)" href="#vehiclesMaintenanceCount" />
                         </div>
                     </div>
                 </div>
 
-                <x-dashboard.vehicle-table title="Vehículos en venta" searchPlaceholder="Buscar vehículo..."
-                    tableId="tableVenta" :columns="[
-                        'Marca' => 'Marca',
-                        'Modelo' => 'Modelo',
-                        'Tipo' => 'Tipo',
-                        'Color' => 'Color',
-                        'Combustible' => 'Combustible',
-                        'Stock' => 'Stock',
-                        'Precio' => 'Precio',
-                    ]" :vehicles="$allVehicles" />
+                <x-dashboard.vehicle-table :vehicles="$allVehicles" />
 
-                {{-- <x-dashboard.vehicle-table title="Vehículos en mantenimiento" searchPlaceholder="Buscar vehículo..."
-                    tableId="tableMantenimiento" :columns="[
-                        'Propietario' => 'Propietario',
-                        'Patente' => 'Patente',
-                        'Motivo' => 'Motivo',
-                        'Estado' => 'Estado',
-                        'Fecha de inicio' => 'Fecha de inicio',
-                        'Fecha de fin' => 'Fecha de fin',
-                    ]" :vehicles="$vehiclesInMaintenance" maintenance /> --}}
+                <x-dashboard.maintenance-table :mantenimientos="$mantenimientos" />
+
 
 
             </main>
@@ -91,6 +75,8 @@
                 message="¿Está seguro de que desea eliminar este Mantenimiento?" />
 
             <x-dashboard.create-vehicle-modal />
+            <x-dashboard.maintenance-create-modal :clients="$clients" />
+
         </div>
     </div>
 

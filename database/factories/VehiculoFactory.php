@@ -15,8 +15,10 @@ class VehiculoFactory extends Factory
         $allImages = Storage::disk('public')->files($localImagesPath);
         $randomImageFilename = Arr::random($allImages);
 
-        $patente = null;
-        $propietarioId = null;
+        $patente = $this->faker->regexify('[A-Z]{3}-\d{3}');
+
+        $propietarioId = Usuario::inRandomOrder()->first()->id ?? Usuario::factory()->create()->id;
+
 
         return [
             'patente' => $patente,

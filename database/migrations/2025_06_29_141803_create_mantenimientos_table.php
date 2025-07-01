@@ -11,7 +11,12 @@ return new class extends Migration
     {
         Schema::create('mantenimientos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vehiculo_id')->constrained('vehiculos')->onDelete('cascade');
+            $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
+
+            $table->string('marca');
+            $table->string('modelo');
+            $table->string('patente');
+
             $table->enum('motivo', [
                 'Cambio de Aceite',
                 'Alineacion y Balanceo',
@@ -22,6 +27,8 @@ return new class extends Migration
             $table->enum('estado', ['Nuevo', 'En Proceso', 'Finalizado'])->default('Nuevo');
             $table->date('fecha_inicio')->nullable();
             $table->date('fecha_fin')->nullable();
+            $table->string('imagen')->nullable();
+
             $table->timestamps();
         });
     }

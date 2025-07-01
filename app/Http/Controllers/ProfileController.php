@@ -36,13 +36,6 @@ class ProfileController extends Controller
         return view('profile.create-consulta-cliente');
     }
 
-    /**
-     * 
-     * 
-     *
-     * @param  \Illuminate\Http\Request  
-     * @return \Illuminate\Http\Response
-     */
     public function storeConsultaCliente(Request $request)
     {
         $authenticatedUser = Auth::user();

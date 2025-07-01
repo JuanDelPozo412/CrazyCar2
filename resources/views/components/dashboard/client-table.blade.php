@@ -73,7 +73,8 @@
 
 @if (count($clients) > $initialDisplayCount)
     <div class="text-center mt-3">
-        <button id="toggle-clients-btn" class="btn btn-primary text-white" type="button">
+        <button id="toggle-clients-btn" class="btn text-white" style="background-color: rgba(13, 110, 253, 0.8)"
+            type="button">
             Mostrar más clientes
         </button>
     </div>
