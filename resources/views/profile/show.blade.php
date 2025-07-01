@@ -40,8 +40,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                @if ($user->profile_photo_path)
-                                <img src="{{ asset('storage/' . $user->profile_photo_path) }}" alt="Foto de perfil" class="rounded-circle" width="150" style="height: 150px; object-fit: cover;" />
+                                @if ($user->imagen)
+                                <img src="{{ asset('storage/' . $user->imagen) }}" alt="Foto de perfil" class="rounded-circle" width="150" style="height: 150px; object-fit: cover;" />
                                 @else
 
                                 <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil" class="rounded-circle" width="150" />

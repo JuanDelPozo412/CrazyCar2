@@ -20,6 +20,7 @@ class ProfileUpdateRequest extends FormRequest
             'apellido' => ['nullable', 'string', 'max:255'],
             'telefono' => ['nullable', 'string', 'max:15'],
             'direccion' => ['nullable', 'string', 'max:255'],
+            'imagen' => ['nullable', 'image', 'mimes:jpg,png,jpeg,webp', 'max:2048']
         ];
     }
 }

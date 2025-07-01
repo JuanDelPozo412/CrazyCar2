@@ -31,7 +31,7 @@
         Route::post('/consultas', [ProfileController::class, 'storeConsultaCliente'])
             ->name('consultas.storeForClient');
     });
-    Route::put('/perfil/foto', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
+    Route::patch('/perfil/foto', [ProfileController::class, 'updatePhoto'])->name('imagen.update');
 
     Route::get('/servicios', [UserServicesController::class, 'index']);
 
