@@ -74,7 +74,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label class="form-label fw-bold">Teléfono:</label>
-                                <input class="form-control" type="text" name="telefono"
+                                <input class="form-control" type="number" name="telefono"
                                     value="{{ old('telefono', $user->telefono) }}" />
                                 @error('telefono')
                                     <div class="text-danger small mt-1">{{ $message }}</div>
