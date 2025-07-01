@@ -42,7 +42,7 @@
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 @if ($user->imagen)
-                                    <img src="{{ asset('storage/images/' . $user->imagen) }}" alt="Foto de perfil"
+                                    <img src="{{ asset('storage/personas/' . $user->imagen) }}" alt="Foto de perfil"
                                         class="rounded-circle" width="150"
                                         style="height: 150px; object-fit: cover;" />
                                 @else

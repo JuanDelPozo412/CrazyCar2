@@ -84,7 +84,7 @@ class ClientController extends Controller
             if ($file->getError() == UPLOAD_ERR_INI_SIZE) {
                 return back()->withErrors(['imagen' => 'La imagen excede el tamaño máximo permitido por el servidor.']);
             }
-            $imagenPath = $request->file('imagen')->store('images', 'public');
+            $imagenPath = $request->file('imagen')->store('personas', 'public');
             $validated['imagen'] = basename($imagenPath);
         } else {
             $validated['imagen'] = 'icon-person.jpg';
@@ -113,9 +113,9 @@ class ClientController extends Controller
 
         if ($request->hasFile('imagen')) {
             if ($cliente->imagen && $cliente->imagen != 'icon-person.jpg') {
-                Storage::disk('public')->delete('images/' . $cliente->imagen);
+                Storage::disk('public')->delete('personas/' . $cliente->imagen);
             }
-            $imagenPath = $request->file('imagen')->store('images', 'public');
+            $imagenPath = $request->file('imagen')->store('personas', 'public');
             $validated['imagen'] = basename($imagenPath);
         }
 

@@ -39,9 +39,10 @@
                     'hidden-client-row d-none' => $index >= $initialDisplayCount,
                 ])>
                     <td class="text-center">
-                        <img src="{{ asset('storage/images/' . ($client->imagen ?? 'icon-person.jpg')) }}"
+                        <img src="{{ asset('storage/personas/' . ($client->imagen ?? 'user-image.png')) }}"
                             alt="Imagen de {{ $client->name }}" class="rounded-circle"
                             style="width:40px; height:40px; object-fit:cover;">
+
                     </td>
                     <td>{{ $client->name }}</td>
                     <td>{{ $client->apellido }}</td>

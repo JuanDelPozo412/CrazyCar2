@@ -18,7 +18,7 @@
                 <div class="modal-body pt-0">
                     <div class="text-center mb-4 position-relative">
                         <div class="position-relative d-inline-block">
-                            <img src="{{ asset('storage/images/' . ($client->imagen ?? 'icon-person.jpg')) }}"
+                            <img src="{{ asset('storage/personas/' . ($client->imagen ?? 'icon-person.jpg')) }}"
                                 alt="Imagen cliente" class="rounded-circle border border-5 border-white shadow-sm"
                                 style="width: 120px; height: 120px; object-fit: cover;">
 
