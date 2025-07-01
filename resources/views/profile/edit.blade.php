@@ -72,6 +72,14 @@
                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
+                             <div class="form-group mb-3">
+                                <label class="form-label fw-bold">dni:</label>
+                                <input class="form-control" type="number" name="dni"
+                                    value="{{ old('dni', $user->dni) }}" />
+                                @error('dni')
+                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="form-group mb-3">
                                 <label class="form-label fw-bold">Teléfono:</label>
                                 <input class="form-control" type="number" name="telefono"

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\User; // Asegúrate de importar el modelo User
 
 class ProfileUpdateRequest extends FormRequest
 {
@@ -20,6 +21,10 @@ class ProfileUpdateRequest extends FormRequest
             'apellido' => ['nullable', 'string', 'max:255'],
             'telefono' => ['nullable', 'string', 'max:15'],
             'direccion' => ['nullable', 'string', 'max:255'],
+            'dni' => [
+                'required', 
+                'max:255',
+            ],
             'imagen' => ['nullable', 'image', 'mimes:jpg,png,jpeg,webp', 'max:2048']
         ];
     }
