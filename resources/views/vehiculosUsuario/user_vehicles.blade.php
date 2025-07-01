@@ -66,9 +66,10 @@
                                     Combustible: {{ $vehiculo->combustible }} <br>
                                     Precio: ${{ number_format($vehiculo->precio, 2) }}
                                 </p>
-                                <a href="#" class="btn btn-primary">Ver más</a>
+                                <button type="button" class="btn btn-primary"data-bs-toggle="modal"data-bs-target="#userVehicleDetailModal{{ $vehiculo->id }}">Ver más</button>
                             </div>
                         </div>
+                        <x-user-vehicles-details.user-vehicle-detail-modal :vehicle="$vehiculo" />
                     </div>
                 @endforeach
             </div>
