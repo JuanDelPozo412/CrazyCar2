@@ -26,7 +26,7 @@ class VehiculoFactory extends Factory
             'modelo' => $this->faker->word(),
             'anio' => $this->faker->numberBetween(1995, date('Y')),
             'color' => $this->faker->safeColorName(),
-            'tipo' => $this->faker->randomElement(['Sedan', 'SUV', 'Pick-Up']),
+            'tipo' => $this->faker->randomElement(['Sedan', 'SUV', 'Pickup']),
             'combustible' => $this->faker->randomElement(['Nafta', 'Diesel', 'Electrico', 'Hibrido']),
             'imagen' => $randomImageFilename,
             'stock' => $this->faker->numberBetween(0, 100),
