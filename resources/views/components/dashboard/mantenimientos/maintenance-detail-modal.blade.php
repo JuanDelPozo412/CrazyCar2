@@ -97,9 +97,33 @@
                                             @endphp
                                             {!! $badge !!}
                                         </p>
+
+                                        <form action="{{ route('mantenimiento.updateEstado', $maintenance->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PATCH')
+
+                                            <select name="estado" id="estadoSelect{{ $maintenance->id }}"
+                                                class="form-select form-select-sm">
+                                                <option value="Nuevo"
+                                                    {{ $maintenance->estado === 'Nuevo' ? 'selected' : '' }}>Nuevo
+                                                </option>
+                                                <option value="En Proceso"
+                                                    {{ $maintenance->estado === 'En Proceso' ? 'selected' : '' }}>En
+                                                    Proceso</option>
+                                                <option value="Finalizado"
+                                                    {{ $maintenance->estado === 'Finalizado' ? 'selected' : '' }}>
+                                                    Finalizado</option>
+                                            </select>
+
+                                            <button type="submit" class="btn btn-sm px-2 py-1 mt-3 text-white"
+                                                style="background-color: rgba(13, 110, 253, 0.8)">Actualizar</button>
+
+                                        </form>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col">
                                 <div class="card h-100 shadow-sm border-secondary-subtle">
                                     <div class="card-body text-center">
@@ -189,7 +213,6 @@
     </div>
 </div>
 
-{{-- Estilos de scrollbar --}}
 <style>
     .custom-scrollbar::-webkit-scrollbar {
         width: 12px;

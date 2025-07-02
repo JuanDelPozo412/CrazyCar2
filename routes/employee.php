@@ -24,6 +24,7 @@ Route::middleware(['auth', 'empleado'])->group(function () {
 
     Route::get('/dashboard/employee/mantenimientos', [MantenimientoController::class, 'index'])->name('mantenimientos.index');
     Route::post('/dashboard/employee/mantenimientos', [MantenimientoController::class, 'storeMantenimiento'])->name('mantenimientos.store');
+    Route::patch('/dashboard/employee/mantenimiento/{id}/estado', [MantenimientoController::class, 'updateEstado'])->name('mantenimiento.updateEstado');
     Route::delete('/dashboard/employee/mantenimientos/{id}', [MantenimientoController::class, 'destroy'])->name('mantenimientos.destroy');
 
 
