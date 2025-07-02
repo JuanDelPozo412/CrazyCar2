@@ -35,6 +35,10 @@ class ClientController extends Controller
         $inquiriesQuery->where('is_deleted', false);
         $inquiriesQuery->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada']);
 
+        $consultasCount = Consulta::where('is_deleted', false)
+            ->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada'])
+            ->count();
+
 
         if ($request->filled('busqueda_consulta')) {
             $searchTermConsulta = strtolower($request->busqueda_consulta);
@@ -53,8 +57,6 @@ class ClientController extends Controller
             ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc')
             ->get();
-
-        $consultasCount = $inquiries->count();
 
         return view('dashboard.employee.clients', compact(
             'clients',
@@ -84,7 +86,7 @@ class ClientController extends Controller
             if ($file->getError() == UPLOAD_ERR_INI_SIZE) {
                 return back()->withErrors(['imagen' => 'La imagen excede el tamaño máximo permitido por el servidor.']);
             }
-            $imagenPath = $request->file('imagen')->store('personas', 'public');
+            $imagenPath = $request->file('imagen')->store('images', 'public');
             $validated['imagen'] = basename($imagenPath);
         } else {
             $validated['imagen'] = 'icon-person.jpg';
@@ -113,9 +115,9 @@ class ClientController extends Controller
 
         if ($request->hasFile('imagen')) {
             if ($cliente->imagen && $cliente->imagen != 'icon-person.jpg') {
-                Storage::disk('public')->delete('personas/' . $cliente->imagen);
+                Storage::disk('public')->delete('images/' . $cliente->imagen);
             }
-            $imagenPath = $request->file('imagen')->store('personas', 'public');
+            $imagenPath = $request->file('imagen')->store('images', 'public');
             $validated['imagen'] = basename($imagenPath);
         }
 

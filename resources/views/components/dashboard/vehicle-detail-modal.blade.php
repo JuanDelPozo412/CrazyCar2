@@ -20,7 +20,8 @@
                         <div class="col-8 col-md-5 d-flex flex-column align-items-center mb-4 mb-md-0">
                             <div class="mb-4 text-center">
                                 @if ($vehicle->imagen)
-                                    <img src="{{ Storage::url($vehicle->imagen) }}" alt="Imagen del Vehículo"
+                                    <img src="{{ asset('storage/vehiculos/' . $vehicle->imagen) }}"
+                                        alt="Imagen del Vehículo"
                                         class="img-fluid rounded-3 shadow-sm border border-secondary-subtle"
                                         style="width: 400px; min-height: 400px; object-fit: contain;" />
                                 @else

@@ -17,9 +17,19 @@ class MantenimientoFactory extends Factory
         $usuarios = Usuario::all();
         $clientes = $usuarios->where('rol', 'cliente')->pluck('id')->toArray();
 
-        $localImagesPath = 'images';
-        $allImages = Storage::disk('public')->files($localImagesPath);
-        $randomImageFilename = Arr::random($allImages);
+        $localImagesPath = 'vehiculos';
+        $randomImageFilename = Storage::disk('public')->files($localImagesPath);
+        $randomImageFilename = count($randomImageFilename)
+            ? basename(Arr::random($randomImageFilename))
+            : null;
+
+        // $randomImageFilename = Arr::random($randomImageFilename);
+        //  $localImagesPath = 'vehiculos';
+        // $allImages = Storage::disk('public')->files($localImagesPath);
+
+        // $randomImageFilename = count($allImages)
+        //     ? basename(Arr::random($allImages))
+        //     : null;
 
         if (empty($clientes)) {
             $cliente = Usuario::factory()->create(['rol' => 'cliente']);

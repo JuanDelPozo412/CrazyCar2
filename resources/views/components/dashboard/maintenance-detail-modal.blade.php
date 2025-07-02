@@ -18,7 +18,8 @@
                     <div class="col-12 col-md-5 d-flex flex-column align-items-center mb-4 mb-md-0">
                         <div class="mb-4 text-center">
                             @if ($maintenance->imagen)
-                                <img src="{{ asset('storage/' . $maintenance->imagen) }}" alt="Imagen del Mantenimiento"
+                                <img src="{{ asset('storage/vehiculos/' . $maintenance->imagen) }}"
+                                    alt="Imagen del Mantenimiento"
                                     class="img-fluid rounded-3 shadow-sm border border-secondary-subtle"
                                     style="max-width: 400px; height: auto; object-fit: cover;" />
                             @else
@@ -28,6 +29,7 @@
                                     <p class="mb-0">No hay imagen disponible</p>
                                 </div>
                             @endif
+
                         </div>
 
                         <div class="w-100">
