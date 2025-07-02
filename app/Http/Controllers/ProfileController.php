@@ -40,13 +40,6 @@ class ProfileController extends Controller
         return view('profile.create-consulta-cliente');
     }
 
-    /**
-     *
-     *
-     *
-     * @param  \Illuminate\Http\Request
-     * @return \Illuminate\Http\Response
-     */
     public function storeConsultaCliente(Request $request)
     {
         $authenticatedUser = Auth::user();
@@ -97,7 +90,7 @@ class ProfileController extends Controller
                 Storage::disk('public')->delete('images/' . $user->imagen);
             }
             $imagenPath = $request->file('imagen')->store('images', 'public');
-            $user->imagen = basename($imagenPath);  // Aquí sí
+            $user->imagen = basename($imagenPath);
         }
 
 
