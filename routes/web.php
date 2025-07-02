@@ -8,6 +8,8 @@
 
     use App\Http\Controllers\UserVehiclesController;
 
+    use App\Http\Controllers\UserVehicleReservationController;
+
     
 
     Route::get('/', function () {
@@ -36,6 +38,12 @@
     Route::get('/servicios', [UserServicesController::class, 'index']);
 
     Route::get('/galeria', [UserVehiclesController::class, 'index']);
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/vehiculos/{vehiculo}/reservar', [UserVehicleReservationController::class, 'showForm'])
+            ->name('vehiculos.reservar');
+    });
+
 
     require __DIR__ . '/employee.php';
     require __DIR__ . '/cliente.php';
