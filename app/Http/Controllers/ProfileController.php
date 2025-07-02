@@ -83,12 +83,14 @@ class ProfileController extends Controller
         $user->fill($request->validated());
 
 
+        $user->fill($request->validated());
+
         if ($request->hasFile('imagen')) {
-            if ($user->imagen) {
+            if ($user->imagen && $user->imagen != 'icon-person.jpg') {
                 Storage::disk('public')->delete('images/' . $user->imagen);
             }
-            $path = $request->file('imagen')->store('images', 'public');
-            $user->imagen = basename($path);
+            $imagenPath = $request->file('imagen')->store('images', 'public');
+            $user->imagen = basename($imagenPath);
         }
 
 

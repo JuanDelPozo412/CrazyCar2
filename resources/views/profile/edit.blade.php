@@ -38,7 +38,7 @@
                             <div class="text-center">
 
                                 @if ($user->imagen)
-                                    <img src="{{ asset('storage/personas/' . $user->imagen) }}" alt="Foto de perfil"
+                                    <img src="{{ asset('storage/images/' . $user->imagen) }}" alt="Foto de perfil"
                                         class="rounded-circle" width="150"
                                         style="height: 150px; object-fit: cover;" />
                                 @else
@@ -74,8 +74,16 @@
                         @enderror
                     </div>
                     <div class="form-group mb-3">
+                        <label class="form-label fw-bold">dni:</label>
+                        <input class="form-control" type="number" name="dni"
+                            value="{{ old('dni', $user->dni) }}" />
+                        @error('dni')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
                         <label class="form-label fw-bold">Teléfono:</label>
-                        <input class="form-control" type="text" name="telefono"
+                        <input class="form-control" type="number" name="telefono"
                             value="{{ old('telefono', $user->telefono) }}" />
                         @error('telefono')
                             <div class="text-danger small mt-1">{{ $message }}</div>

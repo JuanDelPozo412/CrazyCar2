@@ -31,10 +31,11 @@ class MantenimientoController extends Controller
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
         ]);
 
-        $imagenPath = null;
-        if ($request->hasFile('imagen')) {
-            $imagenPath = $request->file('imagen')->store('images', 'public');
-        }
+        $imagePath = $request->hasFile('imagen')
+            ? basename($request->file('imagen')->store('vehiculos', 'public'))
+            : null;
+
+
 
         Mantenimiento::create([
             'usuario_id' => $validated['usuario_id'],
@@ -45,11 +46,34 @@ class MantenimientoController extends Controller
             'estado' => 'Nuevo',
             'fecha_inicio' => $validated['fecha_inicio'],
             'fecha_fin' => $validated['fecha_fin'] ?? null,
-            'imagen' => $imagenPath,
+            'imagen' => $imagePath,
         ]);
 
         return redirect()->route('vehiculos')->with('success', 'Mantenimiento creado correctamente.');
     }
+
+    public function updateEstado(Request $request, $id)
+    {
+        $request->validate([
+            'estado' => 'required|in:Nuevo,En Proceso,Finalizado',
+        ]);
+
+        $mantenimiento = Mantenimiento::findOrFail($id);
+
+        if ($request->estado === 'Finalizado' && $mantenimiento->fecha_fin === null) {
+            $mantenimiento->fecha_fin = now();
+        }
+
+        if ($request->estado !== 'Finalizado') {
+            $mantenimiento->fecha_fin = null;
+        }
+
+        $mantenimiento->estado = $request->estado;
+        $mantenimiento->save();
+
+        return redirect()->route('vehiculos')->with('success', 'Estado actualizado correctamente.');
+    }
+
 
     public function destroy($id)
     {

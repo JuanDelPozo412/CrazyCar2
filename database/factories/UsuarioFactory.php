@@ -11,7 +11,7 @@ class UsuarioFactory extends Factory
 
     public function definition(): array
     {
-        $localImagesPath = 'personas';
+        $localImagesPath = 'images';
         $allImages = Storage::disk('public')->files($localImagesPath);
         $randomImageFilename = $allImages ? basename(Arr::random($allImages)) : 'default-user.png';
 

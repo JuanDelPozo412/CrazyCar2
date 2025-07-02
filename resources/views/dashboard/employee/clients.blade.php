@@ -91,10 +91,10 @@
                     </div>
                 </div>
 
-                <x-dashboard.client-table :clients="$clients" title="Clientes registrados"
+                <x-dashboard.client.client-table :clients="$clients" title="Clientes registrados"
                     searchPlaceholder="Buscar por nombre, apellido o DNI" tableId="tabla-clientes" />
 
-                <x-dashboard.inquiry-table :inquiries="$inquiries" title="Lista de Consultas"
+                <x-dashboard.consulta.inquiry-table :inquiries="$inquiries" title="Lista de Consultas"
                     searchPlaceholder="Buscar Cliente" tableId="inquiry" />
 
             </main>
@@ -105,8 +105,8 @@
         </div>
     </div>
 
-    <x-dashboard.modal-create-client />
-    <x-dashboard.create-consulta-modal :clients="$clients" />
+    <x-dashboard.client.modal-create-client />
+    <x-dashboard.consulta.create-consulta-modal :clients="$clients" />
 
 
 

@@ -39,7 +39,7 @@
                     'hidden-client-row d-none' => $index >= $initialDisplayCount,
                 ])>
                     <td class="text-center">
-                        <img src="{{ asset('storage/personas/' . ($client->imagen ?? 'user-image.png')) }}"
+                        <img src="{{ asset('storage/images/' . ($client->imagen ?? 'user-image.png')) }}"
                             alt="Imagen de {{ $client->name }}" class="rounded-circle"
                             style="width:40px; height:40px; object-fit:cover;">
 
@@ -60,8 +60,8 @@
 
                     </td>
                 </tr>
-                <x-dashboard.client-modal :client="$client" />
-                <x-dashboard.client-edit-modal :client="$client" />
+                <x-dashboard.client.client-modal :client="$client" />
+                <x-dashboard.client.client-edit-modal :client="$client" />
 
             @empty
                 <tr>

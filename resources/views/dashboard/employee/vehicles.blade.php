@@ -60,9 +60,9 @@
                     </div>
                 </div>
 
-                <x-dashboard.vehicle-table :vehicles="$allVehicles" />
+                <x-dashboard.vehiculos.vehicle-table :vehicles="$allVehicles" />
 
-                <x-dashboard.maintenance-table :mantenimientos="$mantenimientos" />
+                <x-dashboard.mantenimientos.maintenance-table :mantenimientos="$mantenimientos" />
 
 
 
@@ -74,8 +74,8 @@
             <x-dashboard.delete-modal id="confirmDeleteMaintenance"
                 message="¿Está seguro de que desea eliminar este Mantenimiento?" />
 
-            <x-dashboard.create-vehicle-modal />
-            <x-dashboard.maintenance-create-modal :clients="$clients" />
+            <x-dashboard.vehiculos.create-vehicle-modal />
+            <x-dashboard.mantenimientos.maintenance-create-modal :clients="$clients" />
 
         </div>
     </div>
