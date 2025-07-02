@@ -94,7 +94,7 @@
                         </button>
                     </td>
                 </tr>
-                <x-dashboard.consulta-edit-modal :consulta="$consulta" />
+                <x-dashboard.consulta.consulta-edit-modal :consulta="$consulta" />
                 @empty
                     <tr>
                         <td colspan="8" class="text-center">No hay consultas registradas.</td>

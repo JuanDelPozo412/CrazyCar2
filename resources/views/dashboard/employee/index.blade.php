@@ -31,7 +31,6 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
 
-                {{-- Fila de Tarjetas de Estadísticas --}}
                 <div class="row mb-4">
                     <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
                         <x-dashboard.stat-card icon="bi bi-arrow-right-circle" label="Mis Consultas En Proceso"
@@ -43,7 +42,6 @@
                     </div>
                 </div>
                 <div class="row mb-4">
-                    {{-- Columna izquierda: un solo gráfico circular centrado --}}
                     <div class="col-md-6 d-flex">
                         <div class="w-100 h-100">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center">

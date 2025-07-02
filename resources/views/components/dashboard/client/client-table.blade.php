@@ -60,8 +60,8 @@
 
                     </td>
                 </tr>
-                <x-dashboard.client-modal :client="$client" />
-                <x-dashboard.client-edit-modal :client="$client" />
+                <x-dashboard.client.client-modal :client="$client" />
+                <x-dashboard.client.client-edit-modal :client="$client" />
 
             @empty
                 <tr>
