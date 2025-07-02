@@ -82,7 +82,7 @@ class VehiculoController extends Controller
         ]);
 
         $imagePath = $request->hasFile('photo')
-            ? $request->file('photo')->store('images', 'public')
+            ? basename($request->file('photo')->store('vehiculos', 'public'))
             : null;
 
         $vehiculo = new Vehiculo([

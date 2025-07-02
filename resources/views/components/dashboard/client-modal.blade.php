@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body text-start">
                 <div class="text-center mb-4">
-                    <img src="{{ asset('storage/personas/' . ($client->imagen ?? 'icon-person.jpg')) }}"
+                    <img src="{{ asset('storage/images/' . ($client->imagen ?? 'icon-person.jpg')) }}"
                         alt="Imagen de {{ $client->name }}" class="rounded-circle shadow"
                         style="width:120px; height:120px; object-fit:cover;">
                 </div>
