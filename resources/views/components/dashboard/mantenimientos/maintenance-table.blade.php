@@ -52,7 +52,7 @@
                         <x-dashboard.action-buttons :maintenance="$mantenimiento" />
                     </td>
                 </tr>
-                <x-dashboard.maintenance-detail-modal :maintenance="$mantenimiento" />
+                <x-dashboard.mantenimientos.maintenance-detail-modal :maintenance="$mantenimiento" />
             @empty
                 <tr>
                     <td colspan="7" class="text-center">No hay mantenimientos registrados</td>

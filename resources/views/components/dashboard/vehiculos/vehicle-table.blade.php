@@ -43,7 +43,7 @@
                     <td>${{ number_format($vehicle->precio, 2, ',', '.') }}</td>
                     <td class="text-center">
                         <x-dashboard.action-buttons :vehicle="$vehicle" />
-                        <x-dashboard.vehicle-detail-modal :vehicle="$vehicle" modalId="vehicleDetailModal"
+                        <x-dashboard.vehiculos.vehicle-detail-modal :vehicle="$vehicle" modalId="vehicleDetailModal"
                             modalTitle="Detalles del Vehículo" />
                     </td>
                 </tr>
