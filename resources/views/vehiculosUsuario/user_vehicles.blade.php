@@ -48,16 +48,17 @@
 
     <div class="container my-5">
 
-        @foreach($vehiculosPorTipo as $tipo => $vehiculos)
+        @foreach ($vehiculosPorTipo as $tipo => $vehiculos)
             <div class="px-4 pt-5 my-5 text-center border-bottom">
                 <h1 class="display-4 fw-bold text-body-emphasis">{{ $tipo }}</h1>
             </div>
 
             <div class="row g-4">
-                @foreach($vehiculos as $vehiculo)
+                @foreach ($vehiculos as $vehiculo)
                     <div class="col-md-4">
                         <div class="card h-100">
-                            <img src="{{ asset('storage/' . $vehiculo->imagen) }}" class="card-img-top" alt="{{ $vehiculo->marca }} {{ $vehiculo->modelo }}">
+                            <img src="{{ asset('storage/vehiculos/' . $vehiculo->imagen) }}" class="card-img-top"
+                                alt="{{ $vehiculo->marca }} {{ $vehiculo->modelo }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $vehiculo->marca }} {{ $vehiculo->modelo }}</h5>
                                 <p class="card-text">
@@ -66,7 +67,8 @@
                                     Combustible: {{ $vehiculo->combustible }} <br>
                                     Precio: ${{ number_format($vehiculo->precio, 2) }}
                                 </p>
-                                <button type="button" class="btn btn-primary"data-bs-toggle="modal"data-bs-target="#userVehicleDetailModal{{ $vehiculo->id }}">Ver más</button>
+                                <button type="button" class="btn btn-primary"data-bs-toggle="modal"
+                                    data-bs-target="#userVehicleDetailModal{{ $vehiculo->id }}">Ver más</button>
                             </div>
                         </div>
                         <x-user-vehicles-details.user-vehicle-detail-modal :vehicle="$vehiculo" />
