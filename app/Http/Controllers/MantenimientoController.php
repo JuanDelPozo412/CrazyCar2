@@ -52,6 +52,29 @@ class MantenimientoController extends Controller
         return redirect()->route('vehiculos')->with('success', 'Mantenimiento creado correctamente.');
     }
 
+    public function updateEstado(Request $request, $id)
+    {
+        $request->validate([
+            'estado' => 'required|in:Nuevo,En Proceso,Finalizado',
+        ]);
+
+        $mantenimiento = Mantenimiento::findOrFail($id);
+
+        if ($request->estado === 'Finalizado' && $mantenimiento->fecha_fin === null) {
+            $mantenimiento->fecha_fin = now();
+        }
+
+        if ($request->estado !== 'Finalizado') {
+            $mantenimiento->fecha_fin = null;
+        }
+
+        $mantenimiento->estado = $request->estado;
+        $mantenimiento->save();
+
+        return redirect()->route('vehiculos')->with('success', 'Estado actualizado correctamente.');
+    }
+
+
     public function destroy($id)
     {
         $mantenimiento = Mantenimiento::findOrFail($id);
