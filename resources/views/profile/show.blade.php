@@ -42,18 +42,19 @@
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 @if ($user->imagen)
-                                    <img src="{{ asset('storage/images/' . $user->imagen) }}" alt="Foto de perfil"
-                                        class="rounded-circle" width="150"
-                                        style="height: 150px; object-fit: cover;" />
+                                <img src="{{ asset('storage/images/' . $user->imagen) }}" alt="Foto de perfil"
+                                    class="rounded-circle" width="150"
+                                    style="height: 150px; object-fit: cover;" />
                                 @else
-                                    <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil"
-                                        class="rounded-circle" width="150" />
+                                <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil"
+                                    class="rounded-circle" width="150" />
                                 @endif
                                 <div class="mt-3">
                                     <h4>{{ $user->name }} {{ $user->apellido }}</h4>
                                     <p class="text-secondary mb-1">{{ $user->rol }}</p>
                                     <p class="text-muted font-size-sm">
-                                        {{ $user->direccion ?? 'Dirección no especificada' }}</p>
+                                        {{ $user->direccion ?? 'Dirección no especificada' }}
+                                    </p>
                                     <a class="btn btn-primary col-12" href="{{ route('profile.edit') }}">
                                         Editar Perfil
                                     </a>
@@ -116,29 +117,35 @@
                                     <thead>
                                         <tr>
                                             <th class="text-light bg-secondary">Fecha</th>
-                                            <th class="text-light bg-secondary">horario</th>
+                                            <th class="text-light bg-secondary">Horario</th>
                                             <th class="text-light bg-secondary">Titulo</th>
-                                            <th class="text-light bg-secondary">tipo</th>
                                             <th class="text-light bg-secondary">Estado</th>
+                                            <th class="text-light bg-secondary">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($consultas as $consulta)
-                                            <tr>
-                                                <td>{{ $consulta->created_at->format('d/m/Y') }}</td>
-                                                <td>{{ $consulta->horario }}</td>
-                                                <td>{{ $consulta->titulo }}</td>
-                                                <td>{{ $consulta->tipo }}</td>
-                                                <td><span
-                                                        class="badge bg-info text-dark">{{ $consulta->estado }}</span>
-                                                </td>
-                                                <td><a class=" badge btn-outline-secondary btn text-dark">ver</a></td>
-                                            </tr>
+                                        <tr>
+                                            <td>{{ $consulta->created_at->format('d/m/Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($consulta->horario)->format('H:i') }}</td>
+                                            <td>{{ $consulta->titulo }}</td>
+                                            <td><span
+                                                    class="badge bg-info text-dark">{{ $consulta->estado }}</span>
+                                            </td>
+                                            <td>
+
+                                                <a class="badge btn-outline-secondary btn text-dark"
+                                                    href="#"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#inquiryDetail{{ $consulta->id }}">
+                                                    ver
+                                                </a>
+                                            </td>
+                                        </tr>
                                         @empty
-                                            <tr>
-                                                <td colspan="5" class="text-center">No has enviado ninguna consulta.
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-center">No has enviado ninguna consulta.</td>
+                                        </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
@@ -158,19 +165,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                         @forelse ($vehiculos as $vehiculo)
-                                            <tr>
-                                                <td>{{ $vehiculo->marca }}</td>
-                                                <td>{{ $vehiculo->modelo }}</td>
-                                                <td>{{ $vehiculo->patente }}</td>
-                                            </tr>
+                                        <tr>
+                                            <td>{{ $vehiculo->marca }}</td>
+                                            <td>{{ $vehiculo->modelo }}</td>
+                                            <td>{{ $vehiculo->patente }}</td>
+                                        </tr>
                                         @empty
-                                            <tr>
-
-                                                <td colspan="3" class="text-center">No tienes ningun auto asignado
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td colspan="3" class="text-center">No tienes ningun auto asignado</td>
+                                        </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
@@ -181,6 +185,12 @@
             </div>
         </div>
     </div>
+
+
+    @foreach ($consultas as $consulta)
+    @include('profile.partials.modal-details-consulta', ['consulta' => $consulta])
+    @endforeach
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
