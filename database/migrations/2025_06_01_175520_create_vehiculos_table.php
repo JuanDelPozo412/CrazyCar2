@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('color');
             $table->string('tipo');
             $table->string('combustible');
-            $table->string('imagen');
+            $table->string('imagen')->nullable();
             $table->integer('stock')->default(0);
             $table->decimal('precio', 10, 2)->nullable();
             $table->foreignId('propietario_id')->nullable()->constrained('usuarios')->onDelete('set null');
