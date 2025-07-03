@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MantenimientoController;
+use App\Http\Controllers\ReservationController;
 
 Route::middleware(['auth', 'empleado'])->group(function () {
     Route::get('/dashboard/employee', [DashboardController::class, 'index'])->name('dashboard');
@@ -27,7 +28,7 @@ Route::middleware(['auth', 'empleado'])->group(function () {
     Route::patch('/dashboard/employee/mantenimiento/{id}/estado', [MantenimientoController::class, 'updateEstado'])->name('mantenimiento.updateEstado');
     Route::delete('/dashboard/employee/mantenimientos/{id}', [MantenimientoController::class, 'destroy'])->name('mantenimientos.destroy');
 
-
+    Route::get('/dashboard/employee/reservations', [ReservationController::class, 'index'])->name('reservations');
 
     Route::post('/dashboard/employee/consultas', [ConsultaController::class, 'store'])->name('consultas.store');
     Route::put('/dashboard/employee/consultas/{consulta}/actualizar', [ConsultaController::class, 'actualizar'])->name('consultas.actualizar');
