@@ -56,19 +56,11 @@
 
                         {{-- BOTÓN DE COMPRAR --}}
                         <!--Eliminar de aca-->
-<<<<<<< HEAD
                         <div class="mt-3">
                             <a href="{{ route('vehiculos.reservar', $vehicle->id) }}" class="btn btn-success w-100">
                                 Reservar este vehículo
                             </a>
                         </div>
-=======
-
-                        <button type="submit" class="btn btn-success w-100">
-                            Comprar este vehículo
-                        </button>
-
->>>>>>> 213f63788c871aefffdb8b7282d838cd209ed429
                         <!--a aca (para hacer pruebas)-->
                     </div>
                 </div>
