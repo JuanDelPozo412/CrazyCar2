@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('titulo')->nullable();
             $table->text('descripcion')->nullable();
             $table->boolean('is_deleted')->default(false);
+            $table->string('nombre_guest')->nullable(); 
+            $table->string('email_guest')->nullable(); 
+            $table->string('apellido_guest')->nullable();
+            
 
 
 
