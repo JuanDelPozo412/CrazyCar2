@@ -10,7 +10,7 @@
     <div class="container mt-4 mb-4">
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="text-primary">Reservar Vehículo</h1>
-            <a href="{{ route('clientes') }}" class="btn btn-outline-secondary">Volver al Perfil</a>
+            <a href="/galeria" class="btn btn-outline-secondary">Volver a la Galería</a>
         </div>
         <hr />
 
@@ -112,7 +112,7 @@
 
                             <div class="mt-4">
                                 <button type="submit" class="btn btn-success">Solicitar Reserva</button>
-                                <a href="{{ route('clientes') }}" class="btn btn-secondary">Cancelar</a>
+                                <a href="/galeria" class="btn btn-secondary">Cancelar</a>
                             </div>
                         </form>
                     </div>
