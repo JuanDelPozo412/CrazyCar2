@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('id_usuarios')->constrained('usuarios') ->onDelete('cascade');
             $table->foreignId('id_vehiculos') ->constrained('vehiculos') ->onDelete('cascade');
             $table->string('patente')->unique()->nullable();
+            $table->date('fecha_presentacion')->nullable();
+            $table->time('hora_presentacion')->nullable();
+            $table->enum('estado', ['Pendiente', 'Aprobado', 'Rechazado'])->default('Pendiente');
             $table->timestamps();
             $table->unique(['id_usuarios', 'id_vehiculos']);
         });
