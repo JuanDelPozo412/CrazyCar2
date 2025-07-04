@@ -24,8 +24,11 @@ class Vehiculo extends Model
         'propietario_id',
     ];
 
-    public function propietario()
+   public function usuarios() 
     {
-        return $this->belongsTo(Usuario::class, 'propietario_id');
+       
+        return $this->belongsToMany(Usuario::class, 'user_vehicle', 'id_vehiculos', 'id_usuarios')
+                    ->withPivot('patente') 
+                    ->withTimestamps();
     }
 }

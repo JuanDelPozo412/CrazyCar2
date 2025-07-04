@@ -38,12 +38,12 @@
                             <div class="text-center">
 
                                 @if ($user->imagen)
-                                    <img src="{{ asset('storage/images/' . $user->imagen) }}" alt="Foto de perfil"
-                                        class="rounded-circle" width="150"
-                                        style="height: 150px; object-fit: cover;" />
+                                   <img src="{{ asset('storage/images/' . $user->imagen) }}" alt="Foto de perfil"
+                                    class="rounded-circle" width="150"
+                                    style="height: 150px; object-fit: cover;" />
                                 @else
-                                    <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil"
-                                        class="rounded-circle" width="150" />
+                                  <img src="{{ asset('images/default.jpg') }}" alt="Foto de perfil"
+     class="rounded-circle" width="150" />
                                 @endif
                                 <h6 class="mt-2">Cargar una nueva foto</h6>
                                 <input type="file" name="imagen" class="form-control">
