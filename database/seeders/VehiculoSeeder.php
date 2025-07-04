@@ -14,7 +14,6 @@ class VehiculoSeeder extends Seeder
             ->count(20)
             ->create([
                 'patente' => null,
-                'propietario_id' => null,
             ]);
     }
 }

@@ -10,6 +10,7 @@
 
     use App\Http\Controllers\UserVehicleReservationController;
 
+    use App\Http\Controllers\GuestConsultaController;
     
 
     Route::get('/', function () {
@@ -45,6 +46,14 @@
     });
     Route::post('/vehiculos/reservar', [UserVehicleReservationController::class, 'store'])
     ->name('vehiculos.reservar.store');
+
+
+    Route::get('/contacto', [GuestConsultaController::class, 'create'])
+    ->name('guest.consultas.create'); 
+
+Route::post('/consultas/guest/store', [GuestConsultaController::class, 'store'])
+    ->name('guest.consultas.store');
+
 
     require __DIR__ . '/employee.php';
     require __DIR__ . '/cliente.php';

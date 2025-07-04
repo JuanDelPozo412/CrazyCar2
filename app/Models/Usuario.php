@@ -31,8 +31,10 @@ class Usuario extends Authenticatable
     {
         return $this->hasMany(Consulta::class, 'usuario_id');
     }
-    public function vehiculos()
+       public function vehiculos() 
     {
-        return $this->hasMany(Vehiculo::class, 'propietario_id');
+        return $this->belongsToMany(Vehiculo::class, 'user_vehicle', 'id_usuarios', 'id_vehiculos')
+                    ->withPivot('patente') 
+                    ->withTimestamps();
     }
 }

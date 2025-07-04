@@ -18,6 +18,9 @@ class Consulta extends Model
         'horario',
         'descripcion',
         'titulo',
+        'nombre_guest',
+        'email_guest',
+        'apellido_guest',
         'is_deleted',
     ];
 

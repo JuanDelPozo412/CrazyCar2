@@ -19,7 +19,7 @@ class VehiculoFactory extends Factory
             : null;
 
         $patente = $this->faker->regexify('[A-Z]{3}-\d{3}');
-        $propietarioId = Usuario::inRandomOrder()->first()->id ?? Usuario::factory()->create()->id;
+        
 
 
         return [
@@ -33,7 +33,6 @@ class VehiculoFactory extends Factory
             'imagen' => $randomImageFilename,
             'stock' => $this->faker->numberBetween(0, 100),
             'precio' => $this->faker->numberBetween(10000, 50000),
-            'propietario_id' => $propietarioId,
         ];
     }
 }
