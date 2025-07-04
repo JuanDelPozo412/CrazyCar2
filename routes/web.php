@@ -41,9 +41,10 @@
 
     Route::middleware('auth')->group(function () {
         Route::get('/vehiculos/{vehiculo}/reservar', [UserVehicleReservationController::class, 'showForm'])
-            ->name('vehiculos.reservar');
+            ->name('vehiculos.reservar.form');
     });
-
+    Route::post('/vehiculos/reservar', [UserVehicleReservationController::class, 'store'])
+    ->name('vehiculos.reservar.store');
 
     require __DIR__ . '/employee.php';
     require __DIR__ . '/cliente.php';

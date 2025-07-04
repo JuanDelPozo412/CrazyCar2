@@ -37,7 +37,7 @@
                             </div>
                         @endif
 
-                        <form action="#" method="POST">
+                        <form action="{{ route('vehiculos.reservar.store') }}" method="POST">
                             @csrf
 
                             {{-- Datos del vehículo --}}
@@ -45,7 +45,7 @@
                             <div class="row g-3">
                                 <!-- Imagen del vehiculo
                                 <div class="col-12 mb-3 text-center">
-                                    <img src="{{ $vehiculo->imagen ? asset('storage/' . $vehiculo->imagen) : asset('images/auto2.png') }}"
+                                    <img src="{{ $vehiculo->imagen ? asset('storage/vehiculos/' . $vehiculo->imagen) : asset('images/auto2.png') }}"
                                         class="img-fluid rounded" style="max-height: 200px;"
                                         alt="{{ $vehiculo->marca }} {{ $vehiculo->modelo }}">
                                 </div>
@@ -78,6 +78,9 @@
                                     <label class="form-label">Precio</label>
                                     <input type="text" name="precio" class="form-control" value="{{ $vehiculo->precio }}" readonly>
                                 </div>
+                                
+                                <input type="hidden" name="vehiculo_id" value="{{ $vehiculo->id }}"> <!--Campo oculto que envia el ID del vehículo seleccionado. 
+                                    Es para que el controlador sepa que vehiculo se esta reservando-->
                             </div>
 
                             <hr>
@@ -85,37 +88,25 @@
                             {{-- Datos del usuario --}}
                             <h5>Datos del Usuario</h5>
                             <div class="row g-3">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="form-label">Nombre</label>
-                                    <input type="text" name="nombre" class="form-control" value="{{ $usuario->name }}">
+                                    <input type="text" name="nombre" class="form-control" value="{{ old('nombre', $usuario->name ?? '') }}" readonly>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="form-label">Apellido</label>
-                                    <input type="text" name="apellido" class="form-control" value="{{ $usuario->apellido }}">
+                                    <input type="text" name="apellido" class="form-control" value="{{ old('apellido', $usuario->apellido ?? '') }}" readonly>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">DNI</label>
-                                    <input type="text" name="dni" class="form-control" value="{{ old('dni') }}">
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control" value="{{ old('email') }}">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Teléfono</label>
-                                    <input type="text" name="telefono" class="form-control" value="{{ old('telefono') }}">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Fecha de Solicitud</label>
-                                    <input type="date" name="fecha_solicitud" class="form-control" value="{{ old('fecha_solicitud', date('Y-m-d')) }}">
+                                    <input type="email" name="email" class="form-control" value="{{ old('email', $usuario->email ?? '') }}" readonly>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Fecha de Presentación</label>
-                                    <input type="date" name="fecha_presentacion" class="form-control" value="{{ old('fecha_presentacion') }}">
+                                    <input type="date" name="fecha_presentacion" class="form-control" value="{{ old('fecha_presentacion') }}" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Hora de Presentación</label>
-                                    <input type="time" name="hora_presentacion" class="form-control" value="{{ old('hora_presentacion') }}">
+                                    <input type="time" name="hora_presentacion" class="form-control" value="{{ old('hora_presentacion') }}" required>
                                 </div>
                             </div>
 
