@@ -46,7 +46,7 @@
                                     class="rounded-circle" width="150"
                                     style="height: 150px; object-fit: cover;" />
                                 @else
-                                <img src="{{ asset('images/foto-perfil-default.jpg') }}" alt="Foto de perfil"
+                                <img src="{{ asset('images/default.webp') }}" alt="Foto de perfil"
                                     class="rounded-circle" width="150" />
                                 @endif
                                 <div class="mt-3">
@@ -154,7 +154,7 @@
                     </div>
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5>Autos Asignados</h5>
+                            <h5>Reservas</h5>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
@@ -162,6 +162,7 @@
                                             <th class="text-light bg-secondary">Marca</th>
                                             <th class="text-light bg-secondary">Modelo</th>
                                             <th class="text-light bg-secondary">Patente</th>
+                                          
                                         </tr>
                                     </thead>
                                     <tbody>
