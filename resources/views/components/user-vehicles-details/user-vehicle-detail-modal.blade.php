@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="modal-footer bg-light">
+            <div class="modal-footer bg-dark">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Cerrar
                 </button>
