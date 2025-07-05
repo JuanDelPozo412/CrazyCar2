@@ -119,7 +119,7 @@
                                             <th class="text-light bg-secondary">Fecha</th>
                                             <th class="text-light bg-secondary">Horario</th>
                                             <th class="text-light bg-secondary">Titulo</th>
-                                             <th class="text-light bg-secondary">Tipo</th>
+                                            <th class="text-light bg-secondary">Tipo</th>
                                             <th class="text-light bg-secondary">Estado</th>
                                             <th class="text-light bg-secondary">Acciones</th>
                                         </tr>
@@ -131,8 +131,16 @@
                                             <td>{{ \Carbon\Carbon::parse($consulta->horario)->format('H:i') }}</td>
                                             <td>{{ $consulta->titulo }}</td>
                                             <td>{{$consulta->tipo}}</td>
-                                            <td><span
-                                                    class="badge bg-info text-dark">{{ $consulta->estado }}</span>
+                                            <td>
+                                                @php
+                                                $estado = $consulta->estado;
+                                                $claseBadge = '';
+                                                if ($estado == 'Nueva') $claseBadge = 'bg-success';
+                                                elseif ($estado == 'En Proceso') $claseBadge = 'bg-warning text-dark';
+                                                elseif ($estado == 'Finalizada') $claseBadge = 'bg-danger';
+                                                @endphp
+                                                <span class="badge {{ $claseBadge }}">{{ $estado }}</span>
+
                                             </td>
                                             <td>
 
@@ -162,36 +170,49 @@
                                     <thead>
                                         <tr>
                                             <th class="text-light bg-secondary">Marca</th>
-                                            <th class="text-light bg-secondary">Modelo</th>  
+                                            <th class="text-light bg-secondary">Modelo</th>
                                             <th class="text-light bg-secondary">Fecha Reserva</th>
                                             <th class="text-light bg-secondary">Hora Reserva</th>
                                             <th class="text-light bg-secondary">Estado</th>
-
+                                            <th class="text-light bg-secondary">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($vehiculos as $vehiculo)
+
+                                        @forelse ($reservations as $reservation)
                                         <tr>
-                                            <td>{{ $vehiculo->marca }}</td>
-                                            <td>{{ $vehiculo->modelo }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($vehiculo->pivot->fecha_presentacion)->format('d/m/Y') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($vehiculo->pivot->hora_presentacion)->format('H:i') }} hs</td>
+
+                                            <td>{{ $reservation->vehiculo->marca ?? 'N/A' }}</td>
+                                            <td>{{ $reservation->vehiculo->modelo ?? 'N/A' }}</td>
+
+                                            <td>{{ \Carbon\Carbon::parse($reservation->fecha_presentacion)->format('d/m/Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($reservation->hora_presentacion)->format('H:i') }} hs</td>
                                             <td>
                                                 @php
-                                                $estado = $vehiculo->pivot->estado;
+                                                $estado = $reservation->estado;
                                                 $claseBadge = '';
                                                 if ($estado == 'Aprobado') $claseBadge = 'bg-success';
                                                 elseif ($estado == 'Pendiente') $claseBadge = 'bg-warning text-dark';
                                                 elseif ($estado == 'Rechazado') $claseBadge = 'bg-danger';
                                                 @endphp
-                                                <span class="badge {{ $claseBadge }}">{{ $estado }}</span>
+                                                <span class="badge {{ $claseBadge }}">{{ $reservation->estado }}</span>
+                                            </td>
+                                            <td>
+                                                <a class="badge btn-outline-secondary btn text-dark"
+                                                    href="#"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#reservationDetailModal{{ $reservation->id }}">
+                                                    Ver
+                                                </a>
                                             </td>
                                         </tr>
+                                        <x-reservation-detail-modal :reservation="$reservation" />
+
                                         @empty
-                                        <tr>
-                                            <td colspan="3" class="text-center">No tienes ningun auto asignado</td>
+
+                                        <td colspan="6" class="text-center">No tienes ninguna reserva asignada.</td>
                                         </tr>
-                                        @endforelse
+                                        @endforelse 
                                     </tbody>
                                 </table>
                             </div>
