@@ -4,43 +4,63 @@ namespace App\Http\Controllers;
 
 use App\Models\UserVehicle;
 use App\Models\Usuario;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class ReservationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $name = $user->name;
         $role = $user->rol;
 
-        $busqueda = request('busqueda_reserva');
+        $busqueda = $request->input('busqueda_reserva');
+        $estado = $request->input('estado');
+        $soloFuturas = $request->filled('proximas');
+
+        $totalReservations = UserVehicle::count();
 
         $reservationsQuery = UserVehicle::with(['usuario', 'vehiculo'])
             ->orderBy('fecha_presentacion', 'desc')
             ->orderBy('hora_presentacion', 'desc');
 
         if ($busqueda) {
-            $reservationsQuery->whereHas('usuario', function ($query) use ($busqueda) {
-                $query->where('name', 'like', "%$busqueda%")
-                    ->orWhere('apellido', 'like', "%$busqueda%")
-                    ->orWhere('dni', 'like', "%$busqueda%");
-            })->orWhereHas('vehiculo', function ($query) use ($busqueda) {
-                $query->where('marca', 'like', "%$busqueda%");
+            $reservationsQuery->where(function ($query) use ($busqueda) {
+                $query->whereHas('usuario', function ($query) use ($busqueda) {
+                    $query->where('name', 'like', "%$busqueda%")
+                        ->orWhere('apellido', 'like', "%$busqueda%")
+                        ->orWhere('dni', 'like', "%$busqueda%");
+                })->orWhereHas('vehiculo', function ($query) use ($busqueda) {
+                    $query->where('marca', 'like', "%$busqueda%");
+                });
             });
         }
 
+        if ($estado) {
+            $reservationsQuery->where('estado', $estado);
+        }
+
+        if ($soloFuturas) {
+            $reservationsQuery->where(function ($query) {
+                $query->whereNull('estado')
+                    ->orWhere('estado', 'Pendiente');
+            })->whereDate('fecha_presentacion', '>=', Carbon::today());
+        }
+
         $reservations = $reservationsQuery->get();
-        $totalReservations = $reservations->count();
 
         return view('dashboard.employee.reservations', compact(
             'name',
             'role',
             'reservations',
             'totalReservations',
-            'busqueda'
+            'busqueda',
+            'estado'
         ));
     }
+
 
     public function updateEstado($id)
     {

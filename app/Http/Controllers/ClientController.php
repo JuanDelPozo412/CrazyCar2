@@ -12,6 +12,7 @@ class ClientController extends Controller
 {
     public function index(Request $request)
     {
+        // Clientes - sin cambios
         $user = Auth::user();
         $name = $user->name;
         $role = $user->rol;
@@ -28,17 +29,18 @@ class ClientController extends Controller
         }
 
         $clients = $clientesQuery->orderBy('created_at', 'desc')->get();
-
         $clientesCount = Usuario::where('rol', 'cliente')->count();
 
+        // Consultas
         $inquiriesQuery = Consulta::query();
         $inquiriesQuery->where('is_deleted', false);
-        $inquiriesQuery->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada']);
 
-        $consultasCount = Consulta::where('is_deleted', false)
-            ->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada'])
-            ->count();
-
+        // Filtrar estados si viene el filtro
+        if ($request->filled('estado')) {
+            $inquiriesQuery->where('estado', $request->estado);
+        } else {
+            $inquiriesQuery->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada']);
+        }
 
         if ($request->filled('busqueda_consulta')) {
             $searchTermConsulta = strtolower($request->busqueda_consulta);
@@ -58,6 +60,10 @@ class ClientController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
+        $consultasCount = Consulta::where('is_deleted', false)
+            ->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada'])
+            ->count();
+
         return view('dashboard.employee.clients', compact(
             'clients',
             'inquiries',
@@ -67,6 +73,7 @@ class ClientController extends Controller
             'role'
         ));
     }
+
 
     public function store(Request $request)
     {

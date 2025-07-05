@@ -6,20 +6,31 @@
     'initialDisplayCount' => 6,
 ])
 
-<div class="d-flex justify-content-between align-items-center mb-3 mt-3 flex-column flex-sm-row">
-    <h4 class="text-center text-sm-start w-100">{{ $title }}</h4>
+<div class="mb-4">
+    <h4 class="mb-4 mt-4 text-center text-md-start fw-light">{{ $title }}</h4>
 
-    <div class="d-flex gap-2 w-100 justify-content-center justify-content-sm-end mt-3 mt-sm-0">
-        <form method="GET" action="{{ route('clientes') }}" class="input-group w-auto">
-            <input type="text" name="busqueda_consulta" class="form-control" placeholder="{{ $searchPlaceholder }}"
-                value="{{ request('busqueda_consulta') }}" aria-label="{{ $searchPlaceholder }}"
-                aria-describedby="search-addon-{{ $tableId }}" />
+    <form method="GET" action="{{ route('clientes') }}" class="row gy-3 gx-3 align-items-center justify-content-between">
+        <div class="col-12 col-md-5">
+            <input type="search" name="busqueda_consulta" class="form-control border-0 bg-light rounded-pill px-4 py-2"
+                placeholder="{{ $searchPlaceholder }}" value="{{ request('busqueda_consulta') }}" />
+        </div>
 
-            <button type="submit" class="input-group-text" id="search-addon-{{ $tableId }}">
-                <i class="bi bi-search"></i>
-            </button>
-        </form>
-    </div>
+        <div class="col-12 col-md-3">
+            <select name="estado" class="form-select border-0 bg-light rounded-pill px-4 py-2">
+                <option value="" hidden>Estado</option>
+                <option value="">Todos</option>
+                <option value="Nueva" {{ request('estado') == 'Nueva' ? 'selected' : '' }}>Nueva</option>
+                <option value="En Proceso" {{ request('estado') == 'En Proceso' ? 'selected' : '' }}>En Proceso</option>
+                <option value="Finalizada" {{ request('estado') == 'Finalizada' ? 'selected' : '' }}>Finalizada</option>
+            </select>
+        </div>
+
+        <div class="col-auto d-flex gap-2">
+            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 shadow-sm">Filtrar</button>
+            <a href="{{ route('clientes') }}"
+                class="btn btn-outline-secondary rounded-pill px-4 py-2 shadow-sm">Limpiar</a>
+        </div>
+    </form>
 </div>
 
 <div class="table-responsive">
