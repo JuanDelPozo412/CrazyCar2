@@ -22,7 +22,7 @@ class ProfileUpdateRequest extends FormRequest
             'telefono' => ['nullable', 'string', 'max:15'],
             'direccion' => ['nullable', 'string', 'max:255'],
             'dni' => [
-                'nullable',
+                'required',
                 'max:255',
             ],
             'imagen' => ['nullable', 'image', 'mimes:jpg,png,jpeg,webp', 'max:2048']
