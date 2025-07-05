@@ -76,8 +76,8 @@
                                     <label for="tipo" class="form-label">Tipo de Consulta</label>
                                     <select class="form-select @error('tipo') is-invalid @enderror" name="tipo" id="tipo" required>
                                         <option value="">Seleccione un tipo</option>
-                                        <option value="General" {{ old('tipo') == 'Mantenimiento' ? 'selected' : '' }}>Mantenimiento</option>
-                                        <option value="Cotizacion" {{ old('tipo') == 'Compra' ? 'selected' : '' }}>Compra</option>
+                                        <option value="Mantenimiento" {{ old('tipo') == 'Mantenimiento' ? 'selected' : '' }}>Mantenimiento</option>
+                                        <option value="Compra" {{ old('tipo') == 'Compra' ? 'selected' : '' }}>Compra</option>
                                     </select>
                                     @error('tipo')
                                         <div class="invalid-feedback">{{ $message }}</div>
