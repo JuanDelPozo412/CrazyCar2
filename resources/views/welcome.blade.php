@@ -53,22 +53,23 @@
     </div>
 
     <div class="container marketing">
-        <x-home.top-selling title="Chevrolet Tracker" subtitle="Ágil, moderno y conectado."
-            description="La Chevrolet Tracker es una SUV compacta que combina diseño urbano con tecnología avanzada..."
-            image="images/Chevrolet-Tracker.jpg" alt="Chevrolet Tracker" link="#" image-position="right" />
+    @foreach ($vehiculosMasVendidos as $vehiculo)
+        <x-home.top-selling 
+            :id="$vehiculo->id"
+            :title="$vehiculo->marca . ' ' . $vehiculo->modelo"
+            :subtitle="'¡Nuestro destacado en ' . $vehiculo->tipo . '!'"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor."
+            :image="'storage/vehiculos/' . $vehiculo->imagen"
+            :alt="$vehiculo->marca . ' ' . $vehiculo->modelo"
+            :link="'#userVehicleDetailModal' . $vehiculo->id"
+            :imagePosition="$loop->iteration % 2 === 0 ? 'left' : 'right'"
+        />
+
+        <x-user-vehicles-details.user-vehicle-detail-modal :vehicle="$vehiculo" />
 
         <hr class="featurette-divider" />
-
-        <x-home.top-selling title="Volkswagen Amarok" subtitle="Potencia que impone respeto."
-            description="La Volkswagen Amarok es una pickup robusta con alma de todo terreno..."
-            image="images/Volkswagen-Amarok.jpg" alt="Volkswagen Amarok" link="#" image-position="left" />
-
-        <hr class="featurette-divider" />
-
-        <x-home.top-selling title="Chevrolet Cruze" subtitle="Elegancia y eficiencia en cada viaje."
-            description="El Chevrolet Cruze es un sedán moderno que combina diseño aerodinámico, tecnología avanzada..."
-            image="images/Chevrolet-Cruze.webp" alt="Chevrolet Cruze" link="#" image-position="right" />
-    </div>
+    @endforeach
+</div>
 
     <x-layout.footer />
 

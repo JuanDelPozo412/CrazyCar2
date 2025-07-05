@@ -12,6 +12,13 @@ class HomeController extends Controller
     {
         $vehiculosEconomicos = Vehiculo::orderBy('precio', 'asc')->take(3)->get();
 
-        return view('welcome', compact('vehiculosEconomicos'));
+        $vehiculosPorTipo = Vehiculo::selectRaw('MIN(id) as id')->groupBy('tipo')->pluck('id');
+
+        $vehiculosMasVendidos = Vehiculo::whereIn('id', $vehiculosPorTipo)->get();
+
+        return view('welcome', [
+            'vehiculosEconomicos' => $vehiculosEconomicos,
+            'vehiculosMasVendidos' => $vehiculosMasVendidos
+        ]);
     }
 }
