@@ -36,8 +36,6 @@
                             </li>
                             <li class="list-group-item px-0 py-1"><strong>Combustible:</strong>
                                 {{ $vehicle->combustible ?? 'N/A' }}</li>
-                            <li class="list-group-item px-0 py-1"><strong>Stock:</strong>
-                                {{ $vehicle->stock ?? 'N/A' }}</li>
                             <li class="list-group-item px-0 py-1"><strong>Precio:</strong>
                                 ${{ number_format($vehicle->precio ?? 0, 2, ',', '.') }}</li>
 
