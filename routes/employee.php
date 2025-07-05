@@ -29,7 +29,10 @@ Route::middleware(['auth', 'empleado'])->group(function () {
     Route::patch('/dashboard/employee/mantenimiento/{id}/estado', [MantenimientoController::class, 'updateEstado'])->name('mantenimiento.updateEstado');
     Route::delete('/dashboard/employee/mantenimientos/{id}', [MantenimientoController::class, 'destroy'])->name('mantenimientos.destroy');
 
-    Route::get('/dashboard/employee/reservations', [ReservationController::class, 'index'])->name('reservations');
+    Route::get('/dashboard/employee/reservations', [UserVehicleReservationController::class, 'index'])->name('reservations');
+    Route::get('/dashboard/employee/reservations', [ReservationController::class, 'index'])->name('reservation');
+    Route::patch('/dashboard/employee/reservations/{id}/estado', [ReservationController::class, 'updateEstado'])->name('reservations.updateEstado');
+
 
     Route::post('/dashboard/employee/consultas', [ConsultaController::class, 'store'])->name('consultas.store');
     Route::put('/dashboard/employee/consultas/{consulta}/actualizar', [ConsultaController::class, 'actualizar'])->name('consultas.actualizar');

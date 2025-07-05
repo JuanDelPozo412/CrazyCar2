@@ -65,17 +65,11 @@
                         <div>
                             <h2 class="mb-2">Panel Reservas</h2>
                             <p class="mb-3">Bienvenido {{ $name }}</p>
-
-                            <button type="button" class="btn mb-3 text-white"
-                                style="background-color: rgba(13, 110, 253, 0.8)" data-bs-toggle="modal"
-                                data-bs-target="#createReservationModal">
-                                <i class="bi bi-person-plus me-2"></i> Crear Reserva
-                            </button>
                         </div>
                     </div>
 
                     <div class="col-md-6 mt-2">
-                        <x-dashboard.stat-card icon="bi-car-front-fill" label="Vehículos a la Venta" :value="20"
+                        <x-dashboard.stat-card icon="bi-car-front-fill" label="Reservas Totales" :value="$totalReservations"
                             color="rgba(13, 110, 253, 0.8)" href="#vehiclesQuantity" />
                     </div>
 
@@ -91,8 +85,8 @@
         </div>
     </div>
 
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

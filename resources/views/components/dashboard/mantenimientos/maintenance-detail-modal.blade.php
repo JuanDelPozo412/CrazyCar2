@@ -212,28 +212,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .custom-scrollbar::-webkit-scrollbar {
-        width: 12px;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-track {
-        background: #f0f2f5;
-        border-radius: 10px;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        background-color: #adb5bd;
-        border-radius: 10px;
-        border: 3px solid #f0f2f5;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background-color: #6c757d;
-    }
-
-    .max-h-96 {
-        max-height: 24rem;
-    }
-</style>

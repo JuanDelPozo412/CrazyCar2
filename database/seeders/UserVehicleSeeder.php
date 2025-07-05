@@ -2,37 +2,25 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Usuario;
 use App\Models\Vehiculo;
 use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker; // Importa la clase Faker
+use Faker\Factory as Faker;
 
 class UserVehicleSeeder extends Seeder
 {
-    protected $faker; // Declara la propiedad para Faker
+    protected $faker;
 
-    /**
-     * Constructor para inicializar Faker.
-     */
     public function __construct()
     {
-        $this->faker = Faker::create(); // Inicializa Faker aquí
+        $this->faker = Faker::create();
     }
 
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // ELIMINADO: La llamada a UsuarioSeeder::class
-        // $this->call(UsuarioSeeder::class);
-
-        // Mantenemos la llamada a VehiculoSeeder::class si es necesaria
-        $this->call(VehiculoSeeder::class); // ¡Ajusta si tu seeder de vehículo se llama diferente!
-
-        $usuarios = Usuario::all();
+        // Solo usuarios con rol 'cliente'
+        $usuarios = Usuario::where('rol', 'cliente')->get();
         $vehiculos = Vehiculo::all();
 
         if ($usuarios->isEmpty() || $vehiculos->isEmpty()) {
@@ -41,22 +29,24 @@ class UserVehicleSeeder extends Seeder
         }
 
         foreach ($usuarios as $usuario) {
-            // Aseguramos que haya suficientes vehículos para adjuntar
             if ($vehiculos->isEmpty()) {
                 $this->command->warn("Advertencia: No hay vehículos disponibles para adjuntar al usuario ID {$usuario->id}.");
-                continue; // Pasa al siguiente usuario si no hay vehículos
+                continue;
             }
+
             $vehiculosToAttach = $vehiculos->random(rand(1, min(3, $vehiculos->count())));
 
             foreach ($vehiculosToAttach as $vehiculo) {
                 try {
-                    // Adjuntar el vehículo al usuario con el campo 'patente' en la tabla pivote
-                    // Asegúrate de que la relación 'vehiculos' en el modelo Usuario esté definida correctamente
                     $usuario->vehiculos()->attach($vehiculo->id, [
-                        'patente' => $this->generateUniquePatente(), // Genera una patente única
+                        'patente' => $this->generateUniquePatente(),
+                        'fecha_presentacion' => $this->faker->dateTimeBetween('-6 months', 'now')->format('Y-m-d'),
+                        'hora_presentacion' => $this->faker->time(),
+                        'estado' => $this->faker->randomElement(['Pendiente', 'Aprobado', 'Rechazado']),
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
+
                     $this->command->info("Adjuntado Vehículo ID {$vehiculo->id} a Usuario ID {$usuario->id} con patente.");
                 } catch (\Illuminate\Database\QueryException $e) {
                     if ($e->getCode() === '23000') {
@@ -69,9 +59,6 @@ class UserVehicleSeeder extends Seeder
         }
     }
 
-    /**
-     * Helper para generar una patente única para el seeder.
-     */
     private function generateUniquePatente(): string
     {
         $patente = $this->faker->unique()->regexify('[A-Z0-9]{7}');
