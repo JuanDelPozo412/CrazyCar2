@@ -31,8 +31,9 @@ class VehiculoController extends Controller
         $vehiclesTotalCount = Vehiculo::count();
 
         $busquedaMantenimiento = $request->input('busqueda_mantenimiento');
+        $estado = $request->input('estado');
 
-        $mantenimientosQuery = Mantenimiento::with('usuario')->orderByDesc('created_at');
+        $mantenimientosQuery = Mantenimiento::with('usuario')->orderByDesc('fecha_inicio');
 
         if ($busquedaMantenimiento) {
             $mantenimientosQuery->where(function ($query) use ($busquedaMantenimiento) {
@@ -43,6 +44,10 @@ class VehiculoController extends Controller
                             ->orWhere('apellido', 'like', '%' . $busquedaMantenimiento . '%');
                     });
             });
+        }
+
+        if ($estado) {
+            $mantenimientosQuery->where('estado', $estado);
         }
 
         $mantenimientosFiltrados = $mantenimientosQuery->get();
@@ -61,6 +66,7 @@ class VehiculoController extends Controller
             'role' => $user->rol,
             'busquedaVehiculo' => $busquedaVehiculo,
             'busquedaMantenimiento' => $busquedaMantenimiento,
+            'estadoFiltro' => $estado,
             'clients' => $clients,
         ]);
     }

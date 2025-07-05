@@ -25,7 +25,7 @@
         </a>
         <a href="{{ route('reservation') }}"
             class="text-white py-2 px-3 d-flex align-items-center text-decoration-none">
-            <i class="bi bi-truck-front-fill me-2"></i>
+            <i class="bi bi-calendar-check me-2"></i>
             Reservas
         </a>
         <form method="POST" action="{{ route('logout') }}" class="px-1 pt-2">

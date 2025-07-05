@@ -50,15 +50,22 @@ class ClientController extends Controller
                         ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchTermConsulta . '%'])
                         ->orWhereRaw('LOWER(email) LIKE ?', ['%' . $searchTermConsulta . '%']);
                 });
+
+                $query->orWhereRaw('LOWER(nombre_guest) LIKE ?', ['%' . $searchTermConsulta . '%'])
+                    ->orWhereRaw('LOWER(apellido_guest) LIKE ?', ['%' . $searchTermConsulta . '%'])
+                    ->orWhereRaw('LOWER(email_guest) LIKE ?', ['%' . $searchTermConsulta . '%']);
+
                 $query->orWhereRaw('LOWER(titulo) LIKE ?', ['%' . $searchTermConsulta . '%'])
                     ->orWhereRaw('LOWER(tipo) LIKE ?', ['%' . $searchTermConsulta . '%']);
             });
         }
 
+
         $inquiries = $inquiriesQuery->with(['cliente', 'empleado'])
-            ->orderBy('created_at', 'desc')
-            ->orderBy('id', 'desc')
+            ->orderBy('fecha', 'desc')
+            ->orderBy('horario', 'desc')
             ->get();
+
 
         $consultasCount = Consulta::where('is_deleted', false)
             ->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada'])

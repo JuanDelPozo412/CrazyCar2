@@ -6,12 +6,12 @@
     <form method="GET" action="{{ route('reservation') }}"
         class="row gy-3 gx-3 align-items-center justify-content-between">
         <div class="col-12 col-md-4">
-            <input type="search" name="busqueda_reserva" class="form-control border-0 bg-light  px-4 py-2"
+            <input type="search" name="busqueda_reserva" class="form-control border-0 bg-light  px-4 py-2 rounded-pill"
                 placeholder="Buscar por nombre, apellido, DNI o marca" value="{{ request('busqueda_reserva') }}" />
         </div>
 
         <div class="col-12 col-md-3">
-            <select name="estado" class="form-select border-0 bg-light  px-4 py-2">
+            <select name="estado" class="form-select border-0 bg-light  px-4 py-2 rounded-pill">
                 <option value="" hidden>Estado</option>
                 <option value="">Todos</option>
                 <option value="Pendiente" {{ request('estado') == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>

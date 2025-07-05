@@ -7,7 +7,7 @@
 ])
 
 <div class="mb-4">
-    <h4 class="mb-4 mt-4 text-center text-md-start fw-light">{{ $title }}</h4>
+    <h4 class="text-center text-sm-start w-100">{{ $title }}</h4>
 
     <form method="GET" action="{{ route('clientes') }}" class="row gy-3 gx-3 align-items-center justify-content-between">
         <div class="col-12 col-md-5">
