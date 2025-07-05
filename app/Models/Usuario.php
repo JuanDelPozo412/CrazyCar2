@@ -34,7 +34,7 @@ class Usuario extends Authenticatable
        public function vehiculos() 
     {
         return $this->belongsToMany(Vehiculo::class, 'user_vehicle', 'id_usuarios', 'id_vehiculos')
-                    ->withPivot('patente') 
+                    ->withPivot('patente','fecha_presentacion','hora_presentacion') 
                     ->withTimestamps();
     }
 }

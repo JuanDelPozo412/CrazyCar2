@@ -119,6 +119,7 @@
                                             <th class="text-light bg-secondary">Fecha</th>
                                             <th class="text-light bg-secondary">Horario</th>
                                             <th class="text-light bg-secondary">Titulo</th>
+                                             <th class="text-light bg-secondary">Tipo</th>
                                             <th class="text-light bg-secondary">Estado</th>
                                             <th class="text-light bg-secondary">Acciones</th>
                                         </tr>
@@ -129,6 +130,7 @@
                                             <td>{{ $consulta->created_at->format('d/m/Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($consulta->horario)->format('H:i') }}</td>
                                             <td>{{ $consulta->titulo }}</td>
+                                            <td>{{$consulta->tipo}}</td>
                                             <td><span
                                                     class="badge bg-info text-dark">{{ $consulta->estado }}</span>
                                             </td>
@@ -160,9 +162,11 @@
                                     <thead>
                                         <tr>
                                             <th class="text-light bg-secondary">Marca</th>
-                                            <th class="text-light bg-secondary">Modelo</th>
-                                            <th class="text-light bg-secondary">Patente</th>
-                                          
+                                            <th class="text-light bg-secondary">Modelo</th>  
+                                            <th class="text-light bg-secondary">Fecha Reserva</th>
+                                            <th class="text-light bg-secondary">Hora Reserva</th>
+                                            <th class="text-light bg-secondary">Estado</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -170,7 +174,18 @@
                                         <tr>
                                             <td>{{ $vehiculo->marca }}</td>
                                             <td>{{ $vehiculo->modelo }}</td>
-                                            <td>{{ $vehiculo->patente }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($vehiculo->pivot->fecha_presentacion)->format('d/m/Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($vehiculo->pivot->hora_presentacion)->format('H:i') }} hs</td>
+                                            <td>
+                                                @php
+                                                $estado = $vehiculo->pivot->estado;
+                                                $claseBadge = '';
+                                                if ($estado == 'Aprobado') $claseBadge = 'bg-success';
+                                                elseif ($estado == 'Pendiente') $claseBadge = 'bg-warning text-dark';
+                                                elseif ($estado == 'Rechazado') $claseBadge = 'bg-danger';
+                                                @endphp
+                                                <span class="badge {{ $claseBadge }}">{{ $estado }}</span>
+                                            </td>
                                         </tr>
                                         @empty
                                         <tr>
