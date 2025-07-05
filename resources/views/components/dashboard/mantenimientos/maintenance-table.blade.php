@@ -1,19 +1,35 @@
 @props(['mantenimientos'])
 
-<div class="d-flex justify-content-between align-items-center mb-3 mt-5 flex-column flex-sm-row">
-    <h4 class="text-center text-sm-start w-100">Lista Mantenimientos</h4>
+<div class="mb-4">
+    <h4 class="text-center text-sm-start w-100">Filtrar Mantenimientos</h4>
 
-    <div class="d-flex gap-2 w-50 justify-content-center justify-content-sm-end mt-3 mt-sm-0 flex-wrap">
-        <form method="GET" action="{{ route('vehiculos') }}" class="input-group" style="min-width: 100px;">
-            <input type="text" name="busqueda_mantenimiento" class="form-control" placeholder="Buscar mantenimiento..."
-                value="{{ request('busqueda_mantenimiento') }}" aria-label="Buscar mantenimiento..."
-                aria-describedby="search-addon" />
-            <button type="submit" class="input-group-text" id="search-addon">
-                <i class="bi bi-search"></i>
-            </button>
-        </form>
-    </div>
+    <form method="GET" action="{{ route('vehiculos') }}"
+        class="row gy-3 gx-3 align-items-center justify-content-between">
+
+        <div class="col-12 col-md-4">
+            <input type="search" name="busqueda_mantenimiento"
+                class="form-control border-0 bg-light px-4 py-2 rounded-pill"
+                placeholder="Buscar por patente, motivo o cliente" value="{{ request('busqueda_mantenimiento') }}" />
+        </div>
+
+        <div class="col-12 col-md-3">
+            <select name="estado" class="form-select border-0 bg-light px-4 py-2 rounded-pill">
+                <option value="" hidden>Estado</option>
+                <option value="">Todos</option>
+                <option value="Nuevo" {{ request('estado') == 'Nuevo' ? 'selected' : '' }}>Nuevo</option>
+                <option value="En Proceso" {{ request('estado') == 'En Proceso' ? 'selected' : '' }}>En Proceso</option>
+                <option value="Finalizado" {{ request('estado') == 'Finalizado' ? 'selected' : '' }}>Finalizado</option>
+            </select>
+        </div>
+
+        <div class="col-auto d-flex gap-2">
+            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 shadow-sm">Filtrar</button>
+            <a href="{{ route('vehiculos') }}"
+                class="btn btn-outline-secondary rounded-pill px-4 py-2 shadow-sm">Limpiar</a>
+        </div>
+    </form>
 </div>
+
 
 <div class="table-responsive">
     <table class="table table-striped table-bordered align-middle">

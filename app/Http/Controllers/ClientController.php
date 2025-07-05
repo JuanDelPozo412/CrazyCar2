@@ -12,6 +12,7 @@ class ClientController extends Controller
 {
     public function index(Request $request)
     {
+        // Clientes - sin cambios
         $user = Auth::user();
         $name = $user->name;
         $role = $user->rol;
@@ -28,17 +29,18 @@ class ClientController extends Controller
         }
 
         $clients = $clientesQuery->orderBy('created_at', 'desc')->get();
-
         $clientesCount = Usuario::where('rol', 'cliente')->count();
 
+        // Consultas
         $inquiriesQuery = Consulta::query();
         $inquiriesQuery->where('is_deleted', false);
-        $inquiriesQuery->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada']);
 
-        $consultasCount = Consulta::where('is_deleted', false)
-            ->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada'])
-            ->count();
-
+        // Filtrar estados si viene el filtro
+        if ($request->filled('estado')) {
+            $inquiriesQuery->where('estado', $request->estado);
+        } else {
+            $inquiriesQuery->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada']);
+        }
 
         if ($request->filled('busqueda_consulta')) {
             $searchTermConsulta = strtolower($request->busqueda_consulta);
@@ -48,15 +50,26 @@ class ClientController extends Controller
                         ->orWhereRaw('LOWER(apellido) LIKE ?', ['%' . $searchTermConsulta . '%'])
                         ->orWhereRaw('LOWER(email) LIKE ?', ['%' . $searchTermConsulta . '%']);
                 });
+
+                $query->orWhereRaw('LOWER(nombre_guest) LIKE ?', ['%' . $searchTermConsulta . '%'])
+                    ->orWhereRaw('LOWER(apellido_guest) LIKE ?', ['%' . $searchTermConsulta . '%'])
+                    ->orWhereRaw('LOWER(email_guest) LIKE ?', ['%' . $searchTermConsulta . '%']);
+
                 $query->orWhereRaw('LOWER(titulo) LIKE ?', ['%' . $searchTermConsulta . '%'])
                     ->orWhereRaw('LOWER(tipo) LIKE ?', ['%' . $searchTermConsulta . '%']);
             });
         }
 
+
         $inquiries = $inquiriesQuery->with(['cliente', 'empleado'])
-            ->orderBy('created_at', 'desc')
-            ->orderBy('id', 'desc')
+            ->orderBy('fecha', 'desc')
+            ->orderBy('horario', 'desc')
             ->get();
+
+
+        $consultasCount = Consulta::where('is_deleted', false)
+            ->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada'])
+            ->count();
 
         return view('dashboard.employee.clients', compact(
             'clients',
@@ -67,6 +80,7 @@ class ClientController extends Controller
             'role'
         ));
     }
+
 
     public function store(Request $request)
     {

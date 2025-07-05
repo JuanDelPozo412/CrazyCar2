@@ -1,19 +1,42 @@
 @props(['reservations'])
 
-<div class="d-flex justify-content-between align-items-center mb-3 mt-5 flex-column flex-sm-row">
+<div class="mb-4">
     <h4 class="text-center text-sm-start w-100">Lista de Reservas</h4>
 
-    <div class="d-flex gap-2 w-50 justify-content-center justify-content-sm-end mt-3 mt-sm-0 flex-wrap">
-        <form method="GET" action="{{ route('reservation') }}" class="input-group" style="min-width: 100px;">
-            <input type="text" name="busqueda_reserva" class="form-control" placeholder="Buscar reserva..."
-                value="{{ request('busqueda_reserva') }}" aria-label="Buscar reserva..."
-                aria-describedby="search-addon" />
-            <button type="submit" class="input-group-text" id="search-addon">
-                <i class="bi bi-search"></i>
-            </button>
-        </form>
-    </div>
+    <form method="GET" action="{{ route('reservation') }}"
+        class="row gy-3 gx-3 align-items-center justify-content-between">
+        <div class="col-12 col-md-4">
+            <input type="search" name="busqueda_reserva" class="form-control border-0 bg-light  px-4 py-2 rounded-pill"
+                placeholder="Buscar por nombre, apellido, DNI o marca" value="{{ request('busqueda_reserva') }}" />
+        </div>
+
+        <div class="col-12 col-md-3">
+            <select name="estado" class="form-select border-0 bg-light  px-4 py-2 rounded-pill">
+                <option value="" hidden>Estado</option>
+                <option value="">Todos</option>
+                <option value="Pendiente" {{ request('estado') == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
+                <option value="Aprobado" {{ request('estado') == 'Aprobado' ? 'selected' : '' }}>Aprobado</option>
+                <option value="Rechazado" {{ request('estado') == 'Rechazado' ? 'selected' : '' }}>Rechazado</option>
+            </select>
+        </div>
+
+        <div class="col-auto d-flex align-items-center">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="proximas" name="proximas" value="1"
+                    {{ request('proximas') == '1' ? 'checked' : '' }}>
+                <label class="form-check-label fw-light" for="proximas">Solo futuras</label>
+            </div>
+        </div>
+
+        <div class="col-auto d-flex gap-2">
+            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 shadow-sm">Filtrar</button>
+            <a href="{{ route('reservation') }}"
+                class="btn btn-outline-secondary rounded-pill px-4 py-2 shadow-sm">Limpiar</a>
+        </div>
+    </form>
 </div>
+
+
 
 <div class="table-responsive">
     <table class="table table-striped table-bordered align-middle">

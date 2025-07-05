@@ -4,15 +4,21 @@
     <h4 class="text-center text-sm-start w-100">Lista Vehículos</h4>
 
     <div class="d-flex gap-2 w-50 justify-content-center justify-content-sm-end mt-3 mt-sm-0 flex-wrap">
-        <form method="GET" action="{{ route('vehiculos') }}" class="input-group" style="min-width: 100px;">
-            <input type="text" name="busqueda_vehiculo" class="form-control" placeholder="Buscar vehículo..."
-                value="{{ request('busqueda_vehiculo') }}" aria-label="Buscar vehículo..."
-                aria-describedby="search-addon" />
-            <button type="submit" class="input-group-text" id="search-addon">
+        <form method="GET" action="{{ route('vehiculos') }}" class="input-group" style="min-width: 250px;">
+            <input type="text" name="busqueda_vehiculo"
+                class="form-control border-0 bg-light rounded-start-pill px-4 py-2"
+                style="box-shadow: none !important; outline: none !important;" placeholder="Buscar vehículo..."
+                value="{{ request('busqueda_vehiculo') }}" />
+
+            <button type="submit"
+                class="btn btn-primary rounded-end-pill px-3 py-2 d-flex align-items-center justify-content-center shadow-sm"
+                id="search-addon" style="box-shadow: none !important; outline: none !important;">
                 <i class="bi bi-search"></i>
             </button>
+
         </form>
     </div>
+
 </div>
 
 <div class="table-responsive">
