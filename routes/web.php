@@ -11,11 +11,8 @@
     use App\Http\Controllers\UserVehicleReservationController;
 
     use App\Http\Controllers\GuestConsultaController;
-    
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+
     Route::get('/', function () {
         return view('welcome');
     })->name('home');
@@ -26,7 +23,6 @@
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-        
     });
     Route::middleware('auth')->group(function () {
         Route::get('/consultas/crear', [ProfileController::class, 'createForClient'])
@@ -45,14 +41,14 @@
             ->name('vehiculos.reservar.form');
     });
     Route::post('/vehiculos/reservar', [UserVehicleReservationController::class, 'store'])
-    ->name('vehiculos.reservar.store');
+        ->name('vehiculos.reservar.store');
 
 
     Route::get('/contacto', [GuestConsultaController::class, 'create'])
-    ->name('guest.consultas.create'); 
+        ->name('guest.consultas.create');
 
-Route::post('/consultas/guest/store', [GuestConsultaController::class, 'store'])
-    ->name('guest.consultas.store');
+    Route::post('/consultas/guest/store', [GuestConsultaController::class, 'store'])
+        ->name('guest.consultas.store');
 
 
     require __DIR__ . '/employee.php';
