@@ -16,7 +16,6 @@
         <div class="row">
             <div class="col-md-12 personal-info">
 
-                {{-- Mensaje de éxito después de actualizar --}}
                 @if (session('status'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('status') }}
