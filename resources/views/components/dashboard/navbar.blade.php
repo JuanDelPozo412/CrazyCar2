@@ -23,7 +23,7 @@
             <i class="bi bi-truck-front-fill me-2"></i>
             Vehículos
         </a>
-        <a href="{{ route('reservations') }}"
+        <a href="{{ route('reservation') }}"
             class="text-white py-2 px-3 d-flex align-items-center text-decoration-none">
             <i class="bi bi-truck-front-fill me-2"></i>
             Reservas

@@ -6,15 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('user_vehicle', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_usuarios')->constrained('usuarios') ->onDelete('cascade');
-            $table->foreignId('id_vehiculos') ->constrained('vehiculos') ->onDelete('cascade');
+            $table->foreignId('id_usuarios')->constrained('usuarios')->onDelete('cascade');
+            $table->foreignId('id_vehiculos')->constrained('vehiculos')->onDelete('cascade');
             $table->string('patente')->unique()->nullable();
             $table->date('fecha_presentacion')->nullable();
             $table->time('hora_presentacion')->nullable();
@@ -24,7 +21,7 @@ return new class extends Migration
         });
     }
 
-   
+
     public function down(): void
     {
         Schema::dropIfExists('user_vehicle');
