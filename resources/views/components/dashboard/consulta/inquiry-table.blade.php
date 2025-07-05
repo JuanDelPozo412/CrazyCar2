@@ -42,10 +42,14 @@
                     'hidden-inquiry-row d-none' => $index >= $initialDisplayCount,
                 ])>
                     <td>
-                        {{ $consulta->cliente?->name && $consulta->cliente?->apellido
-                            ? "{$consulta->cliente->name} {$consulta->cliente->apellido}"
-                            : 'No asignado' }}
+                        @php
+                            $nombre = $consulta->cliente?->name ?? $consulta->nombre_guest;
+                            $apellido = $consulta->cliente?->apellido ?? $consulta->apellido_guest;
+                        @endphp
+
+                        {{ $nombre && $apellido ? "$nombre $apellido" : 'No asignado' }}
                     </td>
+
 
                     <td>{{ $consulta->cliente?->email ?? 'No asignado' }}</td>
                     <td>{{ $consulta->tipo }}</td>
