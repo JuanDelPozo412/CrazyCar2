@@ -11,6 +11,7 @@ use Illuminate\View\View;
 use App\Models\Consulta;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Usuario;
+use App\Models\UserVehicle;
 
 class ProfileController extends Controller
 {
@@ -19,11 +20,13 @@ class ProfileController extends Controller
         $user = $request->user();
         $consultas = $user->consultas()->latest()->get();
         $vehiculos = $user->vehiculos;
+        $reservations = UserVehicle::where('id_usuarios', $user->id)->with('vehiculo')->orderByDesc('created_at')->get();
 
         return view('profile.show', [
             'user' => $user,
             'consultas' => $consultas,
             'vehiculos' => $vehiculos,
+            'reservations' => $reservations,
         ]);
     }
 
