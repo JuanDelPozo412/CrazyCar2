@@ -39,9 +39,9 @@
                     </li>
 
                     @if ($consulta->empleado_id)
-                    <li class="list-group-item"><strong>Empleado asignado:</strong>
-                        {{ $consulta->empleado?->name }}
-                    </li>
+                        <li class="list-group-item"><strong>Empleado asignado:</strong>
+                            {{ $consulta->empleado?->name }}
+                        </li>
                     @endif
                 </ul>
             </div>
