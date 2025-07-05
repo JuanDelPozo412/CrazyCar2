@@ -50,8 +50,11 @@
                         {{ $nombre && $apellido ? "$nombre $apellido" : 'No asignado' }}
                     </td>
 
+                    <td>@php
+                        $email = $consulta->cliente?->email ?? $consulta->email_guest;
+                    @endphp
+                        {{ $email ?? 'No asignado' }}
 
-                    <td>{{ $consulta->cliente?->email ?? 'No asignado' }}</td>
                     <td>{{ $consulta->tipo }}</td>
                     <td>
                         @switch($consulta->estado)
