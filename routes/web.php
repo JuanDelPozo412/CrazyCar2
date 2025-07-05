@@ -12,10 +12,15 @@
 
     use App\Http\Controllers\GuestConsultaController;
 
+    use App\Http\Controllers\HomeController;
+
 
     Route::get('/', function () {
         return view('welcome');
-    })->name('home');
+    });
+
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
     Route::get('/perfil', [ProfileController::class, 'show'])->name('profile.show');
 

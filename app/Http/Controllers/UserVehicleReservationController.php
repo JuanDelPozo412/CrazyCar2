@@ -36,7 +36,7 @@ class UserVehicleReservationController extends Controller
             'patente' => null,
         ]);
 
-        return redirect('/galeria')->with('success', 'Reserva creada correctamente');
+        return redirect()->back()->with('success', '¡Reserva creada correctamente!');
     }
 
     // Muestra el formulario de reserva
