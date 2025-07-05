@@ -23,6 +23,11 @@
             <i class="bi bi-truck-front-fill me-2"></i>
             Vehículos
         </a>
+        <a href="{{ route('reservations') }}"
+            class="text-white py-2 px-3 d-flex align-items-center text-decoration-none">
+            <i class="bi bi-truck-front-fill me-2"></i>
+            Reservas
+        </a>
         <form method="POST" action="{{ route('logout') }}" class="px-1 pt-2">
             @csrf
             <button type="submit" class="btn btn-link text-white d-flex align-items-center w-100 text-start"

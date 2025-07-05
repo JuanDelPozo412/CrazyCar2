@@ -19,4 +19,14 @@ class UserVehicle extends Model
         'estado',
         'patente',
     ];
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'id_usuarios');
+    }
+
+    public function vehiculo()
+    {
+        return $this->belongsTo(Vehiculo::class, 'id_vehiculos');
+    }
 }
