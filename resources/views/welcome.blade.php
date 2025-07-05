@@ -22,42 +22,28 @@
     <div class="container my-5">
         <div class="row g-4">
             @foreach ($vehiculosEconomicos as $vehiculo)
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <img src="{{ asset('storage/vehiculos/' . $vehiculo->imagen) }}" class="card-img-top"
-                        alt="{{ $vehiculo->marca }} {{ $vehiculo->modelo }}">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ $vehiculo->marca }} {{ $vehiculo->modelo }}</h5>
-                        <p class="card-text flex-grow-1">
-                            Año: {{ $vehiculo->anio }}<br>
-                            Color: {{ $vehiculo->color }}<br>
-                            Combustible: {{ $vehiculo->combustible }}<br>
-                            Precio: ${{ number_format($vehiculo->precio, 2, ',', '.') }}
-                        </p>
-                        <button type="button" class="btn btn-primary mt-auto"
-                            data-bs-toggle="modal"
-                            data-bs-target="#userVehicleDetailModal{{ $vehiculo->id }}">
-                            Ver más
-                        </button>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="{{ asset('storage/vehiculos/' . $vehiculo->imagen) }}" class="card-img-top"
+                            alt="{{ $vehiculo->marca }} {{ $vehiculo->modelo }}">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ $vehiculo->marca }} {{ $vehiculo->modelo }}</h5>
+                            <p class="card-text flex-grow-1">
+                                Año: {{ $vehiculo->anio }}<br>
+                                Color: {{ $vehiculo->color }}<br>
+                                Combustible: {{ $vehiculo->combustible }}<br>
+                                Precio: ${{ number_format($vehiculo->precio, 2, ',', '.') }}
+                            </p>
+                            <button type="button" class="btn btn-primary mt-auto" data-bs-toggle="modal"
+                                data-bs-target="#userVehicleDetailModal{{ $vehiculo->id }}">
+                                Ver más
+                            </button>
+                        </div>
                     </div>
+
+                    <x-user-vehicles-details.user-vehicle-detail-modal :vehicle="$vehiculo" />
                 </div>
-
-                {{-- modal para cada vehiculo --}}
-                <x-user-vehicles-details.user-vehicle-detail-modal :vehicle="$vehiculo" />
-            </div>
-        @endforeach
-            <!--
-            <x-home.offer-card :image="'images/volkswagen-polo-track.jpg'" alt="Volkswagen Polo Track" title="Volkswagen Polo Track"
-                description="Eficiencia, estilo y confiabilidad. Ideal para la ciudad." price-old="$9.900.000"
-                price-new="$8.790.000" link="#" />
-
-            <x-home.offer-card :image="'images/Chevrolet-onix-joy.jpg'" alt="Chevrolet Onix Joy" title="Chevrolet Onix Joy"
-                description="Tecnología y economía para el día a día." price-old="$8.500.000" price-new="$7.590.000"
-                link="#" />
-            <x-home.offer-card :image="'images/volkswagen-Amarok.jpg'" alt="Chevrolet Onix Joy" title="Chevrolet Onix Joy"
-                description="Tecnología y economía para el día a día." price-old="$8.500.000" price-new="$7.590.000"
-                link="#" />
-            -->
+            @endforeach
         </div>
     </div>
 

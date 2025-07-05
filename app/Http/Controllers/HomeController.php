@@ -10,7 +10,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Obtiene los 3 vehiculos mas economicos
         $vehiculosEconomicos = Vehiculo::orderBy('precio', 'asc')->take(3)->get();
 
         return view('welcome', compact('vehiculosEconomicos'));

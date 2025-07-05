@@ -18,7 +18,6 @@ class UserVehicleReservationController extends Controller
             'hora_presentacion' => 'required',
         ]);
 
-        // Validar si ya existe una reserva para este usuario y vehículo
         $existeReserva = UserVehicle::where('id_usuarios', Auth::id())
             ->where('id_vehiculos', $request->vehiculo_id)
             ->exists();
@@ -39,7 +38,7 @@ class UserVehicleReservationController extends Controller
         return redirect()->back()->with('success', '¡Reserva creada correctamente!');
     }
 
-    // Muestra el formulario de reserva
+
     public function showForm($id)
     {
         $vehiculo = Vehiculo::findOrFail($id);

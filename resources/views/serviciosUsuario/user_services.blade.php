@@ -13,34 +13,7 @@
 
 <body>
     <x-home.navbar />
-    <!--navbar
-    <div class="container">
-        <header
-            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
-            <div class="col-md-3 mb-2 mb-md-0">
-                <a href="{{ url('/') }}" class="d-inline-flex link-body-emphasis text-decoration-none">
-                    <img src="{{ asset('images/luxury-car-sketch-png-5693248.png') }}" alt="Logo Crazy Cars"
-                        width="80" height="80" />
-                </a>
-            </div>
-
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{{ url('/') }}" class="nav-link px-2">Inicio</a></li>
-                <li><a href="{{ url('/galeria') }}" class="nav-link px-2">Galería</a></li>
-                <li><a href="{{ url('/servicios') }}" class="nav-link px-2 link-secondary">Servicios</a></li>
-                {{-- <li><a href="#" class="nav-link px-2">Contacto</a></li>  --}}
-            </ul>
-
-            <div class="col-md-3 text-end">
-                <a href="{{ url('/login') }}" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
-                <a href="{{ url('/register') }}" class="btn btn-primary text-white">Registrarse</a>
-            </div>
-        </header>
-    </div>
-    -->
-
-    <!--Banner carrousel 2-->
     <div id="carouselExampleCaptions" class="carousel slide">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
@@ -109,8 +82,8 @@
                 </p>
             </div>
             <div class="col-md-5 order-md-1">
-                <img src="{{ asset('images/Sucursal1.jpg') }}" class="featurette-image img-fluid mx-auto"
-                    width="500" height="500" alt="Sucursal 1 Caballito" />
+                <img src="{{ asset('images/Sucursal1.jpg') }}" class="featurette-image img-fluid mx-auto" width="500"
+                    height="500" alt="Sucursal 1 Caballito" />
             </div>
         </div>
 
@@ -130,35 +103,32 @@
                 </p>
             </div>
             <div class="col-md-5 order-md-1">
-                <img src="{{ asset('images/Sucursal2.jpg') }}" class="featurette-image img-fluid mx-auto"
-                    width="500" height="500" alt="Sucursal 2 Moron" />
+                <img src="{{ asset('images/Sucursal2.jpg') }}" class="featurette-image img-fluid mx-auto" width="500"
+                    height="500" alt="Sucursal 2 Moron" />
             </div>
         </div>
 
         <hr class="featurette-divider" />
     </div>
 
-    <!--Footer-->
-    <div class="container">
-        <footer class="py-3 my-4">
-            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item">
-                    <a href="/index.html" class="nav-link px-2 text-body-secondary">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/src/views/user/user_vehicles.html" class="nav-link px-2 text-body-secondary">Galeria</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/src/views/user/user_services.html"
-                        class="nav-link px-2 text-body-secondary">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link px-2 text-body-secondary">Contacto</a>
-                </li>
-            </ul>
-            <p class="text-center text-body-secondary">© 2025 Crazy Cars</p>
-        </footer>
-    </div>
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a href="{{ url('/') }}" class="nav-link px-2 text-body-secondary">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('/galeria') }}" class="nav-link px-2 text-body-secondary">Galería</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('/servicios') }}" class="nav-link px-2 text-body-secondary">Servicios</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('guest.consultas.create') }}" class="nav-link px-2 text-body-secondary">Contacto</a>
+            </li>
+        </ul>
+        <hr class="featurette-divider" />
+        <p class="text-center text-body-secondary">© 2025 Crazy Cars</p>
+    </footer>
 </body>
 
 </html>
