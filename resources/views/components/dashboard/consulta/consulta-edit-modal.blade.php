@@ -1,8 +1,11 @@
 @props(['consulta'])
 
 @php
-    $isDisabled =
-        ($consulta->empleado_id && $consulta->empleado_id !== auth()->id()) || $consulta->estado === 'Finalizada';
+    $usuario = auth()->user();
+    $isDisabled = (
+        $usuario->rol !== 'admin' &&
+        ($consulta->empleado_id && $consulta->empleado_id !== $usuario->id)
+    ) || $consulta->estado === 'Finalizada';
 @endphp
 
 <form method="POST" action="{{ route('consultas.actualizar', $consulta->id) }}">
