@@ -10,7 +10,7 @@ class EmpleadoMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->rol === 'empleado') {
+        if (Auth::check() && in_array(Auth::user()->rol, ['empleado', 'admin'])) {
             return $next($request);
         }
 

@@ -5,10 +5,11 @@
         <i class="bi bi-person-circle fs-3"></i>
         <div>
             <strong>{{ $name }}</strong><br />
-            <span class="badge bg-info text-capitalize">{{ $role }}</span>
+            <span class="badge {{ $role === 'admin' ? 'bg-danger' : 'bg-info' }} text-capitalize">
+                {{ $role }}
+            </span>
         </div>
     </div>
-
     <div class="flex-grow-1 d-flex flex-column">
         <a href="{{ route('dashboard') }}"
             class="text-white py-2 px-3 d-flex align-items-center text-decoration-none active">
@@ -46,7 +47,9 @@
             <i class="bi bi-person-circle fs-3"></i>
             <div>
                 <strong>{{ $name }}</strong><br />
-                <span class="badge bg-info">{{ $role }}</span>
+                <span class="badge {{ $role === 'admin' ? 'bg-danger' : 'bg-info' }} text-capitalize">
+                    {{ $role }}
+                </span>
             </div>
         </div>
 

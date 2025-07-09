@@ -20,7 +20,7 @@
                 aria-controls="sidebarMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <span class="navbar-brand mb-0 fs-4">Empleado</span>
+            <span class="navbar-brand mb-0 fs-4 text-capitalize">{{ $role }}</span>
         </div>
     </nav>
 
@@ -31,45 +31,17 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
 
-                <div class="row mb-4">
-                    <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
-                        <x-dashboard.stat-card icon="bi bi-arrow-right-circle" label="Mis Consultas En Proceso"
-                            :value="$misConsultasEnProcesoCount" color="rgba(255, 159, 64, 0.8)" />
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 mb-3">
-                        <x-dashboard.stat-card icon="bi bi-check-circle" label="Mis Consultas Finalizadas"
-                            :value="$misConsultasFinalizadasTotalCount" color="rgba(23, 162, 184, 0.8)" />
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-6 d-flex">
-                        <div class="w-100 h-100">
-                            <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                                <div style="width: 100%; height: 100%;">
-                                    <x-dashboard.dashboard-chart-circle chartId="proporcionConsultasChart"
-                                        title="Proporción de Mis Consultas" :labels="['En Proceso', 'Finalizadas']" :data="[$misConsultasEnProcesoCount, $misConsultasFinalizadasTotalCount]"
-                                        :colors="['rgba(255, 159, 64, 0.8)', 'rgba(23, 162, 184, 0.8)']" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                @if ($role === 'admin')
+                    <x-dashboard.admin-stats :clientes-count="$clientesCount" :consultas-count="$consultasCount" :inquiries-en-proceso-count="$inquiriesEnProcesoCount" :empleados-count="$empleadosCount"
+                        :mantenimientos-count="$mantenimientosCount" :vehicles-for-sale-count="$vehiclesForSaleCount" :reservas-aprobadas-count="$reservasAprobadasCount" :reservas-rechazadas-count="$reservasRechazadasCount" :reservas-pendientes-count="$reservasPendientesCount"
+                        :consultas-finalizadas-count="$consultasFinalizadasCount" :finalizadas-mensuales="$finalizadasMensuales" :en-proceso-mensuales="$enProcesoMensuales" />
+                @elseif ($role === 'empleado')
+                    <x-dashboard.employee-stats :mis-consultas-en-proceso-count="$misConsultasEnProcesoCount" :mis-consultas-finalizadas-total-count="$misConsultasFinalizadasTotalCount" :mis-finalizadas-mensuales="$misFinalizadasMensuales"
+                        :mis-en-proceso-mensuales="$misEnProcesoMensuales" />
+                @endif
 
-                    <div class="col-md-6 d-flex flex-column justify-content-between">
-                        <x-dashboard.dashboard-charts chartId="misConsultasFinalizadasChart"
-                            title="Mis Consultas Finalizadas (Mensual)" label="Mis Consultas Finalizadas"
-                            :data="$misFinalizadasMensuales" color="rgba(23, 162, 184, 0.9)" />
-
-                        <x-dashboard.dashboard-charts chartId="misConsultasEnProcesoChart"
-                            title="Mis Consultas En Proceso (Mensual)" label="Mis Consultas En Proceso"
-                            :data="$misEnProcesoMensuales" color="rgba(255, 159, 64, 0.9)" />
-                    </div>
-                </div>
+            </main>
         </div>
-    </div>
-
-
-    </main>
-    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

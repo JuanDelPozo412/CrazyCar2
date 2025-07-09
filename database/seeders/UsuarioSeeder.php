@@ -30,7 +30,7 @@ class UsuarioSeeder extends Seeder
             'telefono' => '295423442',
             'direccion' => 'Selva Norte 2423',
             'imagen' => 'icon-person.jpg',
-            'rol' => 'empleado',
+            'rol' => 'admin',
         ]);
         Usuario::create([
             'name' => 'Juan',

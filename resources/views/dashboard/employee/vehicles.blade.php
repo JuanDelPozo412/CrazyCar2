@@ -20,7 +20,7 @@
                 aria-controls="sidebarMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <span class="navbar-brand mb-0 fs-4">Empleado</span>
+            <span class="navbar-brand mb-0 fs-4 text-capitalize">{{ $role }}</span>
         </div>
     </nav>
 
