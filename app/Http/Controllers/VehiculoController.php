@@ -124,4 +124,39 @@ class VehiculoController extends Controller
 
         return redirect()->route('vehiculos')->with('success', 'Vehículo eliminado correctamente.');
     }
+
+    public function update(Request $request, Vehiculo $vehiculo)
+    {
+        $validated = $request->validate([
+            'stock' => 'required|integer|min:0',
+            'price' => 'required|numeric|min:0',
+            'brand' => 'required|string|max:50',
+            'model' => 'required|string|max:50',
+            'type' => 'required|string|max:50',
+            'color' => 'required|string|max:50',
+            'year' => 'required|integer|between:1990,' . date('Y'),
+            'fuel_type' => 'required|string|max:50',
+            'photo' => 'nullable|image|mimes:jpeg,png,webp|max:5120',
+            'patente' => 'nullable|string|max:10|unique:vehiculos,patente,' . $vehiculo->id,
+        ]);
+
+        if ($request->hasFile('photo')) {
+            $imagePath = basename($request->file('photo')->store('vehiculos', 'public'));
+            $vehiculo->imagen = $imagePath;
+        }
+
+        $vehiculo->stock = $validated['stock'];
+        $vehiculo->precio = $validated['price'];
+        $vehiculo->marca = $validated['brand'];
+        $vehiculo->modelo = $validated['model'];
+        $vehiculo->tipo = $validated['type'];
+        $vehiculo->color = $validated['color'];
+        $vehiculo->anio = $validated['year'];
+        $vehiculo->combustible = $validated['fuel_type'];
+        $vehiculo->patente = $validated['patente'] ?? null;
+
+        $vehiculo->save();
+
+        return redirect()->route('vehiculos')->with('success', 'Vehículo actualizado correctamente.');
+    }
 }

@@ -12,6 +12,14 @@
             data-bs-target="#confirmDeleteVehicle" data-id="{{ $vehicle->id }}">
             <i class="bi bi-trash"></i>
         </button>
+        
+        @if (auth()->user()->rol === 'admin')
+            <button type="button" class="btn btn-sm text-white" style="background-color: rgba(23, 162, 184, 0.9)"
+                data-bs-toggle="modal" data-bs-target="#editVehicleModal{{ $vehicle->id }}">
+                <i class="bi bi-pencil"></i>
+            </button>
+        @endif
+        
     @elseif ($maintenance)
         <button class="btn text-white btn-sm w-100" style="background-color: rgba(13, 110, 253, 0.8)"
             title="Ver mantenimiento" data-bs-toggle="modal"
