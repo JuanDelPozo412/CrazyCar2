@@ -38,7 +38,7 @@
 
                             <button type="button" class="btn mb-3 text-white" style="background-color: #d63041"
                                 data-bs-toggle="modal" data-bs-target="#createEmpleadosModal">
-                                <i class="bi bi-plus-circle me-2"></i> Crear Vehículo
+                                <i class="bi bi-plus-circle me-2"></i> Crear Empleado
                             </button>
 
                         </div>
