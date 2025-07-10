@@ -37,9 +37,10 @@
                             <p class="mb-3 fs5">Bienvenido {{ $name }}</p>
 
                             <button type="button" class="btn mb-3 text-white" style="background-color: #d63041"
-                                data-bs-toggle="modal" data-bs-target="#createEmpleadosModal">
-                                <i class="bi bi-plus-circle me-2"></i> Crear Vehículo
+                                data-bs-toggle="modal" data-bs-target="#createEmpleadoModal">
+                                <i class="bi bi-plus-circle me-2"></i> Crear Empleado
                             </button>
+
 
                         </div>
                     </div>
@@ -51,17 +52,30 @@
                 </div>
 
 
-                <x-dashboard.client.client-table :employees="$employees" title="Empleados registrados"
+                <x-dashboard.empleados-table :employees="$employees" title="Empleados registrados"
                     searchPlaceholder="Buscar por nombre, apellido o DNI" tableId="tabla-empleados" />
 
             </main>
 
+            <x-dashboard.delete-modal id="confirmDeleteEmpleado"
+                message="¿Está seguro de que desea eliminar este empleado?" />
         </div>
     </div>
 
-
+    <x-dashboard.modal-create-empleado />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const modalEmpleado = document.getElementById('confirmDeleteEmpleado');
+        modalEmpleado?.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const empleadoId = button.getAttribute('data-id');
+            const form = modalEmpleado.querySelector('form');
+
+            form.action = `/dashboard/employee/empleados/${empleadoId}`;
+        });
+    </script>
+
 
 
     @stack('scripts')

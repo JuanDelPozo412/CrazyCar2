@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class EmpleadosController extends Controller
 {
@@ -17,7 +18,7 @@ class EmpleadosController extends Controller
 
         $empleadosCount = Usuario::where('rol', 'empleado')->count();
 
-        $query = Usuario::where('rol', 'empleado');
+        $query = Usuario::whereIn('rol', ['empleado', 'admin']);
 
         if ($request->has('busqueda') && $request->busqueda != '') {
             $busqueda = $request->busqueda;
@@ -29,7 +30,7 @@ class EmpleadosController extends Controller
         }
 
         $employees = $query->get();
-        $empleadosCount = Usuario::where('rol', 'empleado')->count();
+        $empleadosCount = Usuario::whereIn('rol', ['empleado', 'admin'])->count();
 
         return view('dashboard.employee.empleados', compact(
             'name',
@@ -37,5 +38,82 @@ class EmpleadosController extends Controller
             'empleadosCount',
             'employees'
         ));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'email' => 'required|email|unique:usuarios,email',
+            'password' => 'required|string|min:6|confirmed',
+            'dni' => 'required|string|max:20|unique:usuarios,dni',
+            'telefono' => 'nullable|string|max:20',
+            'direccion' => 'nullable|string|max:255',
+            'imagen' => 'nullable|image|max:2048',
+            'rol' => 'required|in:empleado,admin',
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            if ($file->getError() == UPLOAD_ERR_INI_SIZE) {
+                return back()->withErrors(['imagen' => 'La imagen excede el tamaño máximo permitido por el servidor.']);
+            }
+            $imagenPath = $file->store('images', 'public');
+            $validated['imagen'] = basename($imagenPath);
+        } else {
+            $validated['imagen'] = 'user-image.png';
+        }
+
+        $validated['password'] = bcrypt($validated['password']);
+        $validated['is_deleted'] = false;
+
+        Usuario::create($validated);
+
+        return redirect()->route('empleados')->with('success', 'Empleado creado correctamente.');
+    }
+
+    public function update(Request $request, Usuario $empleado)
+    {
+        if ($empleado->rol !== 'empleado') {
+            return redirect()->back()->with('error', 'Este usuario no es un empleado.');
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'dni' => 'required|string|max:20|unique:usuarios,dni,' . $empleado->id,
+            'email' => 'required|email|max:255|unique:usuarios,email,' . $empleado->id,
+            'telefono' => 'nullable|string|max:20',
+            'direccion' => 'nullable|string|max:255',
+            'imagen' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            if ($empleado->imagen && $empleado->imagen != 'user-image.png') {
+                Storage::disk('public')->delete('images/' . $empleado->imagen);
+            }
+            $imagenPath = $request->file('imagen')->store('images', 'public');
+            $validated['imagen'] = basename($imagenPath);
+        }
+
+        $empleado->update($validated);
+
+        return redirect()->route('empleados')->with('success', 'Empleado actualizado correctamente.');
+    }
+
+
+
+    public function destroy($id)
+    {
+        $usuario = Usuario::findOrFail($id);
+
+        if (!in_array($usuario->rol, ['empleado', 'admin'])) {
+            return redirect()->back()->with('error', 'No se puede eliminar este usuario.');
+        }
+
+        $usuario->delete();
+
+        return redirect()->route('empleados')->with('success', 'Usuario eliminado correctamente.');
     }
 }

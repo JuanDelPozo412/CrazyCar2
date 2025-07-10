@@ -34,6 +34,7 @@
                 <th>Apellido</th>
                 <th>DNI</th>
                 <th>Email</th>
+                <th>Rol</th>
                 <th class="text-center" style="width: 1%">Acciones</th>
             </tr>
         </thead>
@@ -51,15 +52,26 @@
                     <td>{{ $employee->apellido }}</td>
                     <td>{{ $employee->dni }}</td>
                     <td>{{ $employee->email }}</td>
+                    <td>{{ ucfirst($employee->rol) }}</td>
+
                     <td class="text-center">
-                        <button class="btn btn-sm text-white btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#employeeDetailModal{{ $employee->id }}">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                        <button class="btn btn-sm text-white" style="background-color: #d63041" data-bs-toggle="modal"
-                            data-bs-target="#employeeEditModal{{ $employee->id }}">
-                            <i class="bi bi-pencil"></i>
-                        </button>
+                        <div class="d-flex justify-content-center gap-2">
+                            <button class="btn btn-sm text-white btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#employeeDetailModal{{ $employee->id }}">
+                                <i class="bi bi-eye"></i>
+                            </button>
+
+                            <button class="btn btn-sm text-white" style="background-color: rgba(23, 162, 184, 0.9)"
+                                data-bs-toggle="modal" data-bs-target="#employeeEditModal{{ $employee->id }}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#confirmDeleteEmpleado" data-id="{{ $employee->id }}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+
+                        </div>
                     </td>
                 </tr>
 

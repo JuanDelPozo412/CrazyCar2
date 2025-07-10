@@ -35,6 +35,10 @@ Route::middleware(['auth', 'empleado'])->group(function () {
     Route::patch('/dashboard/employee/reservations/{id}/estado', [ReservationController::class, 'updateEstado'])->name('reservations.updateEstado');
 
     Route::get('/dashboard/employee/empleados', [EmpleadosController::class, 'index'])->name('empleados');
+    Route::post('/dashboard/employee/empleados', [EmpleadosController::class, 'store'])->name('empleados.store');
+    Route::put('/dashboard/employee/empleados/{empleado}', [EmpleadosController::class, 'update'])->name('empleados.update');
+    Route::delete('/dashboard/employee/empleados/{id}', [EmpleadosController::class, 'destroy'])->name('empleados.destroy');
+
 
     Route::post('/dashboard/employee/consultas', [ConsultaController::class, 'store'])->name('consultas.store');
     Route::put('/dashboard/employee/consultas/{consulta}/actualizar', [ConsultaController::class, 'actualizar'])->name('consultas.actualizar');
