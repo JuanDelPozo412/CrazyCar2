@@ -14,6 +14,8 @@
 
     use App\Http\Controllers\HomeController;
 
+    use App\Http\Controllers\VehiculoController;
+
 
     Route::get('/', function () {
         return view('welcome');
@@ -54,6 +56,9 @@
 
     Route::post('/consultas/guest/store', [GuestConsultaController::class, 'store'])
         ->name('guest.consultas.store');
+
+
+    Route::put('/vehiculos/{vehiculo}', [VehiculoController::class, 'update'])->name('vehiculos.update');
 
 
     require __DIR__ . '/employee.php';

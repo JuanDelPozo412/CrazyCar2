@@ -51,6 +51,7 @@
                         <x-dashboard.action-buttons :vehicle="$vehicle" />
                         <x-dashboard.vehiculos.vehicle-detail-modal :vehicle="$vehicle" modalId="vehicleDetailModal"
                             modalTitle="Detalles del Vehículo" />
+                        <x-dashboard.vehiculos.edit-vehicle-modal :vehicle="$vehicle" />
                     </td>
                 </tr>
             @empty
