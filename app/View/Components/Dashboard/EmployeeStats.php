@@ -2,30 +2,19 @@
 
 namespace App\View\Components\Dashboard;
 
-use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\View\View;
 
 class EmployeeStats extends Component
 {
-    public int $misConsultasEnProcesoCount;
-    public int $misConsultasFinalizadasTotalCount;
-    public array $misFinalizadasMensuales;
-    public array $misEnProcesoMensuales;
+    public $stats;
 
-    public function __construct(
-        int $misConsultasEnProcesoCount,
-        int $misConsultasFinalizadasTotalCount,
-        array $misFinalizadasMensuales,
-        array $misEnProcesoMensuales
-    ) {
-        $this->misConsultasEnProcesoCount = $misConsultasEnProcesoCount;
-        $this->misConsultasFinalizadasTotalCount = $misConsultasFinalizadasTotalCount;
-        $this->misFinalizadasMensuales = $misFinalizadasMensuales;
-        $this->misEnProcesoMensuales = $misEnProcesoMensuales;
+    public function __construct($stats)
+    {
+        $this->stats = $stats;
     }
 
-    public function render(): View|Closure|string
+    public function render(): View
     {
         return view('components.dashboard.employee-stats');
     }

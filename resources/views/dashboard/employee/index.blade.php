@@ -32,12 +32,9 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
 
                 @if ($role === 'admin')
-                    <x-dashboard.admin-stats :clientes-count="$clientesCount" :consultas-count="$consultasCount" :inquiries-en-proceso-count="$inquiriesEnProcesoCount" :empleados-count="$empleadosCount"
-                        :mantenimientos-count="$mantenimientosCount" :vehicles-for-sale-count="$vehiclesForSaleCount" :reservas-aprobadas-count="$reservasAprobadasCount" :reservas-rechazadas-count="$reservasRechazadasCount" :reservas-pendientes-count="$reservasPendientesCount"
-                        :consultas-finalizadas-count="$consultasFinalizadasCount" :finalizadas-mensuales="$finalizadasMensuales" :en-proceso-mensuales="$enProcesoMensuales" />
+                    <x-dashboard.admin-stats :stats="$data" />
                 @elseif ($role === 'empleado')
-                    <x-dashboard.employee-stats :mis-consultas-en-proceso-count="$misConsultasEnProcesoCount" :mis-consultas-finalizadas-total-count="$misConsultasFinalizadasTotalCount" :mis-finalizadas-mensuales="$misFinalizadasMensuales"
-                        :mis-en-proceso-mensuales="$misEnProcesoMensuales" />
+                    <x-dashboard.employee-stats :stats="$data" />
                 @endif
 
             </main>
