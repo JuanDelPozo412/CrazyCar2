@@ -55,7 +55,7 @@
                             <label for="vehicleType{{ $vehicle->id }}" class="form-label fw-semibold">Tipo</label>
                             <select class="form-select shadow-sm" id="vehicleType{{ $vehicle->id }}" name="type" required>
                                 <option disabled>Seleccione un tipo</option>
-                                @foreach (['Sedán','SUV','Pickup'] as $type)
+                                @foreach (['Sedan','SUV','Pickup'] as $type)
                                     <option value="{{ $type }}" {{ $vehicle->tipo == $type ? 'selected' : '' }}>
                                         {{ $type }}
                                     </option>
