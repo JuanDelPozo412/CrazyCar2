@@ -56,15 +56,16 @@
                             data-bs-target="#employeeDetailModal{{ $employee->id }}">
                             <i class="bi bi-eye"></i>
                         </button>
-                        <button class="btn btn-sm text-white" style="background-color: rgba(23, 162, 184, 0.9)"
-                            data-bs-toggle="modal" data-bs-target="#employeeEditModal{{ $employee->id }}">
+                        <button class="btn btn-sm text-white" style="background-color: #d63041" data-bs-toggle="modal"
+                            data-bs-target="#employeeEditModal{{ $employee->id }}">
                             <i class="bi bi-pencil"></i>
                         </button>
                     </td>
                 </tr>
 
-                {{-- <x-dashboard.employee.employee-modal :employee="$employee" />
-                <x-dashboard.employee.employee-edit-modal :employee="$employee" /> --}}
+                {{-- Puedes crear componentes modales para detalles y edición si quieres --}}
+                {{-- <x-dashboard.employee.employee-modal :employee="$employee" /> --}}
+                {{-- <x-dashboard.employee.employee-edit-modal :employee="$employee" /> --}}
 
             @empty
                 <tr>
@@ -77,8 +78,7 @@
 
 @if (count($employees) > $initialDisplayCount)
     <div class="text-center mt-3">
-        <button id="toggle-employees-btn" class="btn text-white" style="background-color: rgba(13, 110, 253, 0.8)"
-            type="button">
+        <button id="toggle-employees-btn" class="btn text-white" style="background-color: #d63041" type="button">
             Mostrar más empleados
         </button>
     </div>
