@@ -29,6 +29,13 @@
             <i class="bi bi-calendar-check me-2"></i>
             Reservas
         </a>
+        @if ($role === 'admin')
+            <a href="{{ route('empleados') }}"
+                class="text-white py-2 px-3 d-flex align-items-center text-decoration-none">
+                <i class="bi bi-person-badge me-2"></i>
+                Empleados
+            </a>
+        @endif
         <form method="POST" action="{{ route('logout') }}" class="px-1 pt-2">
             @csrf
             <button type="submit" class="btn btn-link text-white d-flex align-items-center w-100 text-start"
@@ -69,6 +76,15 @@
             <i class="bi bi-people-fill me-2"></i>
             Clientes
         </a>
+
+        @if ($role === 'admin')
+            <a href="{{ route('empleados') }}"
+                class="d-flex align-items-center mb-2 text-decoration-none text-white py-2">
+                <i class="bi bi-person-badge me-2"></i>
+                Empleados
+            </a>
+        @endif
+
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="btn btn-link text-white d-flex align-items-center w-100 text-start"

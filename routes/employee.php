@@ -5,6 +5,7 @@ use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserVehicleReservationController;
@@ -33,6 +34,7 @@ Route::middleware(['auth', 'empleado'])->group(function () {
     Route::get('/dashboard/employee/reservations', [ReservationController::class, 'index'])->name('reservation');
     Route::patch('/dashboard/employee/reservations/{id}/estado', [ReservationController::class, 'updateEstado'])->name('reservations.updateEstado');
 
+    Route::get('/dashboard/employee/empleados', [EmpleadosController::class, 'index'])->name('empleados');
 
     Route::post('/dashboard/employee/consultas', [ConsultaController::class, 'store'])->name('consultas.store');
     Route::put('/dashboard/employee/consultas/{consulta}/actualizar', [ConsultaController::class, 'actualizar'])->name('consultas.actualizar');
