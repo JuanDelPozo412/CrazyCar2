@@ -36,8 +36,21 @@ class DashboardController extends Controller
                 ->where('estado', 'Finalizada')
                 ->count();
 
+            // Inicializo arrays mensuales
             $finalizadasMensuales = array_fill(0, 12, 0);
             $enProcesoMensuales = array_fill(0, 12, 0);
+            $nuevasMensuales = array_fill(0, 12, 0);
+
+            // Consultas mensuales por estado
+            Consulta::selectRaw('MONTH(fecha) as month, COUNT(*) as count')
+                ->where('estado', 'Nueva')
+                ->whereYear('fecha', $currentYear)
+                ->where('is_deleted', false)
+                ->groupBy('month')
+                ->get()
+                ->each(function ($item) use (&$nuevasMensuales) {
+                    $nuevasMensuales[$item->month - 1] = $item->count;
+                });
 
             Consulta::selectRaw('MONTH(fecha) as month, COUNT(*) as count')
                 ->where('estado', 'Finalizada')
@@ -61,29 +74,79 @@ class DashboardController extends Controller
 
             $mantenimientosCount = Mantenimiento::count();
             $vehiclesForSaleCount = Vehiculo::count();
+
             $reservasAprobadasCount = UserVehicle::where('estado', 'Aprobado')->count();
             $reservasRechazadasCount = UserVehicle::where('estado', 'Rechazado')->count();
             $reservasPendientesCount = UserVehicle::where('estado', 'Pendiente')->count();
 
-            return view('dashboard.employee.index', compact(
-                'name',
-                'role',
-                'clientesCount',
-                'empleadosCount',
-                'consultasCount',
-                'inquiriesEnProcesoCount',
-                'consultasFinalizadasCount',
-                'finalizadasMensuales',
-                'enProcesoMensuales',
-                'mantenimientosCount',
-                'vehiclesForSaleCount',
-                'reservasAprobadasCount',
-                'reservasRechazadasCount',
-                'reservasPendientesCount'
-            ));
+            $aprobadasMensuales = array_fill(0, 12, 0);
+            $rechazadasMensuales = array_fill(0, 12, 0);
+            $pendientesMensuales = array_fill(0, 12, 0);
+
+            UserVehicle::selectRaw('MONTH(fecha_presentacion) as month, COUNT(*) as count')
+                ->where('estado', 'Aprobado')
+                ->whereYear('fecha_presentacion', $currentYear)
+                ->groupBy('month')
+                ->get()
+                ->each(function ($item) use (&$aprobadasMensuales) {
+                    $aprobadasMensuales[$item->month - 1] = $item->count;
+                });
+
+            UserVehicle::selectRaw('MONTH(fecha_presentacion) as month, COUNT(*) as count')
+                ->where('estado', 'Rechazado')
+                ->whereYear('fecha_presentacion', $currentYear)
+                ->groupBy('month')
+                ->get()
+                ->each(function ($item) use (&$rechazadasMensuales) {
+                    $rechazadasMensuales[$item->month - 1] = $item->count;
+                });
+
+            UserVehicle::selectRaw('MONTH(fecha_presentacion) as month, COUNT(*) as count')
+                ->where('estado', 'Pendiente')
+                ->whereYear('fecha_presentacion', $currentYear)
+                ->groupBy('month')
+                ->get()
+                ->each(function ($item) use (&$pendientesMensuales) {
+                    $pendientesMensuales[$item->month - 1] = $item->count;
+                });
+
+            $reservasLabels = ['Aprobadas', 'Rechazadas', 'Pendientes'];
+            $reservasData = [$reservasAprobadasCount, $reservasRechazadasCount, $reservasPendientesCount];
+            $reservasColors = ['rgba(40, 167, 69, 0.8)', 'rgba(220, 53, 69, 0.8)', 'rgba(255, 193, 7, 0.8)'];
+
+            $nuevasTotales = array_sum($nuevasMensuales);
+            $enProcesoTotales = array_sum($enProcesoMensuales);
+            $finalizadasTotales = array_sum($finalizadasMensuales);
+
+            $data = [
+                'clientesCount' => $clientesCount,
+                'empleadosCount' => $empleadosCount,
+                'consultasCount' => $consultasCount,
+                'inquiriesEnProcesoCount' => $inquiriesEnProcesoCount,
+                'consultasFinalizadasCount' => $consultasFinalizadasCount,
+                'finalizadasMensuales' => $finalizadasMensuales,
+                'enProcesoMensuales' => $enProcesoMensuales,
+                'nuevasMensuales' => $nuevasMensuales,
+                'aprobadasMensuales' => $aprobadasMensuales,
+                'rechazadasMensuales' => $rechazadasMensuales,
+                'pendientesMensuales' => $pendientesMensuales,
+                'mantenimientosCount' => $mantenimientosCount,
+                'vehiclesForSaleCount' => $vehiclesForSaleCount,
+                'reservasAprobadasCount' => $reservasAprobadasCount,
+                'reservasRechazadasCount' => $reservasRechazadasCount,
+                'reservasPendientesCount' => $reservasPendientesCount,
+                'reservasLabels' => $reservasLabels,
+                'reservasData' => $reservasData,
+                'reservasColors' => $reservasColors,
+                'nuevasTotales' => $nuevasTotales,
+                'enProcesoTotales' => $enProcesoTotales,
+                'finalizadasTotales' => $finalizadasTotales,
+            ];
+
+            return view('dashboard.employee.index', compact('name', 'role', 'data'));
         }
 
-        // Datos para el empleado
+        // Para empleados
         $clientesCount = Usuario::where('rol', 'cliente')->count();
 
         $misConsultasFinalizadasTotalCount = Consulta::where('is_deleted', false)
@@ -123,14 +186,14 @@ class DashboardController extends Controller
                 $misEnProcesoMensuales[$item->month - 1] = $item->count;
             });
 
-        return view('dashboard.employee.index', compact(
-            'name',
-            'role',
-            'clientesCount',
-            'misConsultasFinalizadasTotalCount',
-            'misConsultasEnProcesoCount',
-            'misFinalizadasMensuales',
-            'misEnProcesoMensuales'
-        ));
+        $data = [
+            'clientesCount' => $clientesCount,
+            'misConsultasFinalizadasTotalCount' => $misConsultasFinalizadasTotalCount,
+            'misConsultasEnProcesoCount' => $misConsultasEnProcesoCount,
+            'misFinalizadasMensuales' => $misFinalizadasMensuales,
+            'misEnProcesoMensuales' => $misEnProcesoMensuales,
+        ];
+
+        return view('dashboard.employee.index', compact('name', 'role', 'data'));
     }
 }
