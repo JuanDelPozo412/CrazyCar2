@@ -1,4 +1,5 @@
-<div class="d-flex justify-content-center p-0 align-items-center gap-3 bg-white rounded shadow text-secondary flex-column flex-md-row">
+<div
+    class="d-flex justify-content-center p-0 align-items-center gap-3 bg-white rounded shadow text-secondary flex-column flex-md-row">
 
     <div class="p-4 w-100 w-md-50">
 
@@ -17,33 +18,16 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <x-forms.input-with-icon
-                type="email"
-                name="email"
-                placeholder="Email"
-                icon-src="/images/username-icon.svg"
-                icon-alt="Username icon"
-                :value="old('email')"
-                required
-                autofocus
-                autocomplete="username"
-                mb-class="mb-3"
-            />
+            <x-forms.input-with-icon type="email" name="email" placeholder="Email" icon-src="/images/username-icon.svg"
+                icon-alt="Username icon" :value="old('email')" required autofocus autocomplete="username" mb-class="mb-3" />
             @error('email')
                 <div class="text-danger fs-7 mb-2">{{ $message }}</div>
             @enderror
 
 
-            <x-forms.input-with-icon
-                type="password"
-                name="password"
-                placeholder="Password"
-                icon-src="/images/password-icon.svg"
-                icon-alt="Password icon"
-                required
-                autocomplete="current-password"
-                mb-class="mb-3"
-            />
+            <x-forms.input-with-icon type="password" name="password" placeholder="Password"
+                icon-src="/images/password-icon.svg" icon-alt="Password icon" required autocomplete="current-password"
+                mb-class="mb-3" />
             @error('password')
                 <div class="text-danger fs-7 mb-2">{{ $message }}</div>
             @enderror
@@ -57,11 +41,6 @@
             </div>
 
             <div class="text-center mt-4 mb-4">
-                @if (Route::has('password.request'))
-                    <a class="text-sm text-secondary hover:text-dark text-decoration-none d-block mb-2" href="{{ route('password.request') }}">
-                        {{ __('Olvidaste tu contraseña?') }}
-                    </a>
-                @endif
 
                 <x-danger-button type="submit" class="bg-danger text-white">
                     {{ __('Iniciar Sesión') }}
