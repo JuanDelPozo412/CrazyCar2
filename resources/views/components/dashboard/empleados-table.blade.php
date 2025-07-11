@@ -44,7 +44,7 @@
                     'hidden-employee-row d-none' => $index >= $initialDisplayCount,
                 ])>
                     <td class="text-center">
-                        <img src="{{ asset('storage/images/' . ($employee->imagen ?? 'user-image.png')) }}"
+                        <img src="{{ asset('storage/images/' . ($employee->imagen ?? 'icon-person.jpg')) }}"
                             alt="Imagen de {{ $employee->name }}" class="rounded-circle"
                             style="width:40px; height:40px; object-fit:cover;">
                     </td>
@@ -57,7 +57,7 @@
                     <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">
                             <button class="btn btn-sm text-white btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#employeeDetailModal{{ $employee->id }}">
+                                data-bs-target="#empleadoDetailModal{{ $employee->id }}">
                                 <i class="bi bi-eye"></i>
                             </button>
 
@@ -75,9 +75,9 @@
                     </td>
                 </tr>
 
-                {{-- Puedes crear componentes modales para detalles y edición si quieres --}}
-                {{-- <x-dashboard.employee.employee-modal :employee="$employee" /> --}}
-                {{-- <x-dashboard.employee.employee-edit-modal :employee="$employee" /> --}}
+                <x-dashboard.modal-empleado-detail :empleado="$employee" />
+
+                <x-dashboard.modal-edit-empleado :empleado="$employee" />
 
             @empty
                 <tr>
