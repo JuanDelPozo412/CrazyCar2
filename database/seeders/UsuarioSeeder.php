@@ -21,6 +21,19 @@ class UsuarioSeeder extends Seeder
             'imagen' => 'icon-person.jpg',
             'rol' => 'empleado',
         ]);
+
+          Usuario::create([
+            'name' => 'Bruno',
+            'apellido' => 'García',
+            'email' => 'brunoadmin@gmail.com',
+            'password' => Hash::make('bruno123'),
+            'dni' => '88127712',
+            'telefono' => '451234567',
+            'direccion' => 'Calle 123',
+            'imagen' => 'icon-person.jpg',
+            'rol' => 'admin',
+        ]);
+
         Usuario::create([
             'name' => 'Diego',
             'apellido' => 'Maidana',
