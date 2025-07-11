@@ -99,6 +99,8 @@
 
             </main>
 
+            <x-dashboard.delete-modal id="confirmDeleteClient"
+                message="¿Está seguro de que desea eliminar este cliente?" />
             <x-dashboard.delete-modal id="confirmDeleteInquiry"
                 message="¿Está seguro de que desea eliminar esta consulta?" />
 
@@ -124,6 +126,16 @@
         });
     </script>
 
+    <script>
+        const modalClient = document.getElementById('confirmDeleteClient');
+        modalClient?.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const clientId = button.getAttribute('data-id');
+            const form = modalClient.querySelector('form');
+
+            form.action = `/dashboard/employee/clients/${clientId}`;
+        });
+    </script>
     @stack('scripts')
 </body>
 

@@ -140,10 +140,15 @@ class ClientController extends Controller
         return redirect()->route('clientes')->with('success', 'Cliente actualizado correctamente.');
     }
 
-    public function destroy(Usuario $cliente)
+    public function destroy($id)
     {
-        $cliente->is_deleted = true;
-        $cliente->save();
-        return redirect()->route('clientes')->with('success', 'Cliente marcado como eliminado correctamente.');
+        if (Auth::user()->rol !== 'admin') {
+            return redirect()->route('clientes')->with('error', 'No tenés permisos para eliminar clientes.');
+        }
+
+        $cliente = Usuario::findOrFail($id);
+        $cliente->delete();
+
+        return redirect()->route('clientes')->with('success', 'Cliente eliminado correctamente.');
     }
 }

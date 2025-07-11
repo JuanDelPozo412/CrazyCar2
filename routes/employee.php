@@ -19,6 +19,7 @@ Route::middleware(['auth', 'empleado'])->group(function () {
 
     Route::post('/dashboard/employee/clients', [ClientController::class, 'store'])->name('clientes.store');
     Route::put('/dashboard/employee/clients/{cliente}', [ClientController::class, 'update'])->name('clientes.update');
+    Route::delete('/dashboard/employee/clients/{id}', [ClientController::class, 'destroy'])->name('clientes.destroy');
 
     Route::get('/dashboard/employee/vehicles', [VehiculoController::class, 'index'])->name('vehiculos');
     Route::post('/dashboard/employee/vehicles', [VehiculoController::class, 'store'])->name('vehiculos.store');
