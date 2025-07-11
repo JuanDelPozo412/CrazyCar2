@@ -85,7 +85,7 @@
                             <label for="vehicleFuel{{ $vehicle->id }}" class="form-label fw-semibold">Tipo de Combustible</label>
                             <select class="form-select shadow-sm" id="vehicleFuel{{ $vehicle->id }}" name="fuel_type" required>
                                 <option disabled>Seleccione un tipo de combustible</option>
-                                @foreach (['Nafta','Diesel','Eléctrico'] as $fuel)
+                                @foreach (['Nafta','Diesel','Electrico'] as $fuel)
                                 <option value="{{ $fuel }}" {{ $vehicle->combustible == $fuel ? 'selected' : '' }}>
                                     {{ $fuel }}
                                 </option>
