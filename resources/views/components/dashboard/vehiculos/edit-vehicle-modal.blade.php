@@ -33,33 +33,32 @@
                             <select class="form-select shadow-sm" id="vehicleBrand{{ $vehicle->id }}" name="brand" required>
                                 <option disabled>Seleccione una marca</option>
                                 @foreach (['Toyota','Ford','Chevrolet','Volkswagen','Renault','Honda','BMW','Nissan'] as $brand)
-                                    <option value="{{ $brand }}" {{ $vehicle->marca == $brand ? 'selected' : '' }}>
-                                        {{ $brand }}
-                                    </option>
+                                <option value="{{ $brand }}" {{ $vehicle->marca == $brand ? 'selected' : '' }}>
+                                    {{ $brand }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-6">
-    <label for="vehicleModel{{ $vehicle->id }}" class="form-label fw-semibold">Modelo</label>
-    <input 
-        type="text" 
-        class="form-control shadow-sm" 
-        id="vehicleModel{{ $vehicle->id }}" 
-        name="model"
-        value="{{ old('model', $vehicle->modelo) }}"
-        required
-        placeholder="Ej: Corolla" 
-    />
-</div>
+                            <label for="vehicleModel{{ $vehicle->id }}" class="form-label fw-semibold">Modelo</label>
+                            <input
+                                type="text"
+                                class="form-control shadow-sm"
+                                id="vehicleModel{{ $vehicle->id }}"
+                                name="model"
+                                value="{{ old('model', $vehicle->modelo) }}"
+                                required
+                                placeholder="Ej: Corolla" />
+                        </div>
 
                         <div class="col-md-6">
                             <label for="vehicleType{{ $vehicle->id }}" class="form-label fw-semibold">Tipo</label>
                             <select class="form-select shadow-sm" id="vehicleType{{ $vehicle->id }}" name="type" required>
                                 <option disabled>Seleccione un tipo</option>
                                 @foreach (['Sedan','SUV','Pickup'] as $type)
-                                    <option value="{{ $type }}" {{ $vehicle->tipo == $type ? 'selected' : '' }}>
-                                        {{ $type }}
-                                    </option>
+                                <option value="{{ $type }}" {{ $vehicle->tipo == $type ? 'selected' : '' }}>
+                                    {{ $type }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -68,9 +67,9 @@
                             <select class="form-select shadow-sm" id="vehicleColor{{ $vehicle->id }}" name="color" required>
                                 <option disabled>Seleccione un color</option>
                                 @foreach (['Rojo','Azul','Negro','Blanco','Gris','Plateado','Verde','Amarillo','Naranja'] as $color)
-                                    <option value="{{ $color }}" {{ $vehicle->color == $color ? 'selected' : '' }}>
-                                        {{ $color }}
-                                    </option>
+                                <option value="{{ $color }}" {{ $vehicle->color == $color ? 'selected' : '' }}>
+                                    {{ $color }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -87,9 +86,9 @@
                             <select class="form-select shadow-sm" id="vehicleFuel{{ $vehicle->id }}" name="fuel_type" required>
                                 <option disabled>Seleccione un tipo de combustible</option>
                                 @foreach (['Nafta','Diesel','Eléctrico'] as $fuel)
-                                    <option value="{{ $fuel }}" {{ $vehicle->combustible == $fuel ? 'selected' : '' }}>
-                                        {{ $fuel }}
-                                    </option>
+                                <option value="{{ $fuel }}" {{ $vehicle->combustible == $fuel ? 'selected' : '' }}>
+                                    {{ $fuel }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
