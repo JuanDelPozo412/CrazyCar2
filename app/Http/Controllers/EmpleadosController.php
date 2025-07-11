@@ -62,7 +62,7 @@ class EmpleadosController extends Controller
             $imagenPath = $file->store('images', 'public');
             $validated['imagen'] = basename($imagenPath);
         } else {
-            $validated['imagen'] = 'user-image.png';
+            $validated['imagen'] = 'icon-person.jpg';
         }
 
         $validated['password'] = bcrypt($validated['password']);
@@ -75,9 +75,10 @@ class EmpleadosController extends Controller
 
     public function update(Request $request, Usuario $empleado)
     {
-        if ($empleado->rol !== 'empleado') {
-            return redirect()->back()->with('error', 'Este usuario no es un empleado.');
+        if (!in_array($empleado->rol, ['empleado', 'admin'])) {
+            return redirect()->back()->with('error', 'Este usuario no puede ser editado.');
         }
+
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -87,10 +88,11 @@ class EmpleadosController extends Controller
             'telefono' => 'nullable|string|max:20',
             'direccion' => 'nullable|string|max:255',
             'imagen' => 'nullable|image|max:2048',
+            'rol' => 'required|in:admin,empleado',
         ]);
 
         if ($request->hasFile('imagen')) {
-            if ($empleado->imagen && $empleado->imagen != 'user-image.png') {
+            if ($empleado->imagen && $empleado->imagen != 'icon-person.jpg') {
                 Storage::disk('public')->delete('images/' . $empleado->imagen);
             }
             $imagenPath = $request->file('imagen')->store('images', 'public');
