@@ -40,16 +40,17 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="vehicleModel{{ $vehicle->id }}" class="form-label fw-semibold">Modelo</label>
-                            <select class="form-select shadow-sm" id="vehicleModel{{ $vehicle->id }}" name="model" required>
-                                <option disabled>Seleccione un modelo</option>
-                                @foreach (['Corolla','Civic','Focus','Cruze','Jetta','F-150','X5'] as $model)
-                                    <option value="{{ $model }}" {{ $vehicle->modelo == $model ? 'selected' : '' }}>
-                                        {{ $model }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+    <label for="vehicleModel{{ $vehicle->id }}" class="form-label fw-semibold">Modelo</label>
+    <input 
+        type="text" 
+        class="form-control shadow-sm" 
+        id="vehicleModel{{ $vehicle->id }}" 
+        name="model"
+        value="{{ old('model', $vehicle->modelo) }}"
+        required
+        placeholder="Ej: Corolla" 
+    />
+</div>
 
                         <div class="col-md-6">
                             <label for="vehicleType{{ $vehicle->id }}" class="form-label fw-semibold">Tipo</label>
