@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('apellido')->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('dni')->nullable();
-            $table->string('telefono',15)->nullable();
+            $table->string('dni', 20)->nullable()->unique();
+            $table->string('telefono', 15)->nullable();
             $table->string('direccion')->nullable();
             $table->string('imagen')->default('icon-person.jpg')->nullable(false);
             $table->string('rol')->default('cliente');

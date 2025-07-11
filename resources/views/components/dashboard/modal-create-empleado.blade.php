@@ -46,13 +46,20 @@
                 <div class="row g-3 mt-3">
                     <div class="col-md-6">
                         <label for="dni" class="form-label">DNI</label>
-                        <input type="text" name="dni" id="dni" class="form-control" required
+                        <input type="text" name="dni" id="dni" class="form-control" required maxlength="11"
+                            pattern="\d{1,11}" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);"
                             value="{{ old('dni') }}">
+                        @error('dni')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <label for="telefono" class="form-label">Teléfono</label>
-                        <input type="text" name="telefono" id="telefono" class="form-control"
-                            value="{{ old('telefono') }}">
+                        <input type="text" name="telefono" id="telefono" class="form-control" maxlength="15"
+                            oninput="this.value = this.value.slice(0, 15);" value="{{ old('telefono') }}">
+                        @error('telefono')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
