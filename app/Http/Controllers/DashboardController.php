@@ -22,7 +22,7 @@ class DashboardController extends Controller
 
         if ($role === 'admin') {
             $clientesCount = Usuario::where('rol', 'cliente')->count();
-            $empleadosCount = Usuario::where('rol', 'empleado')->count();
+            $empleadosCount = Usuario::whereIn('rol', ['empleado', 'admin'])->count();
 
             $consultasCount = Consulta::where('is_deleted', false)
                 ->whereIn('estado', ['Nueva', 'En Proceso', 'Finalizada'])
@@ -36,12 +36,10 @@ class DashboardController extends Controller
                 ->where('estado', 'Finalizada')
                 ->count();
 
-            // Inicializo arrays mensuales
             $finalizadasMensuales = array_fill(0, 12, 0);
             $enProcesoMensuales = array_fill(0, 12, 0);
             $nuevasMensuales = array_fill(0, 12, 0);
 
-            // Consultas mensuales por estado
             Consulta::selectRaw('MONTH(fecha) as month, COUNT(*) as count')
                 ->where('estado', 'Nueva')
                 ->whereYear('fecha', $currentYear)
