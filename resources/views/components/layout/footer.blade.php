@@ -9,9 +9,12 @@
         <li class="nav-item">
             <a href="{{ url('/servicios') }}" class="nav-link px-2 text-body-secondary">Servicios</a>
         </li>
-        <li class="nav-item">
-            <a href="{{ route('guest.consultas.create') }}" class="nav-link px-2 text-body-secondary">Contacto</a>
-        </li>
+
+        @guest
+            <li class="nav-item">
+                <a href="{{ route('guest.consultas.create') }}" class="nav-link px-2 text-body-secondary">Contacto</a>
+            </li>
+        @endguest
     </ul>
     <hr class="featurette-divider" />
     <p class="text-center text-body-secondary">© 2025 Crazy Cars</p>
