@@ -8,7 +8,7 @@
 
     <div class="px-5 py-3 bg-white text-secondary w-100 w-md-50">
         <div>
-            <div class="text-center fs-1 fw-bold mb-2 secondary">Register</div>
+            <div class="text-center fs-1 fw-bold mb-2 secondary">Registrate</div>
         </div>
 
         <form method="POST" action="{{ route('register') }}">

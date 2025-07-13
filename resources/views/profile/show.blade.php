@@ -42,12 +42,12 @@
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 @if ($user->imagen)
-                                <img src="{{ asset('storage/images/' . $user->imagen) }}" alt="Foto de perfil"
-                                    class="rounded-circle" width="150"
-                                    style="height: 150px; object-fit: cover;" />
+                                    <img src="{{ asset('storage/images/' . $user->imagen) }}" alt="Foto de perfil"
+                                        class="rounded-circle" width="150"
+                                        style="height: 150px; object-fit: cover;" />
                                 @else
-                                <img src="{{ asset('images/default.webp') }}" alt="Foto de perfil"
-                                    class="rounded-circle" width="150" />
+                                    <img src="{{ asset('images/default.webp') }}" alt="Foto de perfil"
+                                        class="rounded-circle" width="150" />
                                 @endif
                                 <div class="mt-3">
                                     <h4>{{ $user->name }} {{ $user->apellido }}</h4>
@@ -126,36 +126,40 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($consultas as $consulta)
-                                        <tr>
-                                            <td>{{ $consulta->created_at->format('d/m/Y') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($consulta->horario)->format('H:i') }}</td>
-                                            <td>{{ $consulta->titulo }}</td>
-                                            <td>{{$consulta->tipo}}</td>
-                                            <td>
-                                                @php
-                                                $estado = $consulta->estado;
-                                                $claseBadge = '';
-                                                if ($estado == 'Nueva') $claseBadge = 'bg-success';
-                                                elseif ($estado == 'En Proceso') $claseBadge = 'bg-warning text-dark';
-                                                elseif ($estado == 'Finalizada') $claseBadge = 'bg-danger';
-                                                @endphp
-                                                <span class="badge {{ $claseBadge }}">{{ $estado }}</span>
+                                            <tr>
+                                                <td>{{ \Carbon\Carbon::parse($consulta->fecha)->format('d/m/Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($consulta->horario)->format('H:i') }}</td>
+                                                <td>{{ $consulta->titulo }}</td>
+                                                <td>{{ $consulta->tipo }}</td>
+                                                <td>
+                                                    @php
+                                                        $estado = $consulta->estado;
+                                                        $claseBadge = '';
+                                                        if ($estado == 'Nueva') {
+                                                            $claseBadge = 'bg-success';
+                                                        } elseif ($estado == 'En Proceso') {
+                                                            $claseBadge = 'bg-warning text-dark';
+                                                        } elseif ($estado == 'Finalizada') {
+                                                            $claseBadge = 'bg-danger';
+                                                        }
+                                                    @endphp
+                                                    <span class="badge {{ $claseBadge }}">{{ $estado }}</span>
 
-                                            </td>
-                                            <td>
+                                                </td>
+                                                <td>
 
-                                                <a class="badge btn-outline-secondary btn text-dark"
-                                                    href="#"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#inquiryDetail{{ $consulta->id }}">
-                                                    ver
-                                                </a>
-                                            </td>
-                                        </tr>
+                                                    <a class="badge btn-outline-secondary btn text-dark" href="#"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#inquiryDetail{{ $consulta->id }}">
+                                                        ver
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center">No has enviado ninguna consulta.</td>
-                                        </tr>
+                                            <tr>
+                                                <td colspan="5" class="text-center">No has enviado ninguna consulta.
+                                                </td>
+                                            </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
@@ -180,39 +184,46 @@
                                     <tbody>
 
                                         @forelse ($reservations as $reservation)
-                                        <tr>
+                                            <tr>
 
-                                            <td>{{ $reservation->vehiculo->marca ?? 'N/A' }}</td>
-                                            <td>{{ $reservation->vehiculo->modelo ?? 'N/A' }}</td>
+                                                <td>{{ $reservation->vehiculo->marca ?? 'N/A' }}</td>
+                                                <td>{{ $reservation->vehiculo->modelo ?? 'N/A' }}</td>
 
-                                            <td>{{ \Carbon\Carbon::parse($reservation->fecha_presentacion)->format('d/m/Y') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($reservation->hora_presentacion)->format('H:i') }} hs</td>
-                                            <td>
-                                                @php
-                                                $estado = $reservation->estado;
-                                                $claseBadge = '';
-                                                if ($estado == 'Aprobado') $claseBadge = 'bg-success';
-                                                elseif ($estado == 'Pendiente') $claseBadge = 'bg-warning text-dark';
-                                                elseif ($estado == 'Rechazado') $claseBadge = 'bg-danger';
-                                                @endphp
-                                                <span class="badge {{ $claseBadge }}">{{ $reservation->estado }}</span>
-                                            </td>
-                                            <td>
-                                                <a class="badge btn-outline-secondary btn text-dark"
-                                                    href="#"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#reservationDetailModal{{ $reservation->id }}">
-                                                    Ver
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <x-reservation-detail-modal :reservation="$reservation" />
+                                                <td>{{ \Carbon\Carbon::parse($reservation->fecha_presentacion)->format('d/m/Y') }}
+                                                </td>
+                                                <td>{{ \Carbon\Carbon::parse($reservation->hora_presentacion)->format('H:i') }}
+                                                    hs</td>
+                                                <td>
+                                                    @php
+                                                        $estado = $reservation->estado;
+                                                        $claseBadge = '';
+                                                        if ($estado == 'Aprobado') {
+                                                            $claseBadge = 'bg-success';
+                                                        } elseif ($estado == 'Pendiente') {
+                                                            $claseBadge = 'bg-warning text-dark';
+                                                        } elseif ($estado == 'Rechazado') {
+                                                            $claseBadge = 'bg-danger';
+                                                        }
+                                                    @endphp
+                                                    <span
+                                                        class="badge {{ $claseBadge }}">{{ $reservation->estado }}</span>
+                                                </td>
+                                                <td>
+                                                    <a class="badge btn-outline-secondary btn text-dark" href="#"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#reservationDetailModal{{ $reservation->id }}">
+                                                        Ver
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <x-reservation-detail-modal :reservation="$reservation" />
 
                                         @empty
 
-                                        <td colspan="6" class="text-center">No tienes ninguna reserva asignada.</td>
-                                        </tr>
-                                        @endforelse 
+                                            <td colspan="6" class="text-center">No tienes ninguna reserva asignada.
+                                            </td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -225,7 +236,7 @@
 
 
     @foreach ($consultas as $consulta)
-    @include('profile.partials.modal-details-consulta', ['consulta' => $consulta])
+        @include('profile.partials.modal-details-consulta', ['consulta' => $consulta])
     @endforeach
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>

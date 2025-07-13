@@ -5,7 +5,7 @@
 
         <div>
             <div class="text-center fs-1 fw-bold mb-2 secondary">
-                login
+                Inicia Sesión
             </div>
         </div>
 
