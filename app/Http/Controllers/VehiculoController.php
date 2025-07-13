@@ -102,7 +102,6 @@ class VehiculoController extends Controller
             'combustible' => $validated['fuel_type'],
             'imagen' => $imagePath,
             'patente' => $validated['patente'] ?? null,
-            'propietario_id' => null,
         ]);
 
         $vehiculo->save();

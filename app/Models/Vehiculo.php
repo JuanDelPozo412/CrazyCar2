@@ -21,14 +21,13 @@ class Vehiculo extends Model
         'anio',
         'combustible',
         'imagen',
-        'propietario_id',
     ];
 
-   public function usuarios() 
+    public function usuarios()
     {
-       
+
         return $this->belongsToMany(Usuario::class, 'user_vehicle', 'id_vehiculos', 'id_usuarios')
-                    ->withPivot('patente') 
-                    ->withTimestamps();
+            ->withPivot('patente')
+            ->withTimestamps();
     }
 }
