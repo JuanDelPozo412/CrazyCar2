@@ -29,6 +29,7 @@ class ConsultaController extends Controller
         $consulta->is_deleted = false;
 
         if ($authenticatedUser->rol === 'empleado') {
+            // Empleado crea y se asigna la consulta a sí mismo
             $request->validate([
                 'usuario_id' => 'required|exists:usuarios,id',
             ]);
@@ -41,6 +42,14 @@ class ConsultaController extends Controller
             $consulta->empleado_id = null;
             $consulta->estado = 'Nueva';
             $message = 'Consulta creada correctamente y en espera de ser procesada.';
+        } elseif ($authenticatedUser->rol === 'admin') {
+            $request->validate([
+                'usuario_id' => 'required|exists:usuarios,id',
+            ]);
+            $consulta->usuario_id = $request->usuario_id;
+            $consulta->empleado_id = null;
+            $consulta->estado = 'Nueva';
+            $message = 'Consulta creada correctamente por admin, sin asignar empleado.';
         } else {
             return redirect()->back()->with('error', 'Acción no autorizada para este rol.');
         }
